@@ -1,0 +1,122 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/gray6</item>
+        <item name="colorPrimaryDark">@color/gray6</item>
+        <item name="colorAccent">@color/themeBlueDark</item>
+    </style>
+
+    <!--lib-elearn_imagepicker-->
+    <style name="main_menu_animstyle">
+        <item name="android:windowEnterAnimation">@anim/lib_imagepicker_photo_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/lib_imagepicker_photo_dialog_out_anim</item>
+    </style>
+
+    <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/lib_imagepicker_photo_choose_bg</item>
+    </style>
+
+    <!--等待动画-->
+    <style name="WaitingDialog" parent="@android:style/Theme.Dialog">
+        <!--设置边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--设置悬浮-->
+        <item name="android:windowIsFloating">true</item>
+        <!--设置覆盖-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!--设置背景颜色-->
+        <item name="android:windowBackground">@drawable/shape_waitinganimate_bg</item>
+        <!--设置有无标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--设置透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--设置全屏-->
+        <item name="android:windowFullscreen">false</item>
+        <!--设置背景的暗色调-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <!--登录等待动画-->
+    <style name="LoginWaitingDialog" parent="@android:style/Theme.Dialog">
+        <!--设置边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--设置悬浮-->
+        <item name="android:windowIsFloating">true</item>
+        <!--设置覆盖-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!--设置背景颜色-->
+        <item name="android:windowBackground">@drawable/shape_login_waitinganimte_bg</item>
+        <!--设置有无标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--设置透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--设置全屏-->
+        <item name="android:windowFullscreen">false</item>
+        <!--设置背景的暗色调-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="MyDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
+    </style>
+
+
+
+    <declare-styleable name="OverScrollLayout">
+        <attr name="prl_refreshEnable" format="boolean" />
+        <attr name="prl_loadMoreEnable" format="boolean" />
+        <attr name="prl_twinkEnable" format="boolean" />
+        <attr name="prl_autoLoadingEnable" format="boolean" />
+        <attr name="prl_headerFront" format="boolean" />
+        <attr name="prl_footerFront" format="boolean" />
+
+        <attr name="prl_refreshTriggerDistance" format="dimension" />
+        <attr name="prl_loadTriggerDistance" format="dimension" />
+        <attr name="prl_pullDownMaxDistance" format="dimension" />
+        <attr name="prl_pullUpMaxDistance" format="dimension" />
+        <attr name="prl_topOverScrollMaxTriggerOffset" format="dimension" />
+        <attr name="prl_downOverScrollMaxTriggerOffset" format="dimension" />
+
+        <attr name="prl_resetAnimationDuring" format="integer" />
+        <attr name="prl_refreshAnimationDuring" format="integer" />
+        <attr name="prl_overScrollMinDuring" format="integer" />
+
+        <attr name="prl_dragDampingRatio" format="float" />
+        <attr name="prl_overScrollDampingRatio" format="float" />
+        <attr name="prl_overScrollAdjustValue" format="float" />
+
+        <attr name="prl_targetId" format="reference" />
+
+        <attr name="prl_headerViewId" format="reference" />
+        <attr name="prl_footerViewId" format="reference" />
+
+        <attr name="prl_headerClass" format="string" />
+        <attr name="prl_footerClass" format="string" />
+
+        <attr name="prl_headerShowGravity" format="enum">
+            <enum name="follow" value="0" />
+            <enum name="follow_placeholder" value="1" />
+            <enum name="follow_center" value="2" />
+            <enum name="placeholder" value="3" />
+            <enum name="placeholder_follow" value="4" />
+            <enum name="placeholder_center" value="5" />
+            <enum name="center" value="6" />
+            <enum name="center_follow" value="7" />
+        </attr>
+
+        <attr name="prl_footerShowGravity" format="enum">
+            <enum name="follow" value="0" />
+            <enum name="follow_placeholder" value="1" />
+            <enum name="follow_center" value="2" />
+            <enum name="placeholder" value="3" />
+            <enum name="placeholder_follow" value="4" />
+            <enum name="placeholder_center" value="5" />
+            <enum name="center" value="6" />
+            <enum name="center_follow" value="7" />
+        </attr>
+    </declare-styleable>
+
+</resources>

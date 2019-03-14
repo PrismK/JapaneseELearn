@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_zero" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_start_logo_margintop"
+        android:padding="@dimen/activity_start_logo_padding"
+        android:src="@mipmap/elearnlogo_transparentbg" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_start_appname_margintop"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/themeBlueDark"
+        android:textSize="@dimen/activity_start_appname_textsize" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_login_btn_margintop"
+        android:gravity="center"
+        android:text="@string/activity_start_description"
+        android:textColor="@color/themeBlueDark"
+        android:textSize="@dimen/activity_start_description_textsize" />
+
+</LinearLayout>

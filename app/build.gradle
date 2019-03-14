@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.prismk.japaneseelearn"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    /*v4包*/
+    implementation 'com.android.support:support-v4:28.0.0'
+    /*RecyclerView*/
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    /*CardView*/
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    /*CircleImageView*/
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    /*仿微信右滑返回*/
+    implementation 'com.github.anzewei:parallaxbacklayout:1.1.6'
+    /*仿百度贴吧右滑Activity返回 https://github.com/ikew0ng/SwipeBackLayout*/
+    implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
+    /*黄油刀*/
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    /*Immersion Bar Android4.4版本以上的沉浸式状态栏*/
+    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
+    /*GSon工具*/
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.alibaba:fastjson:1.1.56.android'
+    /*SlidingLayout ViewHelper*/
+    /*主要调用代码（RecyclerView Item缩放动画）
+    ViewHelper.setScaleX(itemView, 0.8f);
+            ViewHelper.setScaleY(itemView, 0.8f);
+            ViewPropertyAnimator.animate(itemView).scaleX(1.0f).setDuration(350).setInterpolator
+                    (new OvershootInterpolator()).start();
+            ViewPropertyAnimator.animate(itemView).scaleY(1.0f).setDuration(350).setInterpolator
+                    (new OvershootInterpolator()).start();*/
+    implementation 'com.nineoldandroids:library:2.4.0'
+    /*lib-ImagePicker相册选择器*//*Glide图片加载框架(用高版本有的方法会失效)*/
+    implementation project(':lib_elearn_imagepicker')
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'org.xutils:xutils:3.3.36'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.lzy.widget:view-core:0.2.1'
+    /*lib-Banner轮播图*/
+    implementation project(':lib_elearn_banner')
+    /*lib_jcvideoplayer视频播放器*/
+    implementation project(':lib_jcvideoplayer')
+    /*
+    *SlidingLayout作为滚动布局的父布局实现上下拉回弹效果
+    *XML 样式参数
+    *background_view 背景 view
+    *sliding_mode 滑动模式，both 为上下可弹跳，top 为顶部弹跳，bottom 为底部弹跳，默认为 both
+    *sliding_pointer_mode 手指模式，one 为只识别一个手指，more 为支持多指滑动，默认为 more
+    *top_max 当滑动模式为 top 时才有效，用于可滑动的最大距离，如"top_max:200dp"，默认为 -1（不限制）
+    *
+    *常用 API
+    *public void setSlidingOffset(float slidingOffset) 设置控件的滑动阻力，有效值为 0.1F~1.0F，值越小阻力越大，默认为 0.5F
+    *public void setTargetView(View view) 设置控件的前景 View
+    *public void setBackgroundView(View view) 设置控件的背景 View
+    *public void setSlidingListener(SlidingListener slidingListener) 给控件设置监听，可以监听滑动情况
+    *public void setSlidingMode(int mode) 设置滑动模式
+    *public void setSlidingDistance(int max) 设置最大滑动距离，仅在 top 模式下有效
+    */
+    implementation 'homhomlin.lib:sldinglayout:0.9.0'
+    /*OkHTTP*/
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okio:okio:1.15.0'
+    implementation 'com.zhy:okhttputils:2.6.2'
+    implementation 'commons-httpclient:commons-httpclient:3.1'
+    /*绑定控件*/
+    implementation 'org.xutils:xutils:3.3.36'
+    /*事件传递*/
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    /*视频播放*/
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1" // use kapt for Kotlin
+}

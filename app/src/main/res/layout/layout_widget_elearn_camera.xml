@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <VideoView
+            android:id="@+id/video_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent" />
+
+        <ImageView
+            android:id="@+id/image_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/pureBlack"
+            android:scaleType="fitXY"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+    <com.prismk.japaneseelearn.widgets.elearncamera.view.FoucsView
+        android:id="@+id/fouce_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/image_flash"
+                android:layout_width="@dimen/icon_wh"
+                android:layout_height="@dimen/icon_wh"
+                android:src="@mipmap/camera_flash_off" />
+
+            <LinearLayout
+                android:id="@+id/ll_flash_cover"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:visibility="invisible">
+
+                <Button
+                    android:id="@+id/btn_flash_off"
+                    android:layout_width="@dimen/icon_wh"
+                    android:layout_height="20dp"
+                    android:background="@drawable/button"
+                    android:text="关闭"
+                    android:textColor="#fff"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/btn_flash_auto"
+                    android:layout_width="@dimen/icon_wh"
+                    android:layout_height="20dp"
+                    android:background="@drawable/background_selector"
+                    android:text="自动"
+                    android:textColor="#fff"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/btn_flash_open"
+                    android:layout_width="@dimen/icon_wh"
+                    android:layout_height="20dp"
+                    android:background="@drawable/background_selector"
+                    android:text="打开"
+                    android:textColor="#fff"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/image_switch"
+                android:layout_width="@dimen/icon_wh"
+                android:layout_height="@dimen/icon_wh"
+                android:src="@mipmap/camera_convert" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:clickable="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/imv_back"
+                android:layout_width="@dimen/icon_wh"
+                android:layout_height="@dimen/icon_wh"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/camera_back" />
+
+            <Button
+                android:id="@+id/btn_camera_back"
+                android:layout_width="@dimen/camera_btn_wh"
+                android:layout_height="@dimen/camera_btn_wh"
+                android:layout_toLeftOf="@id/btn_camera_take"
+                android:background="@mipmap/camera_cancel"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/btn_camera_take"
+                android:layout_width="@dimen/camera_btn_wh"
+                android:layout_height="@dimen/camera_btn_wh"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/camera_take_pic" />
+
+            <Button
+                android:id="@+id/btn_camera_submit"
+                android:layout_width="@dimen/camera_btn_wh"
+                android:layout_height="@dimen/camera_btn_wh"
+                android:layout_toRightOf="@id/btn_camera_take"
+                android:background="@mipmap/camera_confirm"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

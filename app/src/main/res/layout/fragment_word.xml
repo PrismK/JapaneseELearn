@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <include layout="@layout/layout_widget_title" />
+
+    <Button
+        android:id="@+id/btn_all_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="单词总绘" />
+    <Button
+        android:id="@+id/btn_unknow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="生词本" />
+    <Button
+        android:id="@+id/btn_know"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已经记录" />
+    <Button
+        android:id="@+id/btn_unknow_correct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="特别生词" />
+</LinearLayout>

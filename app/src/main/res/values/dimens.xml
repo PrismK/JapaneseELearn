@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Title-->
+    <dimen name="widget_title_height">45dp</dimen>
+    <dimen name="widget_title_margin_small">5dp</dimen>
+    <dimen name="widget_title_textsize">18dp</dimen>
+    <dimen name="widget_title_back_layout_width">63dp</dimen>
+    <dimen name="widget_title_icon_size">24dp</dimen>
+    <dimen name="widget_title_margin_left">9dp</dimen>
+    <dimen name="widget_title_padding">3dp</dimen>
+    <dimen name="widget_title_lateral_size">16dp</dimen>
+    <dimen name="widget_title_right_icon_size">26dp</dimen>
+    <dimen name="widget_title_icon_margin">5dp</dimen>
+
+    <!--MyToast-->
+    <dimen name="tv_tv_toastContent_layout_margin">5dp</dimen>
+    <dimen name="tv_tv_toastContent_textSize">16dp</dimen>
+    <dimen name="imv_toast_head_width">42dp</dimen>
+    <dimen name="imv_toast_head_height">40dp</dimen>
+    <dimen name="imv_toast_head_layout_marginTop">3dp</dimen>
+    <dimen name="imv_toast_head_layout_marginLeft">5dp</dimen>
+
+    <!--lib_elearn_imagepicker-->
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--camera-->
+    <dimen name="icon_wh">43dp</dimen>
+    <dimen name="camera_btn_wh">58dp</dimen>
+
+    <!--anim wait-->
+    <dimen name="img_animate_layout_width">180dp</dimen>
+    <dimen name="img_animate_layout_height">80dp</dimen>
+
+    <!--app_common-->
+    <dimen name="common_zero">0dp</dimen>
+
+    <!--activity_start-->
+    <dimen name="activity_start_logo_padding">70dp</dimen>
+    <dimen name="activity_start_logo_margintop">60dp</dimen>
+    <dimen name="activity_start_appname_margintop">20dp</dimen>
+    <dimen name="activity_start_appname_textsize">20dp</dimen>
+    <dimen name="activity_start_description_textsize">16dp</dimen>
+
+    <!--activity_login-->
+    <dimen name="activity_login_logo_wh">175dp</dimen>
+    <dimen name="activity_login_username_margintop">80dp</dimen>
+    <dimen name="activity_login_usericon_wh">20dp</dimen>
+    <dimen name="activity_login_usericon_marginleft">15dp</dimen>
+    <dimen name="activity_login_edittext_width">260dp</dimen>
+    <dimen name="activity_login_edittext_height">40dp</dimen>
+    <dimen name="activity_login_edittext_padding_lr">45dp</dimen>
+    <dimen name="activity_login_edittext_textsize">14dp</dimen>
+    <dimen name="activity_login_edittext_pw_margintop">25dp</dimen>
+    <dimen name="activity_login_textview_register_margintop">10dp</dimen>
+    <dimen name="activity_login_textview_register_height">40dp</dimen>
+    <dimen name="activity_login_textview_register_marginleft">50dp</dimen>
+    <dimen name="activity_login_btn_width">150dp</dimen>
+    <dimen name="activity_login_btn_height">40dp</dimen>
+    <dimen name="activity_login_btn_margintop">40dp</dimen>
+
+    <!--widget_popupbutton-->
+    <dimen name="linearlayout_height">50dp</dimen>
+    <dimen name="all_tv_textSize">17dp</dimen>
+
+    <!--FloatSmallVideoPlayer-->
+    <dimen name="float_video_width">240dp</dimen>
+    <dimen name="float_video_height">135dp</dimen>
+
+</resources>

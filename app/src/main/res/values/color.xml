@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="pureWhite">#FFFFFF</color>
+    <color name="pureBlack">#000000</color>
+
+    <color name="blueMain">#1296db</color>
+    <color name="grayMain">#707070</color>
+
+    <color name="gray1">#FFDDDDDD</color>
+    <color name="gray2">#FFC0C0C0</color>
+    <color name="gray3">#FF969696</color>
+    <color name="gray4">#FF808080</color>
+    <color name="gray5">#FF646464</color>
+    <color name="gray6">#FF4B4B4B</color>
+
+    <color name="grayDividerDark">#FFC0C0C0</color>
+    <color name="transparentAA">#AA000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent55">#55000000</color>
+    <color name="transparent60">#60000000</color>
+    <color name="transparent80">#80000000</color>
+    <color name="transparent88">#88000000</color>
+
+    <color name="titleBg">@color/transparent</color>
+    <color name="titleTextColor">@color/pureWhite</color>
+    <color name="com_press_translucence">@color/transparent55</color>
+
+    <color name="frameColor">#4c212121</color>
+
+    <color name="item_pressed">#F0F0F0</color>
+
+</resources>

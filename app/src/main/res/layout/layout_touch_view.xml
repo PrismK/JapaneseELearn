@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <SurfaceView
+        android:id="@+id/float_surface"
+        android:layout_width="@dimen/float_video_width"
+        android:layout_height="@dimen/float_video_height"
+        android:layout_gravity="center" />
+
+    <FrameLayout
+        android:id="@+id/float_controls"
+        android:layout_width="@dimen/float_video_width"
+        android:layout_height="@dimen/float_video_height"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:id="@+id/float_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@mipmap/clear" />
+    </FrameLayout>
+
+</FrameLayout>

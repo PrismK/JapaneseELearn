@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="themeBlue">#0090ff</color>
+    <color name="themeBlueDark">#006fc4</color>
+    <color name="colorAccent">#8630ff</color>
+    <color name="blue">#33b5e5</color>
+
+</resources>
