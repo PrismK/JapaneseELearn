@@ -1,6 +1,5 @@
 package com.prismk.japaneseelearn.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -24,7 +23,7 @@ import android.widget.Toast;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.managers.UserDataManager;
 
-public class LoginActivity extends BaseActivity {                 //登录界面活动
+public class LoginActivity extends BaseActivity {
 
     private EditText edt_username;
     private EditText edt_pw;
