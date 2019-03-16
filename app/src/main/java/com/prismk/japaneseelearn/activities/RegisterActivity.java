@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,10 @@ public class RegisterActivity extends BaseActivity {
     private SharedPreferences login_sp;
     private SharedPreferences.Editor editor;
     private TextView tv_alreadyhave;
+    private LinearLayout ll_student;
+    private LinearLayout ll_teacher;
+    private RadioButton rb_student;
+    private RadioButton rb_teacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,8 @@ public class RegisterActivity extends BaseActivity {
         btn_register_ok.setOnClickListener(m_register_Listener);
         tv_agree.setOnClickListener(m_register_Listener);
         tv_alreadyhave.setOnClickListener(m_register_Listener);
+        ll_student.setOnClickListener(m_register_Listener);
+        ll_teacher.setOnClickListener(m_register_Listener);
     }
 
     private void initView() {
@@ -71,9 +79,13 @@ public class RegisterActivity extends BaseActivity {
         imbtn_register_delete_username = findViewById(R.id.imbtn_register_delete_username);
         imbtn_register_delete_pw = findViewById(R.id.imbtn_register_delete_pw);
         imbtn_register_delete_repw = findViewById(R.id.imbtn_register_delete_repw);
-        cb_agree = (CheckBox) findViewById(R.id.cb_agree);
-        tv_agree = (TextView) findViewById(R.id.tv_agree);
-        tv_alreadyhave = (TextView) findViewById(R.id.tv_alreadyhave);
+        cb_agree = findViewById(R.id.cb_agree);
+        tv_agree = findViewById(R.id.tv_agree);
+        tv_alreadyhave = findViewById(R.id.tv_alreadyhave);
+        ll_student = findViewById(R.id.ll_student);
+        ll_teacher = findViewById(R.id.ll_teacher);
+        rb_teacher = findViewById(R.id.rb_teacher);
+        rb_student = findViewById(R.id.rb_student);
     }
 
     private void initTitle() {
@@ -149,6 +161,15 @@ public class RegisterActivity extends BaseActivity {
                     break;
                 case R.id.tv_alreadyhave:
                     goBack();
+                    break;
+                case R.id.ll_student:
+                    rb_student.setChecked(true);
+                    rb_teacher.setChecked(false);
+                    break;
+                case R.id.ll_teacher:
+                    rb_student.setChecked(false);
+                    rb_teacher.setChecked(true);
+                    break;
             }
         }
     };
@@ -162,6 +183,9 @@ public class RegisterActivity extends BaseActivity {
                 Toast.makeText(this, "请阅读条款", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (!rb_student.isChecked() && !rb_teacher.isChecked()) {
+                Toast.makeText(this, "请选择您的角色", Toast.LENGTH_SHORT).show();
+            }
             //检查用户是否存在
             int count = mUserDataManager.findUserByName(userName);
             //用户已经存在时返回，给出提示文字
@@ -173,7 +197,8 @@ public class RegisterActivity extends BaseActivity {
                 Toast.makeText(this, getString(R.string.pwd_not_the_same), Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                UserData mUser = new UserData(userName, userPwd);
+                boolean teacherChecked = rb_teacher.isChecked();
+                UserData mUser = new UserData(userName, userPwd,teacherChecked,false);
                 mUserDataManager.openDataBase();
                 long flag = mUserDataManager.insertUserData(mUser); //新建用户信息
                 if (flag == -1) {
@@ -182,6 +207,7 @@ public class RegisterActivity extends BaseActivity {
                     Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show();
                     editor.putString("USER_NAME", userName);
                     editor.putString("PASSWORD", userPwd);
+                    editor.putBoolean("IS_TEACHER",teacherChecked);
                     editor.commit();
                     Intent intent_Register_to_Login = new Intent(RegisterActivity.this, MainActivity.class);    //切换User Activity至Login Activity
                     startActivity(intent_Register_to_Login);

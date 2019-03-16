@@ -2,10 +2,36 @@ package com.prismk.japaneseelearn.bean;
 
 
 public class UserData {
-    private String userName;                  //用户名
-    private String userPwd;                   //用户密码
-    private int userId;                       //用户ID号
+    private String userName;
+    private String userPwd;
+    private int userId;
     public int pwdresetFlag=0;
+    private boolean isTeacherUser;
+    private boolean isVIP;
+
+    public UserData(String userName, String userPwd, boolean isTeacherUser, boolean isVIP) {
+        this.userName = userName;
+        this.userPwd = userPwd;
+        this.isTeacherUser = isTeacherUser;
+        this.isVIP = isVIP;
+    }
+
+    public boolean isVIP() {
+        return isVIP;
+    }
+
+    public void setVIP(boolean VIP) {
+        isVIP = VIP;
+    }
+
+    public boolean isTeacherUser() {
+        return isTeacherUser;
+    }
+
+    public void setTeacherUser(boolean teacherUser) {
+        isTeacherUser = teacherUser;
+    }
+
     //获取用户名
     public String getUserName() {             //获取用户名
         return userName;
