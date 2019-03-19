@@ -8,12 +8,42 @@ public class UserData {
     public int pwdresetFlag=0;
     private boolean isTeacherUser;
     private boolean isVIP;
+    private String sign;
+    private String tag;
+    private String headImgUrlString;
 
-    public UserData(String userName, String userPwd, boolean isTeacherUser, boolean isVIP) {
+    public String getHeadImgUrlString() {
+        return headImgUrlString;
+    }
+
+    public void setHeadImgUrlString(String headImgUrlString) {
+        this.headImgUrlString = headImgUrlString;
+    }
+
+    public UserData(String userName, String userPwd, boolean isTeacherUser, boolean isVIP, String sign, String tag, String headImgUrlString) {
         this.userName = userName;
         this.userPwd = userPwd;
         this.isTeacherUser = isTeacherUser;
         this.isVIP = isVIP;
+        this.sign = sign;
+        this.tag = tag;
+        this.headImgUrlString = headImgUrlString;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public boolean isVIP() {

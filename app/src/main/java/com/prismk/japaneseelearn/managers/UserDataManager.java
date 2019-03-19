@@ -20,6 +20,9 @@ public class UserDataManager {             //用户数据管理类
     public static final String ID = "_id";
     public static final String USER_NAME = "user_name";
     public static final String USER_PWD = "user_pwd";
+    public static final String USER_SIGN = "user_sign";
+    public static final String USER_TAG = "user_tag";
+    public static final String USER_HEADIMG = "user_headimg_urlstring";
     public static final String ISTEACHER = "isteacher";
     public static final String ISVIP = "isvip";
 //    public static final String SILENT = "silent";
@@ -30,7 +33,10 @@ public class UserDataManager {             //用户数据管理类
     //创建用户book表 需要加上长度varchar到varchar(32), 长度自己定
     private static final String DB_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
             + ID + " integer primary key," + USER_NAME + " varchar(15),"
-            + USER_PWD + " varchar(15)," + ISTEACHER + " boolean," + ISVIP + " boolean" + ");";
+            + USER_PWD + " varchar(15)," + ISTEACHER + " boolean," + ISVIP + " boolean,"
+            + USER_SIGN + " varchar(50)," + USER_TAG + " varchar(30),"
+            + USER_HEADIMG + " varchar(50)"
+            + ");";
 
     private SQLiteDatabase mSQLiteDatabase = null;
     private DataBaseManagementHelper mDatabaseHelper = null;
@@ -85,7 +91,7 @@ public class UserDataManager {             //用户数据管理类
         return mSQLiteDatabase.insert(TABLE_NAME, ID, values);
     }
     //更新用户信息，如修改密码
-    public boolean updateUserData(UserData userData) {
+    public boolean updateUserPW(UserData userData) {
 //int id = userData.getUserId();
         String userName = userData.getUserName();
         String userPwd = userData.getUserPwd();

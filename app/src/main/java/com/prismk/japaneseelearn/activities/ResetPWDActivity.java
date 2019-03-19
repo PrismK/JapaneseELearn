@@ -101,7 +101,7 @@ public class ResetPWDActivity extends BaseActivity {
                 } else {
                     UserData mUser = new UserData(userName, userPwd_new);
                     mUserDataManager.openDataBase();
-                    boolean flag = mUserDataManager.updateUserData(mUser);
+                    boolean flag = mUserDataManager.updateUserPW(mUser);
                     if (flag == false) {
                         Toast.makeText(this, getString(R.string.resetpwd_fail),Toast.LENGTH_SHORT).show();
                     }else{
