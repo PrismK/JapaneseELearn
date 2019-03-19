@@ -198,7 +198,7 @@ public class RegisterActivity extends BaseActivity {
                 return;
             } else {
                 boolean teacherChecked = rb_teacher.isChecked();
-                UserData mUser = new UserData(userName, userPwd,teacherChecked,false,null,null,null);
+                UserData mUser = new UserData(userName, userPwd,teacherChecked,false,null,null,null,null);
                 mUserDataManager.openDataBase();
                 long flag = mUserDataManager.insertUserData(mUser); //新建用户信息
                 if (flag == -1) {
