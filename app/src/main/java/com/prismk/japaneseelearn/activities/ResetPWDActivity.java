@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.bean.UserData;
-import com.prismk.japaneseelearn.managers.UserDataManager;
+import com.prismk.japaneseelearn.managers.UserDBManager;
 import com.prismk.japaneseelearn.widgets.Title;
 
 /**
@@ -21,7 +21,7 @@ public class ResetPWDActivity extends BaseActivity {
     private EditText edt_reset_newpw;
     private EditText edt_reset_renewpw;
     private Button btn_reset_ok;
-    private UserDataManager mUserDataManager;
+    private UserDBManager mUserDBManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +60,9 @@ public class ResetPWDActivity extends BaseActivity {
     }
 
     private void initUserDataManager() {
-        if (mUserDataManager == null) {
-            mUserDataManager = new UserDataManager(this);
-            mUserDataManager.openDataBase();
+        if (mUserDBManager == null) {
+            mUserDBManager = new UserDBManager(this);
+            mUserDBManager.openDataBase();
         }
     }
 
@@ -93,15 +93,15 @@ public class ResetPWDActivity extends BaseActivity {
             String userPwd_old = edt_reset_oldpw.getText().toString().trim();
             String userPwd_new = edt_reset_newpw.getText().toString().trim();
             String userPwdCheck = edt_reset_renewpw.getText().toString().trim();
-            int result=mUserDataManager.findUserByNameAndPwd(userName, userPwd_old);
+            int result= mUserDBManager.findUserByNameAndPwd(userName, userPwd_old);
             if(result==1){//返回1说明用户名和密码均正确,继续后续操作
                 if(userPwd_new.equals(userPwdCheck)==false){//两次密码输入不一样
                     Toast.makeText(this, getString(R.string.pwd_not_the_same),Toast.LENGTH_SHORT).show();
                     return ;
                 } else {
                     UserData mUser = new UserData(userName, userPwd_new);
-                    mUserDataManager.openDataBase();
-                    boolean flag = mUserDataManager.updateUserPW(mUser);
+                    mUserDBManager.openDataBase();
+                    boolean flag = mUserDBManager.updateUserPW(mUser);
                     if (flag == false) {
                         Toast.makeText(this, getString(R.string.resetpwd_fail),Toast.LENGTH_SHORT).show();
                     }else{
@@ -119,7 +119,7 @@ public class ResetPWDActivity extends BaseActivity {
     public boolean isUserNameAndPwdValid() {
         String userName = edt_reset_username.getText().toString().trim();
         //检查用户是否存在
-        int count=mUserDataManager.findUserByName(userName);
+        int count= mUserDBManager.findUserByName(userName);
         //用户不存在时返回，给出提示文字
         if(count<=0){
             Toast.makeText(this, getString(R.string.name_not_exist, userName),Toast.LENGTH_SHORT).show();

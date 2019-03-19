@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prismk.japaneseelearn.R;
-import com.prismk.japaneseelearn.managers.UserDataManager;
+import com.prismk.japaneseelearn.managers.UserDBManager;
 
 public class LoginActivity extends BaseActivity {
 
@@ -32,7 +32,7 @@ public class LoginActivity extends BaseActivity {
     private Button btn_cancel;
     private SharedPreferences login_sp;
     private TextView tv_changepw;
-    private UserDataManager mUserDataManager;
+    private UserDBManager mUserDBManager;
     private LinearLayout ll_login_rootview;
     private RelativeLayout rl_logobg;
     private ImageView imv_logo;
@@ -51,9 +51,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initUserDataManager() {
-        if (mUserDataManager == null) {
-            mUserDataManager = new UserDataManager(this);
-            mUserDataManager.openDataBase();
+        if (mUserDBManager == null) {
+            mUserDBManager = new UserDBManager(this);
+            mUserDBManager.openDataBase();
         }
     }
 
@@ -122,7 +122,7 @@ public class LoginActivity extends BaseActivity {
             String userName = edt_username.getText().toString().trim();
             String userPwd = edt_pw.getText().toString().trim();
             SharedPreferences.Editor editor = login_sp.edit();
-            int result = mUserDataManager.findUserByNameAndPwd(userName, userPwd);
+            int result = mUserDBManager.findUserByNameAndPwd(userName, userPwd);
             if (result == 1) {//返回1说明用户名和密码均正确
                 editor.putString("USER_NAME", userName);
                 editor.putString("PASSWORD", userPwd);
@@ -143,12 +143,12 @@ public class LoginActivity extends BaseActivity {
         if (isUserNameAndPwdValid()) {
             String userName = edt_username.getText().toString().trim();
             String userPwd = edt_pw.getText().toString().trim();
-            int result = mUserDataManager.findUserByNameAndPwd(userName, userPwd);
+            int result = mUserDBManager.findUserByNameAndPwd(userName, userPwd);
             if (result == 1) {//返回1说明用户名和密码均正确
                 Toast.makeText(this, getString(R.string.cancel_success), Toast.LENGTH_SHORT).show();//登录成功提示
                 edt_pw.setText("");
                 edt_username.setText("");
-                mUserDataManager.deleteUserDatabyname(userName);
+                mUserDBManager.deleteUserDatabyname(userName);
             } else if (result == 0) {
                 Toast.makeText(this, getString(R.string.cancel_fail), Toast.LENGTH_SHORT).show();  //登录失败提示
             }
@@ -222,9 +222,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        if (mUserDataManager == null) {
-            mUserDataManager = new UserDataManager(this);
-            mUserDataManager.openDataBase();
+        if (mUserDBManager == null) {
+            mUserDBManager = new UserDBManager(this);
+            mUserDBManager.openDataBase();
         }
         addOnGlobalLayoutListener();
         edt_username.addTextChangedListener(mTextWacher);
@@ -244,9 +244,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onPause() {
-        if (mUserDataManager != null) {
-            mUserDataManager.closeDataBase();
-            mUserDataManager = null;
+        if (mUserDBManager != null) {
+            mUserDBManager.closeDataBase();
+            mUserDBManager = null;
         }
         removeOnGlobalLayoutListener();
         edt_username.removeTextChangedListener(mTextWacher);

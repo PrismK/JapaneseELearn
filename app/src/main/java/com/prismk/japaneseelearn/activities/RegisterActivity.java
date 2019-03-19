@@ -17,14 +17,14 @@ import android.widget.Toast;
 
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.bean.UserData;
-import com.prismk.japaneseelearn.managers.UserDataManager;
+import com.prismk.japaneseelearn.managers.UserDBManager;
 import com.prismk.japaneseelearn.widgets.Title;
 
 public class RegisterActivity extends BaseActivity {
     private EditText edt_register_username;
     private EditText edt_register_pw;
     private EditText edt_register_repw;
-    private UserDataManager mUserDataManager;
+    private UserDBManager mUserDBManager;
     private Button btn_register_ok;
     private ImageButton imbtn_register_delete_username;
     private ImageButton imbtn_register_delete_pw;
@@ -57,9 +57,9 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void initUserDataManager() {
-        if (mUserDataManager == null) {
-            mUserDataManager = new UserDataManager(this);
-            mUserDataManager.openDataBase();
+        if (mUserDBManager == null) {
+            mUserDBManager = new UserDBManager(this);
+            mUserDBManager.openDataBase();
         }
     }
 
@@ -187,7 +187,7 @@ public class RegisterActivity extends BaseActivity {
                 Toast.makeText(this, "请选择您的角色", Toast.LENGTH_SHORT).show();
             }
             //检查用户是否存在
-            int count = mUserDataManager.findUserByName(userName);
+            int count = mUserDBManager.findUserByName(userName);
             //用户已经存在时返回，给出提示文字
             if (count > 0) {
                 Toast.makeText(this, getString(R.string.name_already_exist, userName), Toast.LENGTH_SHORT).show();
@@ -199,8 +199,8 @@ public class RegisterActivity extends BaseActivity {
             } else {
                 boolean teacherChecked = rb_teacher.isChecked();
                 UserData mUser = new UserData(userName, userPwd,teacherChecked,false,null,null,null,null);
-                mUserDataManager.openDataBase();
-                long flag = mUserDataManager.insertUserData(mUser); //新建用户信息
+                mUserDBManager.openDataBase();
+                long flag = mUserDBManager.insertUserData(mUser); //新建用户信息
                 if (flag == -1) {
                     Toast.makeText(this, getString(R.string.register_fail), Toast.LENGTH_SHORT).show();
                 } else {

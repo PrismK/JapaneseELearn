@@ -9,10 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.prismk.japaneseelearn.bean.UserData;
 
-public class UserDataManager {
+public class UserDBManager {
 
-    private static final String TAG = "UserDataManager";
-    private static final String DB_NAME = "user_data";
+    private static final String TAG = "UserDBManager";
+
+    private static final String DB_NAME = "e_learn_db";
     private static final String TABLE_NAME = "users";
     public static final String ID = "_id";
     public static final String USER_NAME = "user_name";
@@ -22,17 +23,17 @@ public class UserDataManager {
     public static final String USER_HEADIMG = "user_headimg_urlstring";
     public static final String ISTEACHER = "isteacher";
     public static final String ISVIP = "isvip";
+    public static final String USER_NICKNAME = "user_nickname";
 
     private static final int DB_VERSION = 1;
 
     private Context mContext;
 
-    //创建用户book表 需要加上长度varchar到varchar(32), 长度自己定
     private static final String DB_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
             + ID + " integer primary key," + USER_NAME + " varchar(15),"
             + USER_PWD + " varchar(15)," + ISTEACHER + " boolean," + ISVIP + " boolean,"
             + USER_SIGN + " varchar(50)," + USER_TAG + " varchar(30),"
-            + USER_HEADIMG + " varchar(50)"
+            + USER_HEADIMG + " varchar(50)," + USER_NICKNAME + " varchar(20)"
             + ");";
 
     private SQLiteDatabase mSQLiteDatabase = null;
@@ -56,7 +57,7 @@ public class UserDataManager {
         }
     }
 
-    public UserDataManager(Context context) {
+    public UserDBManager(Context context) {
         mContext = context;
     }
 
