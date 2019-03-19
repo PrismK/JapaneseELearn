@@ -8,7 +8,7 @@ import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.adapters.NewWordSAdapter;
 import com.prismk.japaneseelearn.bean.NewWordSEvent;
 import com.prismk.japaneseelearn.db.word.bean.NewWordsBean;
-import com.prismk.japaneseelearn.managers.DBManager;
+import com.prismk.japaneseelearn.managers.WordsDBManager;
 import com.prismk.japaneseelearn.utils.ToastUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -24,7 +24,7 @@ public class NewWordsActivity extends BaseActivity {
         initView();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rec_words.setLayoutManager(linearLayoutManager);
-        DBManager.getInstance().queryNewsWords();
+        WordsDBManager.getInstance().queryNewsWords();
     }
 
     private void initView() {
@@ -45,12 +45,12 @@ public class NewWordsActivity extends BaseActivity {
             newWordSAdapter.setListener(new NewWordSAdapter.OnWordStateChangeListener() {
                 @Override
                 public void unGetIt(NewWordsBean bean) {
-                    DBManager.getInstance().collectNewWords(bean.wordBean);
+                    WordsDBManager.getInstance().collectNewWords(bean.wordBean);
                 }
 
                 @Override
                 public void getIt(NewWordsBean bean) {
-                    DBManager.getInstance().rememberWord(bean.wordBean);
+                    WordsDBManager.getInstance().rememberWord(bean.wordBean);
                 }
             });
             rec_words.setAdapter(newWordSAdapter);

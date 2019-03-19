@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.adapters.WordsAdapter;
 import com.prismk.japaneseelearn.bean.AllWordsEvent;
-import com.prismk.japaneseelearn.managers.DBManager;
+import com.prismk.japaneseelearn.managers.WordsDBManager;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -30,7 +30,7 @@ public class StudyWordActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-        DBManager.getInstance().queryWords();
+        WordsDBManager.getInstance().queryWords();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rec_words.setLayoutManager(linearLayoutManager);
         LinearSnapHelper snapHelper = new LinearSnapHelper();

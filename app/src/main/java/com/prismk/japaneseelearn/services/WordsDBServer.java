@@ -11,7 +11,7 @@ import com.prismk.japaneseelearn.bean.RemeberWordEvent;
 import com.prismk.japaneseelearn.db.word.baseDao.NewWordsDao;
 import com.prismk.japaneseelearn.db.word.baseDao.RememberWordsDao;
 import com.prismk.japaneseelearn.db.word.baseDao.WordDao;
-import com.prismk.japaneseelearn.managers.DBManager;
+import com.prismk.japaneseelearn.managers.WordsDBManager;
 import com.prismk.japaneseelearn.utils.LogicUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -19,16 +19,16 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class DBservier extends Service {
+public class WordsDBServer extends Service {
 
     private static ExecutorService executorService;
-    private static DBservier bservier;
+    private static WordsDBServer dbServer;
 
-    public static DBservier getInstance() {
-        return bservier;
+    public static WordsDBServer getInstance() {
+        return dbServer;
     }
 
-    public DBservier() {
+    public WordsDBServer() {
     }
 
     @Override
@@ -40,8 +40,8 @@ public class DBservier extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        DBManager.init(getApplicationContext());
-        bservier = this;
+        WordsDBManager.init(getApplicationContext());
+        dbServer = this;
         executorService = Executors.newFixedThreadPool(4);
     }
 
@@ -49,7 +49,7 @@ public class DBservier extends Service {
     public void onDestroy() {
         super.onDestroy();
         executorService = null;
-        bservier = null;
+        dbServer = null;
     }
 
     public void async(Runnable runnable) {

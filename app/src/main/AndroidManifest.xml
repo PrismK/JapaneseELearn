@@ -48,7 +48,7 @@
         <activity android:name=".activities.NewWordsActivity" />
 
         <service
-            android:name=".services.DBservier"
+            android:name=".services.WordsDBServer"
             android:enabled="true"
             android:exported="true" />
 

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.db.word.bean.WordBean;
-import com.prismk.japaneseelearn.managers.DBManager;
+import com.prismk.japaneseelearn.managers.WordsDBManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +99,7 @@ public class WordShowView extends LinearLayout {
         }
 
         public void insertToNewWords(WordBean wordBean){
-            DBManager.getInstance().insertNewWord(wordBean);
+            WordsDBManager.getInstance().insertNewWord(wordBean);
         }
 
         public void setGone() {

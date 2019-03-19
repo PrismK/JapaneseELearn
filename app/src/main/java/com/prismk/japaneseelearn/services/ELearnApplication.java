@@ -34,6 +34,6 @@ public class ELearnApplication extends Application {
         super.onCreate();
         mELearnAppContext = this;
         registerActivityLifecycleCallbacks(ParallaxHelper.getInstance());
-        startService(new Intent(ELearnApplication.this,DBservier.class));
+        startService(new Intent(ELearnApplication.this, WordsDBServer.class));
     }
 }
