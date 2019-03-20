@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_elearntoast_bg"
+        android:background="@drawable/widget_toast"
         android:clickable="true">
 
         <TextView
