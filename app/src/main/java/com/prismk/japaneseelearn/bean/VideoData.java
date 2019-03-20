@@ -3,7 +3,7 @@ package com.prismk.japaneseelearn.bean;
 
 public class VideoData {
 
-    private int userId;
+    private int videoId;
     private String videoUrlString;
     private String videoImgUrlString;
     private String videoTitle;
@@ -13,10 +13,9 @@ public class VideoData {
     private String uploadTime;
     private int uploadTeacherId;
 
-    public VideoData(int userId, String videoUrlString, String videoImgUrlString,
+    public VideoData(String videoUrlString, String videoImgUrlString,
                      String videoTitle, String videoIntroduction, String videoContext,
                      boolean isVipVideo, String uploadTime, int uploadTeacherId) {
-        this.userId = userId;
         this.videoUrlString = videoUrlString;
         this.videoImgUrlString = videoImgUrlString;
         this.videoTitle = videoTitle;
@@ -30,7 +29,7 @@ public class VideoData {
     public VideoData() {
     }
 
-    public int getUploadtTeacherId() {
+    public int getUploadTeacherId() {
         return uploadTeacherId;
     }
 
@@ -46,12 +45,12 @@ public class VideoData {
         this.uploadTime = uploadTime;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getVideoId() {
+        return videoId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setVideoId(int videoId) {
+        this.videoId = videoId;
     }
 
     public String getVideoUrlString() {

@@ -77,7 +77,7 @@ public class VideoDBManager {
         String videoContext = videoData.getVideoContext();
         String videoUploadTime = videoData.getUploadTime();
         boolean vipVideo = videoData.isVipVideo();
-        int uploadTeacherId = videoData.getUploadtTeacherId();
+        int uploadTeacherId = videoData.getUploadTeacherId();
         ContentValues values = new ContentValues();
         values.put(VIDEO_URL, videoUrlString);
         values.put(VIDEO_IMG_URL, videoImgUrlString);
