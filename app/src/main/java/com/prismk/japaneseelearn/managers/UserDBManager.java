@@ -11,8 +11,6 @@ import com.prismk.japaneseelearn.bean.UserData;
 
 public class UserDBManager {
 
-    private static final String TAG = "UserDBManager";
-
     private static final String DB_NAME = "e_learn_db";
     private static final String TABLE_NAME = "users";
     public static final String ID = "_id";
@@ -70,16 +68,12 @@ public class UserDBManager {
         mDatabaseHelper.close();
     }
 
-    public long insertUserData(UserData userData) {
+    public long insertUserNameAndPWD(UserData userData) {
         String userName=userData.getUserName();
         String userPwd=userData.getUserPwd();
-        boolean teacherUser = userData.isTeacherUser();
-        boolean vip = userData.isVIP();
         ContentValues values = new ContentValues();
         values.put(USER_NAME, userName);
         values.put(USER_PWD, userPwd);
-        values.put(ISTEACHER,teacherUser);
-        values.put(ISVIP,vip);
         return mSQLiteDatabase.insert(TABLE_NAME, ID, values);
     }
 

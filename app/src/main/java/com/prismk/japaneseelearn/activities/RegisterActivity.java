@@ -200,7 +200,7 @@ public class RegisterActivity extends BaseActivity {
                 boolean teacherChecked = rb_teacher.isChecked();
                 UserData mUser = new UserData(userName, userPwd,teacherChecked,false,null,null,null,null);
                 mUserDBManager.openDataBase();
-                long flag = mUserDBManager.insertUserData(mUser); //新建用户信息
+                long flag = mUserDBManager.insertUserNameAndPWD(mUser); //新建用户信息
                 if (flag == -1) {
                     Toast.makeText(this, getString(R.string.register_fail), Toast.LENGTH_SHORT).show();
                 } else {

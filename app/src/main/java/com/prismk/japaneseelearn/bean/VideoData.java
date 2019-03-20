@@ -8,8 +8,13 @@ public class VideoData {
     private String videoImgUrlString;
     private String videoTitle;
     private String videoIntroduction;
+    private String videoContext;
+    private boolean isVipVideo;
+    private String uploadTime;
 
-    public VideoData(int userId, String videoUrlString, String videoImgUrlString, String videoTitle, String videoIntroduction, String videoContext, boolean isVipVideo) {
+    public VideoData(int userId, String videoUrlString, String videoImgUrlString,
+                     String videoTitle, String videoIntroduction, String videoContext,
+                     boolean isVipVideo, String uploadTime) {
         this.userId = userId;
         this.videoUrlString = videoUrlString;
         this.videoImgUrlString = videoImgUrlString;
@@ -17,10 +22,16 @@ public class VideoData {
         this.videoIntroduction = videoIntroduction;
         this.videoContext = videoContext;
         this.isVipVideo = isVipVideo;
+        this.uploadTime = uploadTime;
     }
 
-    private String videoContext;
-    private boolean isVipVideo;
+    public String getUploadTime() {
+        return uploadTime;
+    }
+
+    public void setUploadTime(String uploadTime) {
+        this.uploadTime = uploadTime;
+    }
 
     public int getUserId() {
         return userId;
