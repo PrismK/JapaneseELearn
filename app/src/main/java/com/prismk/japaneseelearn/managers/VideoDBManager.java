@@ -20,6 +20,7 @@ public class VideoDBManager {
     public static final String VIDEO_CONTEXT = "video_context";
     public static final String IS_VIP_VIDEO = "is_vip_video";
     public static final String VIDEO_UPLOAD_TIME = "video_upload_time";
+    public static final String UPLOAD_TEACHER_ID = "upload_teacher_id";
 
     private static final int DB_VERSION = 1;
 
@@ -29,7 +30,9 @@ public class VideoDBManager {
             + ID + " integer primary key," + VIDEO_URL + " varchar(50),"
             + VIDEO_IMG_URL + " varchar(50)," + VIDEO_TITLE + " varchar(30),"
             + VIDEO_INTRODUCTION + " varchar(100)," + VIDEO_CONTEXT + " varchar(300),"
-            + IS_VIP_VIDEO + " boolean," + VIDEO_UPLOAD_TIME + " varchar(50)"
+            + IS_VIP_VIDEO + " boolean," + VIDEO_UPLOAD_TIME + " varchar(50),"
+            + UPLOAD_TEACHER_ID + " integer,"
+            + "foreign key(" + UPLOAD_TEACHER_ID + ") references users(_id)"
             + ");";
 
     private SQLiteDatabase mSQLiteDatabase = null;
@@ -66,20 +69,24 @@ public class VideoDBManager {
         mDatabaseHelper.close();
     }
 
-    public long insertUserData(VideoData videoData) {
+    public long insertVideoData(VideoData videoData) {
         String videoUrlString = videoData.getVideoUrlString();
         String videoImgUrlString = videoData.getVideoImgUrlString();
         String videoTitle = videoData.getVideoTitle();
         String videoIntroduction = videoData.getVideoIntroduction();
         String videoContext = videoData.getVideoContext();
+        String videoUploadTime = videoData.getUploadTime();
         boolean vipVideo = videoData.isVipVideo();
+        int uploadTeacherId = videoData.getUploadtTeacherId();
         ContentValues values = new ContentValues();
         values.put(VIDEO_URL, videoUrlString);
         values.put(VIDEO_IMG_URL, videoImgUrlString);
         values.put(VIDEO_TITLE,videoTitle);
         values.put(VIDEO_INTRODUCTION,videoIntroduction);
         values.put(VIDEO_CONTEXT,videoContext);
+        values.put(VIDEO_UPLOAD_TIME,videoUploadTime);
         values.put(IS_VIP_VIDEO,vipVideo);
+        values.put(UPLOAD_TEACHER_ID,uploadTeacherId);
         return mSQLiteDatabase.insert(TABLE_NAME, ID, values);
     }
 }

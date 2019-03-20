@@ -25,6 +25,9 @@ public class UserData {
         this.nickName = nickName;
     }
 
+    public UserData() {
+    }
+
     public String getNickName() {
         return nickName;
     }
