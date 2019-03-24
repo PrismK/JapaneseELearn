@@ -11,11 +11,8 @@
         android:layout_weight="5"
         app:flipDuration="500"
         app:flipEnabled="true"
-        app:flipFrom="left"
-        app:flipOnTouch="true"
-        app:flipType="horizontal"
-        app:autoFlipBack="true"
-        app:autoFlipBackTime="500">
+        app:flipFrom="bottom"
+        app:flipOnTouch="true">
 
         <!-- Back Layout Goes Here -->
         <include layout="@layout/item_flip_back" />
