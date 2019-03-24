@@ -110,7 +110,9 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
 
         private void removeItem() {
             wordBeans.remove(position);
-            notifyDataSetChanged();
+            //notifyDataSetChanged();
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position,wordBeans.size());
         }
     }
 
