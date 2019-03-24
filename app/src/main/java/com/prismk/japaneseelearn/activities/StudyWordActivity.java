@@ -3,7 +3,6 @@ package com.prismk.japaneseelearn.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 
 import com.prismk.japaneseelearn.R;
@@ -32,20 +31,12 @@ public class StudyWordActivity extends BaseActivity {
         initView();
         WordsDBManager.getInstance().queryWords();
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rec_words.setLayoutManager(linearLayoutManager);
+        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        LinearSnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(rec_words);
     }
 
     private void initView() {
         rec_words = findViewById(R.id.words);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -54,11 +45,13 @@ public class StudyWordActivity extends BaseActivity {
         wordsAdapter.setOnWordsStatueChangeListener(new WordsAdapter.OnWordsStatueChangeListener() {
             @Override
             public void onForget(WordBean bean) {
+                WordsDBManager.getInstance().insertNewWord(bean);
 
             }
 
             @Override
-            public void onGetit(WordBean bean) {
+            public void onGetIt(WordBean bean) {
+                WordsDBManager.getInstance().collectNewWords(bean);
 
             }
         });

@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.prismk.japaneseelearn.bean.AllWordsEvent;
 import com.prismk.japaneseelearn.bean.WordJsonBean;
 import com.prismk.japaneseelearn.db.word.baseDao.WordDao;
 import com.prismk.japaneseelearn.db.word.bean.NewWordsBean;
@@ -13,6 +14,10 @@ import com.prismk.japaneseelearn.db.word.bean.WordDataBase;
 import com.prismk.japaneseelearn.services.WordsDBServer;
 import com.prismk.japaneseelearn.utils.LogicUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class WordsDBManager {
@@ -53,7 +58,37 @@ public class WordsDBManager {
 
 
     public void queryWords() {
-        WordsDBServer.getInstance().queryAllWords(word.getWordDao());
+        WordsDBServer.getInstance().async(() -> {
+            List<WordBean> all = word.getWordDao().getAll();
+            ArrayList<Long> objects = new ArrayList<>();
+            List<RememberWordsBean> userRemeberWords = word.getRememberWords().getUserRemeberWords(LogicUtils.getInstance().getUserPhone());
+            List<NewWordsBean> userAllNewWords = word.getNewWordsDao().getUserAllNewWords(LogicUtils.getInstance().getUserPhone());
+
+            Iterator<NewWordsBean> iterator = userAllNewWords.iterator();
+            while (iterator.hasNext()) {
+                long id = iterator.next().wordBean.id;
+                if (!objects.contains(id)) {
+                    objects.add(id);
+                }
+            }
+
+            Iterator<RememberWordsBean> iteratorB = userRemeberWords.iterator();
+            while (iteratorB.hasNext()) {
+                long id = iteratorB.next().wordBean.id;
+                if (!objects.contains(id)) {
+                    objects.add(id);
+                }
+            }
+
+            Iterator<WordBean> iterator1 = all.iterator();
+            while (iterator1.hasNext()) {
+                WordBean next = iterator1.next();
+                if (objects.contains(next.id)) {
+                    iterator1.remove();
+                }
+            }
+            EventBus.getDefault().post(new AllWordsEvent(all));
+        });
     }
 
     public void queryNewsWords() {
@@ -88,7 +123,6 @@ public class WordsDBManager {
 
         WordsDBServer.getInstance().async(() -> {
             word.getNewWordsDao().insertWord(newWordsBean);
-            word.getNewWordsDao().UpdateWord(newWordsBean);
         });
     }
 

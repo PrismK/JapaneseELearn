@@ -57,7 +57,10 @@ public class WordsDBServer extends Service {
     }
 
     public void queryAllWords(WordDao dao) {
-        executorService.execute(() -> EventBus.getDefault().post(new AllWordsEvent(dao.getAll())));
+        executorService.execute(() ->
+                EventBus.getDefault().post(new AllWordsEvent(dao.getAll()))
+
+        );
     }
 
     public void queryNewWords(NewWordsDao dao) {

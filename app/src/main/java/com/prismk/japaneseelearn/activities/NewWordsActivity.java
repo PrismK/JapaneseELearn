@@ -22,8 +22,7 @@ public class NewWordsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rec_words.setLayoutManager(linearLayoutManager);
+        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         WordsDBManager.getInstance().queryNewsWords();
     }
 

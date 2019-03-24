@@ -19,6 +19,7 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
 
     private Context context;
     private List<WordBean> wordBeans;
+    private OnWordsStatueChangeListener onWordsStatueChangeListener;
 
     public WordsAdapter(Context context, List<WordBean> wordBeans) {
         this.context = context;
@@ -34,7 +35,7 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.bindData(wordBeans.get(position));
+        viewHolder.bindData(position);
     }
 
 
@@ -48,12 +49,11 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
 
     }
 
-    private OnWordsStatueChangeListener onWordsStatueChangeListener;
 
     public interface OnWordsStatueChangeListener {
         void onForget(WordBean bean);
 
-        void onGetit(WordBean bean);
+        void onGetIt(WordBean bean);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -64,12 +64,12 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
         private TextView tv_jia;
         private TextView tv_line;
         private TextView tv_chinese;
-        private WordBean beans;
+        private int position;
+        private WordBean wordBean;
 
         public ViewHolder(View view) {
             super(view);
             EasyFlipView easyFlipView = view.findViewById(R.id.flipView);
-            easyFlipView.setFlipEnabled(true);
 
             tv_jap = easyFlipView.findViewById(R.id.tv_jap);
             tv_exa = easyFlipView.findViewById(R.id.tv_exa);
@@ -81,21 +81,36 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
             get = view.findViewById(R.id.btn_get_it);
         }
 
-        public void bindData(WordBean beans) {
+        public void bindData(int position) {
             forget.setOnClickListener(this);
             get.setOnClickListener(this);
+            this.position = position;
+            wordBean = wordBeans.get(position);
+
+            tv_jap.setText(wordBean.japanese);
+            tv_chinese.setText(wordBean.chinese);
+            tv_jia.setText(wordBean.katakana);
+            tv_exa.setText(wordBean.example);
+            tv_line.setText(wordBean.example);
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_add_forget:
-                    onWordsStatueChangeListener.onForget(beans);
+                    onWordsStatueChangeListener.onForget(wordBean);
+                    removeItem();
                     break;
                 case R.id.btn_get_it:
-                    onWordsStatueChangeListener.onGetit(beans);
+                    onWordsStatueChangeListener.onGetIt(wordBean);
+                    removeItem();
                     break;
             }
+        }
+
+        private void removeItem() {
+            wordBeans.remove(position);
+            notifyDataSetChanged();
         }
     }
 

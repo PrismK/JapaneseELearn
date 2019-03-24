@@ -41,6 +41,7 @@ public class EasyFlipView extends FrameLayout {
     private int animFlipVerticalInId = R.animator.animation_vertical_flip_in;
     private int animFlipVerticalFrontOutId = R.animator.animation_vertical_front_out;
     private int animFlipVerticalFrontInId = R.animator.animation_vertical_flip_front_in;
+    private final static float MAX_CLICK_DISTANCE = 0.5f;
 
     public enum FlipState {
         FRONT_SIDE, BACK_SIDE
@@ -239,8 +240,7 @@ public class EasyFlipView extends FrameLayout {
                             onFlipListener.onViewFlipCompleted(EasyFlipView.this, FlipState.BACK_SIDE);
 
                         // Auto Flip Back
-                        if (autoFlipBack == true)
-                        {
+                        if (autoFlipBack == true) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -303,8 +303,7 @@ public class EasyFlipView extends FrameLayout {
                             onFlipListener.onViewFlipCompleted(EasyFlipView.this, FlipState.BACK_SIDE);
 
                         // Auto Flip Back
-                        if (autoFlipBack == true)
-                        {
+                        if (autoFlipBack == true) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -444,21 +443,19 @@ public class EasyFlipView extends FrameLayout {
     public boolean onTouchEvent(MotionEvent event) {
 
         if (isEnabled() && flipOnTouch) {
-            this.getParent().requestDisallowInterceptTouchEvent(true);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     x1 = event.getX();
                     y1 = event.getY();
+                    getParent().requestDisallowInterceptTouchEvent(true);
                     return true;
-                case MotionEvent.ACTION_UP:
-                    float x2 = event.getX();
-                    float y2 = event.getY();
-                    float dx = x2 - x1;
-                    float dy = y2 - y1;
-                    float MAX_CLICK_DISTANCE = 0.5f;
-                    if ((dx >= 0 && dx < MAX_CLICK_DISTANCE) && (dy >= 0 && dy < MAX_CLICK_DISTANCE)) {
-                        flipTheView();
+                case MotionEvent.ACTION_MOVE:
+                    if (Math.abs(event.getX() - x1) > 100 || Math.abs(event.getY() - y1) > 100) {
+                        getParent().requestDisallowInterceptTouchEvent(false);
                     }
+                    return false;
+                case MotionEvent.ACTION_UP:
+                    flipTheView();
                     return true;
             }
         } else {
@@ -696,6 +693,7 @@ public class EasyFlipView extends FrameLayout {
 
     /**
      * Set if the card should be flipped back to original front side.
+     *
      * @param autoFlipBack true if card should be flipped back to froont side
      */
     public void setAutoFlipBack(boolean autoFlipBack) {
@@ -704,6 +702,7 @@ public class EasyFlipView extends FrameLayout {
 
     /**
      * Return the time in milliseconds to auto flip back to original front side.
+     *
      * @return
      */
     public int getAutoFlipBackTime() {
@@ -712,6 +711,7 @@ public class EasyFlipView extends FrameLayout {
 
     /**
      * Set the time in milliseconds to auto flip back the view to the original front side
+     *
      * @param autoFlipBackTime The time in milliseconds
      */
     public void setAutoFlipBackTime(int autoFlipBackTime) {

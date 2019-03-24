@@ -2,7 +2,6 @@ package com.prismk.japaneseelearn.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ public class WordFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         initTitle();
-        View wordLayout = View.inflate(getActivity(), getLayoutId(), null);
         initWidgets();
         initOnClickListener();
         return mRootView;
