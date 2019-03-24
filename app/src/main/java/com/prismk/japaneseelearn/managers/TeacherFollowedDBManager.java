@@ -12,8 +12,8 @@ import com.prismk.japaneseelearn.bean.UserData;
 
 public class TeacherFollowedDBManager {
 
-    private static final String DB_NAME = "e_learn_db";
-    private static final String TABLE_NAME = "teacher_followed";
+    public static final String DB_NAME = "teacher_followed";
+    public static final String TABLE_NAME = "teacher_followed";
     public static final String ID = "_id";
     public static final String STUDENT_ID = "student_id";
     public static final String TEACHER_ID = "teacher_id";
@@ -40,6 +40,26 @@ public class TeacherFollowedDBManager {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + ";");
             db.execSQL(DB_CREATE);
+
+            ContentValues values = new ContentValues();
+            for (int i = 1; i <= 10; i++) {
+                values.clear();
+                values.put(STUDENT_ID, i);
+                values.put(TEACHER_ID, 10 + i);
+                db.insert(TABLE_NAME, ID, values);
+
+                if (i == 5) {
+                    values.clear();
+                    values.put(STUDENT_ID, i);
+                    values.put(TEACHER_ID, 19 - i);
+                } else {
+                    values.clear();
+                    values.put(STUDENT_ID, i);
+                    values.put(TEACHER_ID, 20 - i);
+                }
+
+                db.insert(TABLE_NAME, ID, values);
+            }
         }
 
         @Override

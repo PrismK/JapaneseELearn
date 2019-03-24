@@ -11,8 +11,8 @@ import com.prismk.japaneseelearn.bean.VideoCollectionData;
 
 public class VideoCollectionDBManager {
 
-    private static final String DB_NAME = "e_learn_db";
-    private static final String TABLE_NAME = "video_collection";
+    public static final String DB_NAME = "video_collection";
+    public static final String TABLE_NAME = "video_collection";
     public static final String ID = "_id";
     public static final String STUDENT_ID = "student_id";
     public static final String VIDEO_ID = "video_id";
@@ -39,6 +39,23 @@ public class VideoCollectionDBManager {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + ";");
             db.execSQL(DB_CREATE);
+
+            ContentValues values = new ContentValues();
+            for (int i = 1; i <= 10; i++) {
+                values.clear();
+                values.put(STUDENT_ID, i);
+                values.put(VIDEO_ID, i);
+                db.insert(TABLE_NAME, ID, values);
+
+                values.clear();
+                values.put(STUDENT_ID, i);
+                values.put(VIDEO_ID, 10 + i);
+
+                values.clear();
+                values.put(STUDENT_ID, i);
+                values.put(VIDEO_ID, 20 + i);
+                db.insert(TABLE_NAME, ID, values);
+            }
         }
 
         @Override

@@ -10,8 +10,8 @@ import com.prismk.japaneseelearn.bean.VideoData;
 
 public class VideoDBManager {
 
-    private static final String DB_NAME = "e_learn_db";
-    private static final String TABLE_NAME = "videos";
+    public static final String DB_NAME = "video";
+    public static final String TABLE_NAME = "videos";
     public static final String ID = "_id";
     public static final String VIDEO_URL = "video_url";
     public static final String VIDEO_IMG_URL = "video_img_url";
@@ -48,6 +48,34 @@ public class VideoDBManager {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + ";");
             db.execSQL(DB_CREATE);
+
+            ContentValues values = new ContentValues();
+
+            for (int i = 1; i <= 30; i++) {
+                values.clear();
+                values.put(VIDEO_URL, "http://video.jiecao.fm/11/23/xin/%E5%81%87%E4%BA%BA.mp4");
+                values.put(VIDEO_IMG_URL, "http://img4.jiecaojingxuan.com/2016/11/23/00b026e7-b830-4994-bc87-38f4033806a6.jpg@!640_360");
+                values.put(VIDEO_TITLE, "" + i + "号视频的标题");
+                values.put(VIDEO_INTRODUCTION, "" + i + "号视频的简介");
+                values.put(VIDEO_CONTEXT, "" + i + "号视频的内容文字描述安徽v就爱看女傻女那是陇南市吕尼拉v你啊啊是离开农村快乐女声v扣篮速率那粮库看来你真v看来嫩绿嫩绿那里的女郎在哪里");
+                String dayNum = null;
+                if (i <= 9)
+                    dayNum = "0" + i;
+                else
+                    dayNum = "" + i;
+                values.put(VIDEO_UPLOAD_TIME, "2019-03-" + dayNum);
+                if (i >= 11 && i <= 20) {
+                    values.put(UPLOAD_TEACHER_ID, i);
+                } else if (i <= 10) {
+                    values.put(UPLOAD_TEACHER_ID, i * 2);
+                } else {
+                    values.put(UPLOAD_TEACHER_ID, i / 2);
+                }
+                if (i >= 19) {
+                    values.put(IS_VIP_VIDEO, true);
+                }
+                db.insert(TABLE_NAME, ID, values);
+            }
         }
 
         @Override
@@ -81,12 +109,12 @@ public class VideoDBManager {
         ContentValues values = new ContentValues();
         values.put(VIDEO_URL, videoUrlString);
         values.put(VIDEO_IMG_URL, videoImgUrlString);
-        values.put(VIDEO_TITLE,videoTitle);
-        values.put(VIDEO_INTRODUCTION,videoIntroduction);
-        values.put(VIDEO_CONTEXT,videoContext);
-        values.put(VIDEO_UPLOAD_TIME,videoUploadTime);
-        values.put(IS_VIP_VIDEO,vipVideo);
-        values.put(UPLOAD_TEACHER_ID,uploadTeacherId);
+        values.put(VIDEO_TITLE, videoTitle);
+        values.put(VIDEO_INTRODUCTION, videoIntroduction);
+        values.put(VIDEO_CONTEXT, videoContext);
+        values.put(VIDEO_UPLOAD_TIME, videoUploadTime);
+        values.put(IS_VIP_VIDEO, vipVideo);
+        values.put(UPLOAD_TEACHER_ID, uploadTeacherId);
         return mSQLiteDatabase.insert(TABLE_NAME, ID, values);
     }
 }

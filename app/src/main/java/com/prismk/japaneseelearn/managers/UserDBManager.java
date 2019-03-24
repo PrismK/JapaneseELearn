@@ -11,8 +11,8 @@ import com.prismk.japaneseelearn.bean.UserData;
 
 public class UserDBManager {
 
-    private static final String DB_NAME = "e_learn_db";
-    private static final String TABLE_NAME = "users";
+    public static final String DB_NAME = "user";
+    public static final String TABLE_NAME = "users";
     public static final String ID = "_id";
     public static final String USER_NAME = "user_name";
     public static final String USER_PWD = "user_pwd";
@@ -45,8 +45,39 @@ public class UserDBManager {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + ";"); //如果是数据库中有这个表，先drop掉，然后create表，然后再进行数据插入。
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + ";");
             db.execSQL(DB_CREATE);
+
+            ContentValues values = new ContentValues();
+
+            for (int i = 1; i <= 10; i++) {
+                values.clear();
+                values.put(USER_NAME, "" + i);
+                values.put(USER_PWD, "" + i);
+                values.put(USER_NICKNAME, "" + i + "号学生的昵称");
+                values.put(USER_SIGN, "" + i + "号学生的个性签名");
+                values.put(USER_TAG, "" + i + "号学生的标签");
+                values.put(USER_HEADIMG, "");
+                if (i >= 6) {
+                    values.put(ISVIP, true);
+                }
+                db.insert(TABLE_NAME, ID, values);
+            }
+
+            for (int i = 11; i <= 20; i++) {
+                values.clear();
+                values.put(USER_NAME, "" + i);
+                values.put(USER_PWD, "" + i);
+                values.put(USER_NICKNAME, "" + i + "号教师的昵称");
+                values.put(USER_SIGN, "" + i + "号教师的个性签名");
+                values.put(USER_TAG, "" + i + "号教师的标签");
+                values.put(USER_HEADIMG, "");
+                values.put(ISTEACHER, true);
+                if (i >= 16) {
+                    values.put(ISVIP, true);
+                }
+                db.insert(TABLE_NAME, ID, values);
+            }
         }
 
         @Override

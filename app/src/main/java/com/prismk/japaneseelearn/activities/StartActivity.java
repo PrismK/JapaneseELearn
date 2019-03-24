@@ -11,6 +11,10 @@ import android.view.WindowManager;
 
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
 import com.prismk.japaneseelearn.R;
+import com.prismk.japaneseelearn.managers.TeacherFollowedDBManager;
+import com.prismk.japaneseelearn.managers.UserDBManager;
+import com.prismk.japaneseelearn.managers.VideoCollectionDBManager;
+import com.prismk.japaneseelearn.managers.VideoDBManager;
 
 /**
  * ================================================
@@ -25,6 +29,11 @@ import com.prismk.japaneseelearn.R;
 
 public class StartActivity extends BaseActivity {
 
+    private UserDBManager mUserDBManager;
+    private VideoDBManager mVideoDBManager;
+    private VideoCollectionDBManager mVideoCollectionDBManager;
+    private TeacherFollowedDBManager mTeacherFollowedDBManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //setFullScreen();
@@ -32,6 +41,29 @@ public class StartActivity extends BaseActivity {
         setContentView(getLayoutId());
         setStatusBarLight();
         splashNormal();
+    }
+
+    private void initDBManager() {
+        if (mUserDBManager == null) {
+            mUserDBManager = new UserDBManager(this);
+            mUserDBManager.openDataBase();
+            mUserDBManager.closeDataBase();
+        }
+        if (mVideoDBManager == null) {
+            mVideoDBManager = new VideoDBManager(this);
+            mVideoDBManager.openDataBase();
+            mVideoDBManager.closeDataBase();
+        }
+        if (mVideoCollectionDBManager == null) {
+            mVideoCollectionDBManager = new VideoCollectionDBManager(this);
+            mVideoCollectionDBManager.openDataBase();
+            mVideoCollectionDBManager.closeDataBase();
+        }
+        if (mTeacherFollowedDBManager == null) {
+            mTeacherFollowedDBManager = new TeacherFollowedDBManager(this);
+            mTeacherFollowedDBManager.openDataBase();
+            mTeacherFollowedDBManager.closeDataBase();
+        }
     }
 
     private void setFullScreen() {
@@ -59,6 +91,7 @@ public class StartActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                initDBManager();
                 SharedPreferences login_sp = getSharedPreferences("userInfo", 0);
                 String name = login_sp.getString("USER_NAME", "");
                 String pwd = login_sp.getString("PASSWORD", "");

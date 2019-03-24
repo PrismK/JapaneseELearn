@@ -116,16 +116,24 @@
         <activity
             android:name=".activities.CollectNewWordsActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.StudyWordActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
 
         <service
             android:name=".managers.floatsmallvideo.FloatVideoService"
             android:exported="false" />
+
+
+        <receiver android:name=".receiver.NetworkReceiver">　
+            <intent-filter>
+                <!-- 监听的动作类型，这里是监听网络连接的状态  -->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
