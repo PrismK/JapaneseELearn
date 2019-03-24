@@ -105,5 +105,4 @@ public class UserData {
         this.userName = userName;
         this.userPwd = userPwd;
     }
-
 }
