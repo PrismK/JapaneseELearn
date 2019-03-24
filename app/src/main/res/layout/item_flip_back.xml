@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llParent"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
     android:layout_margin="10dp"
     android:background="@color/gray3"
-    android:layout_height="250dp">
+    android:orientation="vertical">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_jap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22222222222222222222222222" />
+
+    <TextView
+        android:id="@+id/tv_exa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_jap"
+        android:text="22222222222222222222222222" />
+
+</RelativeLayout>

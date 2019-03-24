@@ -1,17 +1,42 @@
-<com.prismk.japaneseelearn.views.EasyFlipView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/flipView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:flipDuration="400"
-    app:flipEnabled="true"
-    app:flipOnTouch="false">
+    android:layout_height="wrap_content">
 
-  <!-- Back Layout Goes Here -->
-  <include layout="@layout/item_flip_back"/>
+    <com.prismk.japaneseelearn.views.EasyFlipView
 
-  <!-- Front Layout Goes Here -->
-  <include layout="@layout/item_flip_front"/>
+        android:id="@+id/flipView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        app:flipDuration="400"
+        app:flipEnabled="true"
+        app:flipOnTouch="false">
 
-</com.prismk.japaneseelearn.views.EasyFlipView>
+        <!-- Back Layout Goes Here -->
+        <include layout="@layout/item_flip_back" />
+
+        <!-- Front Layout Goes Here -->
+        <include layout="@layout/item_flip_front" />
+
+    </com.prismk.japaneseelearn.views.EasyFlipView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_add_forget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加到生词本" />
+
+        <Button
+            android:id="@+id/btn_get_it"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="已记住" />
+    </LinearLayout>
+</LinearLayout>

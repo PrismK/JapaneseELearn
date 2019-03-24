@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.adapters.WordsAdapter;
 import com.prismk.japaneseelearn.bean.AllWordsEvent;
+import com.prismk.japaneseelearn.db.word.bean.WordBean;
 import com.prismk.japaneseelearn.managers.WordsDBManager;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -18,7 +19,6 @@ import org.greenrobot.eventbus.ThreadMode;
 public class StudyWordActivity extends BaseActivity {
 
     RecyclerView rec_words;
-    private WordsAdapter wordsAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -31,8 +31,10 @@ public class StudyWordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         initView();
         WordsDBManager.getInstance().queryWords();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rec_words.setLayoutManager(linearLayoutManager);
+
         LinearSnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(rec_words);
     }
@@ -48,7 +50,18 @@ public class StudyWordActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(AllWordsEvent event) {
-        wordsAdapter = new WordsAdapter(this, event.beans);
+        WordsAdapter wordsAdapter = new WordsAdapter(this, event.beans);
+        wordsAdapter.setOnWordsStatueChangeListener(new WordsAdapter.OnWordsStatueChangeListener() {
+            @Override
+            public void onForget(WordBean bean) {
+
+            }
+
+            @Override
+            public void onGetit(WordBean bean) {
+
+            }
+        });
         rec_words.setAdapter(wordsAdapter);
     }
 

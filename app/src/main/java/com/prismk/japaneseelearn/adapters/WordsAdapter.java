@@ -3,12 +3,16 @@ package com.prismk.japaneseelearn.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.db.word.bean.WordBean;
-import com.prismk.japaneseelearn.views.WordShowView;
+import com.prismk.japaneseelearn.views.EasyFlipView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> {
@@ -25,51 +29,74 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        return new ViewHolder(new WordShowView(context));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_recyclerview_studyword, viewGroup, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        ArrayList<WordBean> beans = new ArrayList<>();
-        int start = position * 5;
-        int end = (position + 1) * 5;
-        end = end < wordBeans.size() ? end : wordBeans.size();
-        for (int i = start; i < end; i++) {
-            beans.add(wordBeans.get(i));
-        }
-        viewHolder.bindData(beans);
+        viewHolder.bindData(wordBeans.get(position));
     }
 
 
     @Override
     public int getItemCount() {
-        int size = wordBeans.size() / 5;
-        if (wordBeans.size() % 5 != 0) {
-            size += 1;
-        }
-        return size;
+        return wordBeans.size();
     }
 
-    public void removePageData() {
-        int end = 5 < wordBeans.size() ? 5 : wordBeans.size();
+    public void setOnWordsStatueChangeListener(OnWordsStatueChangeListener onWordsStatueChangeListener) {
+        this.onWordsStatueChangeListener = onWordsStatueChangeListener;
 
-        for (int current = 0; current < end; current++) {
-            wordBeans.remove(current);
-        }
-        notifyDataSetChanged();
     }
 
+    private OnWordsStatueChangeListener onWordsStatueChangeListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private WordShowView view;
+    public interface OnWordsStatueChangeListener {
+        void onForget(WordBean bean);
 
-        public ViewHolder(WordShowView view) {
+        void onGetit(WordBean bean);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private Button forget;
+        private Button get;
+        private TextView tv_jap;
+        private TextView tv_exa;
+        private TextView tv_jia;
+        private TextView tv_line;
+        private TextView tv_chinese;
+        private WordBean beans;
+
+        public ViewHolder(View view) {
             super(view);
-            this.view = view;
+            EasyFlipView easyFlipView = view.findViewById(R.id.flipView);
+            easyFlipView.setFlipEnabled(true);
+
+            tv_jap = easyFlipView.findViewById(R.id.tv_jap);
+            tv_exa = easyFlipView.findViewById(R.id.tv_exa);
+            tv_jia = easyFlipView.findViewById(R.id.tv_jia);
+            tv_line = easyFlipView.findViewById(R.id.tv_line);
+            tv_chinese = easyFlipView.findViewById(R.id.tv_chinese);
+
+            forget = view.findViewById(R.id.btn_add_forget);
+            get = view.findViewById(R.id.btn_get_it);
         }
 
-        public void bindData(List<WordBean> beans) {
-            view.setData(beans);
+        public void bindData(WordBean beans) {
+            forget.setOnClickListener(this);
+            get.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_add_forget:
+                    onWordsStatueChangeListener.onForget(beans);
+                    break;
+                case R.id.btn_get_it:
+                    onWordsStatueChangeListener.onGetit(beans);
+                    break;
+            }
         }
     }
+
 }

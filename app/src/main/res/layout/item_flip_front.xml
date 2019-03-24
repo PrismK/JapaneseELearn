@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llParent"
     android:layout_width="match_parent"
     android:layout_height="170dp"
@@ -8,6 +7,24 @@
     android:background="@color/gray1"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_chinese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1111111111111111111" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/tv_jia"
+
+        android:layout_height="wrap_content"
+        android:text="1111111111111111111" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/tv_line"
+
+        android:layout_height="wrap_content"
+        android:text="1111111111111111111" />
 
 </LinearLayout>
