@@ -9,13 +9,25 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.prismk.japaneseelearn.R;
+import com.prismk.japaneseelearn.adapters.VideoAdapter;
+import com.prismk.japaneseelearn.bean.UserData;
+import com.prismk.japaneseelearn.bean.VideoData;
+import com.prismk.japaneseelearn.managers.UserDBManager;
+import com.prismk.japaneseelearn.managers.VideoDBManager;
 import com.prismk.japaneseelearn.managers.floatsmallvideo.FloatVideoController;
+import com.prismk.japaneseelearn.properties.ELearnAppProperties;
+import com.prismk.japaneseelearn.views.NoScrollListView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import fm.jiecao.jcvideoplayer_lib.JCUserAction;
 import fm.jiecao.jcvideoplayer_lib.JCUserActionStandard;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -29,6 +41,19 @@ public class VideoPlayerActivity extends BaseActivity {
 
     private int REQUEST_CODE = 1000;
 
+    private boolean isTeacherFavorite = false;
+    private boolean isVideoFavorite = false;
+    private TextView teacherFavorite;
+    private ImageView videoFavorite;
+    private CircleImageView teacherAvatar;
+    private TextView teacherName;
+    private TextView teacherSign;
+    private TextView videoTitle;
+    private ImageView isVip;
+    private TextView videoDescription;
+    private NoScrollListView videoRecommend;
+    private VideoAdapter videoAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +62,9 @@ public class VideoPlayerActivity extends BaseActivity {
         initView();
         initTitle();
         initVideoPlayer();
+        initData();
     }
+
 
     private void askPermissions() {
         String[] permissions = new String[]{
@@ -51,8 +78,8 @@ public class VideoPlayerActivity extends BaseActivity {
                 mPermissionList.add(permission);
             }
         }
-        if (mPermissionList.size()>0){//有权限没有通过，需要申请
-            ActivityCompat.requestPermissions(this,permissions,REQUEST_CODE);
+        if (mPermissionList.size() > 0) {//有权限没有通过，需要申请
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE);
         }
     }
 
@@ -64,6 +91,53 @@ public class VideoPlayerActivity extends BaseActivity {
     private void initView() {
         mJcVideoPlayerStandard = findViewById(R.id.jc_video);
         mFloatVideoController = FloatVideoController.getInstance();
+        teacherFavorite = (TextView) findViewById(R.id.tv_teacher_favorite);
+        videoFavorite = findViewById(R.id.iv_classes_favorite);
+
+        //头像
+        teacherAvatar = findViewById(R.id.civ_teacher_avatar);
+        //名字
+        teacherName = findViewById(R.id.tv_teacher_name);
+        //个性签名
+        teacherSign = findViewById(R.id.tv_teacher_sign);
+        //视频标题
+        videoTitle = findViewById(R.id.tv_classes_title);
+        //VIP
+        isVip = findViewById(R.id.iv_vip);
+        //视频描述
+        videoDescription = findViewById(R.id.tv_classes_description);
+        videoRecommend = findViewById(R.id.lv_classes);
+
+    }
+
+    private void initData() {
+        List<UserData> userDataList = new ArrayList<>();
+        UserDBManager userDBManager = new UserDBManager(VideoPlayerActivity.this);
+        userDataList = userDBManager.getUserDataListFromUserDB();
+        int teacherId = getIntent().getBundleExtra(ELearnAppProperties.INTENT_BUNDLE).getInt(ELearnAppProperties.INTENT_TEACHER_ID);
+        Glide.with(VideoPlayerActivity.this).load(userDataList.get(teacherId).getHeadImgUrlString()).into(teacherAvatar);
+        teacherName.setText(userDataList.get(teacherId).getNickName());
+        teacherSign.setText(userDataList.get(teacherId).getSign());
+        String vt = getIntent().getBundleExtra(ELearnAppProperties.INTENT_BUNDLE).getString(ELearnAppProperties.INTENT_VIDEO_TITLE);
+        videoTitle.setText(vt);
+        String vd = getIntent().getBundleExtra(ELearnAppProperties.INTENT_BUNDLE).getString(ELearnAppProperties.INTENT_VIDEO_DESCRIPTION);
+        videoDescription.setText(vd);
+        boolean Vip = getIntent().getBundleExtra(ELearnAppProperties.INTENT_BUNDLE).getBoolean(ELearnAppProperties.INTENT_IS_VIP);
+        if (Vip)
+            isVip.setVisibility(View.VISIBLE);
+        else
+            isVip.setVisibility(View.INVISIBLE);
+
+        initAdapter();
+    }
+
+    private void initAdapter() {
+        videoAdapter = null;
+        VideoDBManager videoDBManager = new VideoDBManager(VideoPlayerActivity.this);
+        List<VideoData>list = videoDBManager.getVideoDataListFromVideoDB();
+        videoAdapter = new VideoAdapter(VideoPlayerActivity.this, list);
+        videoRecommend.setAdapter(videoAdapter);
+
     }
 
     private void initTitle() {
@@ -103,6 +177,34 @@ public class VideoPlayerActivity extends BaseActivity {
                 doOpenSmallWindow();
                 finish();
                 break;
+            //在这里处理关注和收藏视频的逻辑
+            case R.id.tv_teacher_favorite://关注
+                //TODO 关注和取消关注
+                setTeacherFavoriteClick();
+                break;
+            case R.id.ll_classes_favorite:
+                //TODO 收藏和取消收藏
+                setVideoFavoriteClick();
+        }
+    }
+
+    private void setVideoFavoriteClick() {
+        if (isVideoFavorite) {
+            videoFavorite.setImageResource(R.mipmap.collection_notselect);
+            isVideoFavorite = false;
+        } else {
+            videoFavorite.setImageResource(R.mipmap.collection_select);
+            isVideoFavorite = true;
+        }
+    }
+
+    private void setTeacherFavoriteClick() {
+        if (isTeacherFavorite) {
+            teacherFavorite.setBackgroundColor(getResources().getColor(R.color.gray1));
+            isTeacherFavorite = false;
+        } else {
+            teacherFavorite.setBackgroundColor(getResources().getColor(R.color.teacher_favorite));
+            isTeacherFavorite = true;
         }
     }
 

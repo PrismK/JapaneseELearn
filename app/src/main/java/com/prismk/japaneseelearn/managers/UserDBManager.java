@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.prismk.japaneseelearn.bean.UserData;
+import com.prismk.japaneseelearn.utils.ELearnAnimUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDBManager {
 
@@ -29,7 +33,7 @@ public class UserDBManager {
 
     private static final String DB_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
             + ID + " integer primary key," + USER_NAME + " varchar(15),"
-            + USER_PWD + " varchar(15)," + ISTEACHER + " boolean," + ISVIP + " boolean,"
+            + USER_PWD + " varchar(15)," + ISTEACHER + " integer," + ISVIP + " integer,"
             + USER_SIGN + " varchar(50)," + USER_TAG + " varchar(30),"
             + USER_HEADIMG + " varchar(50)," + USER_NICKNAME + " varchar(20)"
             + ");";
@@ -59,7 +63,9 @@ public class UserDBManager {
                 values.put(USER_TAG, "" + i + "号学生的标签");
                 values.put(USER_HEADIMG, "");
                 if (i >= 6) {
-                    values.put(ISVIP, true);
+                    values.put(ISVIP, 1);
+                } else {
+                    values.put(ISVIP, 0);
                 }
                 db.insert(TABLE_NAME, ID, values);
             }
@@ -72,9 +78,11 @@ public class UserDBManager {
                 values.put(USER_SIGN, "" + i + "号教师的个性签名");
                 values.put(USER_TAG, "" + i + "号教师的标签");
                 values.put(USER_HEADIMG, "");
-                values.put(ISTEACHER, true);
+                values.put(ISTEACHER, 1);
                 if (i >= 16) {
-                    values.put(ISVIP, true);
+                    values.put(ISVIP, 1);
+                } else {
+                    values.put(ISVIP, 0);
                 }
                 db.insert(TABLE_NAME, ID, values);
             }
@@ -100,8 +108,8 @@ public class UserDBManager {
     }
 
     public long insertUserNameAndPWD(UserData userData) {
-        String userName=userData.getUserName();
-        String userPwd=userData.getUserPwd();
+        String userName = userData.getUserName();
+        String userPwd = userData.getUserPwd();
         ContentValues values = new ContentValues();
         values.put(USER_NAME, userName);
         values.put(USER_PWD, userPwd);
@@ -157,26 +165,58 @@ public class UserDBManager {
     }
 
     //根据用户名找用户，可以判断注册时用户名是否已经存在
-    public int findUserByName(String userName){
-        int result=0;
-        Cursor mCursor=mSQLiteDatabase.query(TABLE_NAME, null, USER_NAME+"=?", new String[]{userName}, null, null, null);
-        if(mCursor!=null){
-            result=mCursor.getCount();
+    public int findUserByName(String userName) {
+        int result = 0;
+        Cursor mCursor = mSQLiteDatabase.query(TABLE_NAME, null, USER_NAME + "=?", new String[]{userName}, null, null, null);
+        if (mCursor != null) {
+            result = mCursor.getCount();
             mCursor.close();
         }
         return result;
     }
 
     //根据用户名和密码找用户，用于登录
-    public int findUserByNameAndPwd(String userName, String pwd){
-        int result=0;
-        Cursor mCursor=mSQLiteDatabase.query(TABLE_NAME, null, USER_NAME+"=?"+" and "+USER_PWD+"=?",
-                new String[]{userName,pwd}, null, null, null);
-        if(mCursor!=null){
-            result=mCursor.getCount();
+    public int findUserByNameAndPwd(String userName, String pwd) {
+        int result = 0;
+        Cursor mCursor = mSQLiteDatabase.query(TABLE_NAME, null, USER_NAME + "=?" + " and " + USER_PWD + "=?",
+                new String[]{userName, pwd}, null, null, null);
+        if (mCursor != null) {
+            result = mCursor.getCount();
             mCursor.close();
         }
         return result;
     }
 
+    //用于VideoPlayerActivity显示老师的信息 - 根据ID 查找并返回信息
+    private List<UserData> query() {
+        List<UserData> list = new ArrayList<>();
+        Cursor cursor = mSQLiteDatabase.rawQuery("select * from users", null);
+        if (cursor != null || cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                // 3 5 7 8
+                boolean isTeacher = cursor.getInt(3) > 0;
+                String teacherSign = cursor.getString(5);
+                String teacherAvator = cursor.getString(7);
+                String teacherName = cursor.getString(8);
+                UserData userData = new UserData();
+                userData.setTeacherUser(isTeacher);
+                userData.setSign(teacherSign);
+                userData.setHeadImgUrlString(teacherAvator);
+                userData.setNickName(teacherName);
+                list.add(userData);
+            }
+        }
+        return list;
+    }
+
+    public List<UserData> getUserDataListFromUserDB() {
+        List<UserData> list = new ArrayList<>();
+        if (mSQLiteDatabase != null) {
+            list = query();
+        } else {
+            openDataBase();
+            list = query();
+        }
+        return list;
+    }
 }

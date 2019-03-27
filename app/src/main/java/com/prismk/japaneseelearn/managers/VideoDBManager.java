@@ -2,11 +2,15 @@ package com.prismk.japaneseelearn.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.prismk.japaneseelearn.bean.VideoData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoDBManager {
 
@@ -30,7 +34,7 @@ public class VideoDBManager {
             + ID + " integer primary key," + VIDEO_URL + " varchar(50),"
             + VIDEO_IMG_URL + " varchar(50)," + VIDEO_TITLE + " varchar(30),"
             + VIDEO_INTRODUCTION + " varchar(100)," + VIDEO_CONTEXT + " varchar(300),"
-            + IS_VIP_VIDEO + " boolean," + VIDEO_UPLOAD_TIME + " varchar(50),"
+            + IS_VIP_VIDEO + " intger," + VIDEO_UPLOAD_TIME + " varchar(50),"
             + UPLOAD_TEACHER_ID + " integer,"
             + "foreign key(" + UPLOAD_TEACHER_ID + ") references users(_id)"
             + ");";
@@ -66,13 +70,17 @@ public class VideoDBManager {
                 values.put(VIDEO_UPLOAD_TIME, "2019-03-" + dayNum);
                 if (i >= 11 && i <= 20) {
                     values.put(UPLOAD_TEACHER_ID, i);
-                } else if (i <= 10) {
+                } else if (i <= 10 && i >= 6) {
                     values.put(UPLOAD_TEACHER_ID, i * 2);
+                } else if ( i<= 5) {
+                    values.put(UPLOAD_TEACHER_ID, i * 2 + 10);
                 } else {
                     values.put(UPLOAD_TEACHER_ID, i / 2);
                 }
                 if (i >= 19) {
-                    values.put(IS_VIP_VIDEO, true);
+                    values.put(IS_VIP_VIDEO, 1);
+                } else {
+                    values.put(IS_VIP_VIDEO, 0);
                 }
                 db.insert(TABLE_NAME, ID, values);
             }
@@ -116,5 +124,45 @@ public class VideoDBManager {
         values.put(IS_VIP_VIDEO, vipVideo);
         values.put(UPLOAD_TEACHER_ID, uploadTeacherId);
         return mSQLiteDatabase.insert(TABLE_NAME, ID, values);
+    }
+
+    private List<VideoData> query() {
+        List<VideoData> list = new ArrayList<>();
+        Cursor cursor = mSQLiteDatabase.rawQuery("select * from videos", null);
+        if (cursor != null || cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                String url = cursor.getString(1);
+                String imageUrl = cursor.getString(2);
+                String videoTitle = cursor.getString(3);
+                String videoIntroduction = cursor.getString(4);
+                String videoContext = cursor.getString(5);
+                // ???
+                boolean isVipClass = cursor.getInt(6) > 0;
+                String uploadTime = cursor.getString(7);
+                int uploadTeacherId = cursor.getInt(8);//TODO
+                VideoData data = new VideoData();
+                data.setVideoUrlString(url);
+                data.setVideoImgUrlString(imageUrl);
+                data.setVideoTitle(videoTitle);
+                data.setVideoIntroduction(videoIntroduction);
+                data.setVideoContext(videoContext);
+                data.setVipVideo(isVipClass);
+                data.setUploadTime(uploadTime);
+                data.setUploadTeacherId(uploadTeacherId);
+                list.add(data);
+            }
+        }
+        return list;
+    }
+
+    public List<VideoData> getVideoDataListFromVideoDB() {
+        List<VideoData> list = new ArrayList<>();
+        if (mSQLiteDatabase != null) {
+            list = query();
+        } else {
+            openDataBase();
+            list = query();
+        }
+        return list;
     }
 }

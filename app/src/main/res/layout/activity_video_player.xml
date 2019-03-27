@@ -1,30 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/status_bar_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common_zero" />
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
-    <!--<include layout="@layout/layout_widget_title" />-->
+        <View
+            android:id="@+id/status_bar_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_zero" />
 
-    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
-        android:id="@+id/jc_video"
+        <!--<include layout="@layout/layout_widget_title" />-->
+
+        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            android:id="@+id/jc_video"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <Button
+            android:id="@+id/btn_tiny_window"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onViewClick"
+            android:text="小窗口模式" />
+
+        <lib.homhomlib.design.SlidingLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:scrollbars="none"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:descendantFocusability="blocksDescendants"
+                    >
+                    <!--教师信息-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+                        <!--头像-->
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/civ_teacher_avatar"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@color/pureBlack" />
+                        <!--教师姓名，个性签名-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical">
+
+                            <!--教师姓名,关注按钮-->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <!--教师姓名-->
+                                <TextView
+                                    android:id="@+id/tv_teacher_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="藤原拓海"
+                                    android:textColor="@color/pureBlack"
+
+                                    />
+                                <!--关注按钮-->
+                                <TextView
+                                    android:id="@+id/tv_teacher_favorite"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="28dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="13dp"
+                                    android:background="@color/teacher_favorite"
+                                    android:clickable="true"
+                                    android:gravity="center"
+                                    android:onClick="onViewClick"
+                                    android:text="  +关注 "
+                                    android:textColor="@color/pureWhite" />
+                            </RelativeLayout>
+                            <!--个性签名-->
+                            <TextView
+                                android:id="@+id/tv_teacher_sign"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="5dp"
+                                android:gravity="bottom"
+                                android:maxLines="1"
+                                android:text="藤原豆腐店" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <!--课程信息-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+                        <!--视频标题，vip标志-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <!--标题-->
+                            <TextView
+                                android:id="@+id/tv_classes_title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="逮虾户"
+                                android:textColor="@color/pureBlack"
+                                android:textSize="18dp" />
+                            <!--VIP-->
+                            <ImageView
+                                android:id="@+id/iv_vip"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
+                                android:src="@mipmap/vip" />
+                        </LinearLayout>
+                        <!--视频描述-->
+                        <TextView
+                            android:id="@+id/tv_classes_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="你欠下巨债连夜驾车落跑，身后就是追杀你的仇家。路过岔道面前有两条路让你选择：一是直达另一个城市的高速直道，但对方的车马力比你更大，有可能被对方追上。二是湾多险恶的延绵山路，只要技术过硬就可能甩掉对方。正在你犯难之际，电台里响起了这首歌，你握了握方向盘，心中便有了答案。。。" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="1dp"
+                            android:background="@color/grayDividerDark" />
+
+                    </LinearLayout>
+                    <!--推荐视频-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="推荐视频"
+                        android:textColor="@color/pureBlack" />
+
+
+
+                        <com.prismk.japaneseelearn.views.NoScrollListView
+                            android:id="@+id/lv_classes"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="@color/transparent"
+                            android:dividerHeight="15dp"
+                            android:scrollbars="none"
+                            ></com.prismk.japaneseelearn.views.NoScrollListView>
+
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </lib.homhomlib.design.SlidingLayout>
+    </LinearLayout>
+
+
+    <!--底部栏-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blue"
+        android:orientation="horizontal">
+        <!--问题反馈-->
+        <LinearLayout
+            android:id="@+id/ll_feedback"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_tiny_window"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:text="小窗口模式"
-        android:onClick="onViewClick"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/comment"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="2dp"
+                    />
 
-</LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="问题反馈"
+                    android:textColor="@color/pureBlack"
+                    android:textSize="17dp"
+                    android:layout_marginLeft="5dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/pureWhite" />
+        <!--收藏视频-->
+        <LinearLayout
+            android:id="@+id/ll_classes_favorite"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:onClick="onViewClick"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+                <ImageView
+                    android:id="@+id/iv_classes_favorite"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/collection_notselect"
+                    android:layout_marginRight="5dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收藏视频"
+                    android:textColor="@color/pureBlack"
+                    android:textSize="17dp"
+                    android:layout_marginLeft="2dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
