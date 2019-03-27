@@ -70,7 +70,6 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
         public ViewHolder(View view) {
             super(view);
             EasyFlipView easyFlipView = view.findViewById(R.id.flipView);
-
             tv_jap = easyFlipView.findViewById(R.id.tv_jap);
             tv_exa = easyFlipView.findViewById(R.id.tv_exa);
             tv_jia = easyFlipView.findViewById(R.id.tv_jia);
