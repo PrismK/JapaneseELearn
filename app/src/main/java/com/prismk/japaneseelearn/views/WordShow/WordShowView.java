@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class WordShowView extends FrameLayout implements WordFunction<WordBean>,
     }
 
     private void init() {
+        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.item_view_show_new_world, this, true);
         tv_japanese = inflate.findViewById(R.id.tv_japanese);
         tv_kata = inflate.findViewById(R.id.tv_kata);

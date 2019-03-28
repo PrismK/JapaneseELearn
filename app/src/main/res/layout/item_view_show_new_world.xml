@@ -37,13 +37,15 @@
             android:id="@+id/btn_sumbit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="假装是对号" />
 
         <Button
             android:id="@+id/btn_cancle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="假装是错号" />
     </LinearLayout>
 
 </LinearLayout>
