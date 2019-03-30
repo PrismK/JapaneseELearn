@@ -43,7 +43,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.IKnowWordActivity" />
         <activity android:name=".activities.KnowActivity" />
         <activity android:name=".activities.NewWordsActivity" />
 

@@ -1,12 +1,15 @@
 package com.prismk.japaneseelearn.activities;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 
 import com.prismk.japaneseelearn.R;
-import com.prismk.japaneseelearn.adapters.RemeberWordSAdapter;
+import com.prismk.japaneseelearn.adapters.WordsAdapter;
 import com.prismk.japaneseelearn.bean.RemeberWordEvent;
 import com.prismk.japaneseelearn.db.word.bean.RememberWordsBean;
+import com.prismk.japaneseelearn.db.word.bean.WordBean;
 import com.prismk.japaneseelearn.managers.WordsDBManager;
 import com.prismk.japaneseelearn.utils.ToastUtils;
 
@@ -25,7 +28,10 @@ public class KnowActivity extends BaseActivity {
     }
 
     private void initView() {
-        rec_words =  findViewById(R.id.rec_know_words);
+        rec_words = findViewById(R.id.rec_know_words);
+        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        new LinearSnapHelper().attachToRecyclerView(rec_words);
+
     }
 
     @Override
@@ -39,13 +45,21 @@ public class KnowActivity extends BaseActivity {
             ToastUtils.show("暂无数据");
         } else {
             WordsDBManager manager = WordsDBManager.getInstance();
-            RemeberWordSAdapter remeberWordSAdapter = new RemeberWordSAdapter(event, this);
-            remeberWordSAdapter.setListener(new RemeberWordSAdapter.OnWordStateChangeListener() {
+            WordsAdapter remeberWordSAdapter = new WordsAdapter(this, event.getWordBeans());
+            remeberWordSAdapter.isKnowWords();
+            remeberWordSAdapter.setOnWordsStatueChangeListener(new WordsAdapter.OnWordsStatueChangeListener() {
                 @Override
-                public void unGetIt(RememberWordsBean bean) {
-                    WordsDBManager.getInstance().collectNewWords(bean.wordBean);
-                    manager.collectNewWords(bean.wordBean);
-                    manager.forgetRememberWords(bean);
+                public void onForget(WordBean bean, int position) {
+                    RememberWordsBean currentBeans = event.getCurrentBeans(bean);
+                    if (currentBeans != null) {
+                        manager.forgetRememberWords(currentBeans);
+                    }
+                    manager.insertNewWord(bean);
+                }
+
+                @Override
+                public void onGetIt(WordBean bean, int position) {
+
                 }
             });
             rec_words.setAdapter(remeberWordSAdapter);

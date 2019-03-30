@@ -20,10 +20,15 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
     private Context context;
     private List<WordBean> wordBeans;
     private OnWordsStatueChangeListener onWordsStatueChangeListener;
+    private boolean isKnowWords;
 
     public WordsAdapter(Context context, List<WordBean> wordBeans) {
         this.context = context;
         this.wordBeans = wordBeans;
+    }
+
+    public void isKnowWords() {
+        isKnowWords = true;
     }
 
     @NonNull
@@ -51,9 +56,9 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
 
 
     public interface OnWordsStatueChangeListener {
-        void onForget(WordBean bean);
+        void onForget(WordBean bean, int position);
 
-        void onGetIt(WordBean bean);
+        void onGetIt(WordBean bean, int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -66,10 +71,11 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
         private TextView tv_chinese;
         private int position;
         private WordBean wordBean;
+        private final EasyFlipView easyFlipView;
 
         public ViewHolder(View view) {
             super(view);
-            EasyFlipView easyFlipView = view.findViewById(R.id.flipView);
+            easyFlipView = view.findViewById(R.id.flipView);
             tv_jap = easyFlipView.findViewById(R.id.tv_jap);
             tv_exa = easyFlipView.findViewById(R.id.tv_exa);
             tv_jia = easyFlipView.findViewById(R.id.tv_jia);
@@ -83,6 +89,12 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
         public void bindData(int position) {
             forget.setOnClickListener(this);
             get.setOnClickListener(this);
+            if (!easyFlipView.isFrontSide()) {
+                easyFlipView.flipTheView();
+            }
+            if (isKnowWords) {
+                get.setVisibility(View.GONE);
+            }
             this.position = position;
             wordBean = wordBeans.get(position);
 
@@ -97,11 +109,11 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_add_forget:
-                    onWordsStatueChangeListener.onForget(wordBean);
+                    onWordsStatueChangeListener.onForget(wordBean, position);
                     removeItem();
                     break;
                 case R.id.btn_get_it:
-                    onWordsStatueChangeListener.onGetIt(wordBean);
+                    onWordsStatueChangeListener.onGetIt(wordBean, position);
                     removeItem();
                     break;
             }
@@ -111,7 +123,7 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
             wordBeans.remove(position);
             //notifyDataSetChanged();
             notifyItemRemoved(position);
-            notifyItemRangeChanged(position,wordBeans.size());
+            notifyItemRangeChanged(position, wordBeans.size());
         }
     }
 

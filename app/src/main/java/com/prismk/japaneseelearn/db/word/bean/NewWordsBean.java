@@ -2,6 +2,7 @@ package com.prismk.japaneseelearn.db.word.bean;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.prismk.japaneseelearn.utils.LogicUtils;
@@ -28,4 +29,7 @@ public class NewWordsBean {
 
     @Embedded
     public WordBean wordBean;
+
+    @Ignore
+    public boolean isFont = true;
 }

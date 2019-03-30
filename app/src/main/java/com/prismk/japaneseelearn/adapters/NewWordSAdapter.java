@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.prismk.japaneseelearn.bean.NewWordSEvent;
 import com.prismk.japaneseelearn.db.word.bean.NewWordsBean;
 import com.prismk.japaneseelearn.db.word.bean.WordBean;
+import com.prismk.japaneseelearn.views.WordShow.WordFunction;
 import com.prismk.japaneseelearn.views.WordShow.WordShowView;
 
 import java.util.List;
@@ -16,10 +17,15 @@ import java.util.List;
 public class NewWordSAdapter extends RecyclerView.Adapter<NewWordSAdapter.ViewHolder> {
     private List<NewWordsBean> beans;
     private Context context;
+    private boolean isCOllect;
 
     public NewWordSAdapter(NewWordSEvent event, Context context) {
         beans = event.beans;
         this.context = context;
+    }
+
+    public void isCollect() {
+        isCOllect = true;
     }
 
     @NonNull
@@ -38,7 +44,7 @@ public class NewWordSAdapter extends RecyclerView.Adapter<NewWordSAdapter.ViewHo
         return beans.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder  {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
 
         private WordShowView wordShowView;
@@ -46,6 +52,9 @@ public class NewWordSAdapter extends RecyclerView.Adapter<NewWordSAdapter.ViewHo
         public ViewHolder(WordShowView wordShowView) {
             super(wordShowView);
             this.wordShowView = wordShowView;
+            if (isCOllect) {
+                wordShowView.setCurrentType(WordFunction.WordShowType.COLLECTED);
+            }
 
         }
 

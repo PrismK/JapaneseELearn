@@ -1,10 +1,12 @@
 package com.prismk.japaneseelearn.activities;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
 
 import com.prismk.japaneseelearn.R;
+import com.prismk.japaneseelearn.adapters.NewWordSAdapter;
 import com.prismk.japaneseelearn.bean.NewWordSEvent;
 import com.prismk.japaneseelearn.db.word.bean.NewWordsBean;
 import com.prismk.japaneseelearn.managers.WordsDBManager;
@@ -14,7 +16,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class CollectNewWordsActivity extends BaseActivity {
 
-    ViewPager rec_words;
+    RecyclerView rec_words;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class CollectNewWordsActivity extends BaseActivity {
 
     private void initView() {
         rec_words = findViewById(R.id.vg_collect_newwords);
+        new LinearSnapHelper().attachToRecyclerView(rec_words);
+        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
     }
 
     @Override
@@ -34,9 +38,22 @@ public class CollectNewWordsActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(NewWordSEvent event) {
-        for (NewWordsBean bean : event.beans) {
-            Log.d("CollectNewWordsActivity", "bean.wordBean:" + bean.wordBean);
-        }
+
+        NewWordSAdapter newWordSAdapter = new NewWordSAdapter(event, this);
+        newWordSAdapter.isCollect();
+        newWordSAdapter.setListener(new NewWordSAdapter.OnWordStateChangeListener() {
+            @Override
+            public void unGetIt(NewWordsBean bean) {
+                WordsDBManager.getInstance().rememberWord(bean.wordBean);
+//                WordsDBManager.getInstance().collectNewWords(bean.wordBean);
+            }
+
+            @Override
+            public void getIt(NewWordsBean bean) {
+
+            }
+        });
+        rec_words.setAdapter(newWordSAdapter);
 
     }
 }

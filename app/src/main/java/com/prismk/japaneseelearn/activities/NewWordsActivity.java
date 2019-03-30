@@ -23,14 +23,13 @@ public class NewWordsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-        LinearSnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(rec_words);
-        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         WordsDBManager.getInstance().queryNewsWords();
     }
 
     private void initView() {
         rec_words = findViewById(R.id.rec_new_words);
+        new LinearSnapHelper().attachToRecyclerView(rec_words);
+        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
     @Override

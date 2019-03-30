@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.activities.CollectNewWordsActivity;
-import com.prismk.japaneseelearn.activities.IKnowWordActivity;
+import com.prismk.japaneseelearn.activities.KnowActivity;
 import com.prismk.japaneseelearn.activities.NewWordsActivity;
 import com.prismk.japaneseelearn.activities.StudyWordActivity;
 import com.prismk.japaneseelearn.widgets.Title;
@@ -65,7 +65,7 @@ public class WordFragment extends BaseFragment {
                     intent = new Intent(getActivity(), NewWordsActivity.class);
                     break;
                 case R.id.btn_know:
-                    intent = new Intent(getActivity(), IKnowWordActivity.class);
+                    intent = new Intent(getActivity(), KnowActivity.class);
                     break;
                 case R.id.btn_unknow_correct:
                     intent = new Intent(getActivity(), CollectNewWordsActivity.class);

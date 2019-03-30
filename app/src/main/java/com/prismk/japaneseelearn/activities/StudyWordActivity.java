@@ -31,12 +31,12 @@ public class StudyWordActivity extends BaseActivity {
         initView();
         WordsDBManager.getInstance().queryWords();
 
-        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
     }
 
     private void initView() {
         rec_words = findViewById(R.id.words);
+        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -44,13 +44,13 @@ public class StudyWordActivity extends BaseActivity {
         WordsAdapter wordsAdapter = new WordsAdapter(this, event.beans);
         wordsAdapter.setOnWordsStatueChangeListener(new WordsAdapter.OnWordsStatueChangeListener() {
             @Override
-            public void onForget(WordBean bean) {
+            public void onForget(WordBean bean,int u) {
                 WordsDBManager.getInstance().insertNewWord(bean);
 
             }
 
             @Override
-            public void onGetIt(WordBean bean) {
+            public void onGetIt(WordBean bean,int u) {
                 WordsDBManager.getInstance().collectNewWords(bean);
 
             }
