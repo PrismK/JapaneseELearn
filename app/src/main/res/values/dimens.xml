@@ -5,7 +5,7 @@
     <dimen name="widget_title_height">45dp</dimen>
     <dimen name="widget_title_margin_small">5dp</dimen>
     <dimen name="widget_title_textsize">18dp</dimen>
-    <dimen name="widget_title_back_layout_width">63dp</dimen>
+    <dimen name="widget_title_back_layout_width">70dp</dimen>
     <dimen name="widget_title_icon_size">24dp</dimen>
     <dimen name="widget_title_margin_left">9dp</dimen>
     <dimen name="widget_title_padding">3dp</dimen>

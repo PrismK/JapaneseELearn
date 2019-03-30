@@ -30,9 +30,7 @@ public class ELearnAppProperties {
     //TODO 修改密码地址
     public static final String SERVER_ADDRESS_OF_CHANGE_PASSWORD = "http://120.25.96.141:8080/login/changepasswd";
     //TODO ClassesFragment 与 VideoPlayerActivity 间通信
-    public static final String INTENT_TEACHER_ID = "teacher_id";
-    public static final String INTENT_VIDEO_TITLE = "video_title";
-    public static final String INTENT_VIDEO_DESCRIPTION = "video_des";
-    public static final String INTENT_IS_VIP = "is_vip";
-    public static final String INTENT_BUNDLE = "intent_bundle";
+    public static final String INTENT_VIDEO_POSITION = "intent_teacher_position";
+    public static final String INTENT_TEACHERINFO_POSITION = "intent_teacherinfo_position";
+    public static final String INTENT_TEACHERID = "intent_teacherid";
 }

@@ -72,7 +72,7 @@ public class VideoDBManager {
                     values.put(UPLOAD_TEACHER_ID, i);
                 } else if (i <= 10 && i >= 6) {
                     values.put(UPLOAD_TEACHER_ID, i * 2);
-                } else if ( i<= 5) {
+                } else if (i <= 5) {
                     values.put(UPLOAD_TEACHER_ID, i * 2 + 10);
                 } else {
                     values.put(UPLOAD_TEACHER_ID, i / 2);
@@ -128,9 +128,10 @@ public class VideoDBManager {
 
     private List<VideoData> query() {
         List<VideoData> list = new ArrayList<>();
-        Cursor cursor = mSQLiteDatabase.rawQuery("select * from videos", null);
+        Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME, null);
         if (cursor != null || cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
+                int videoId = cursor.getInt(0);
                 String url = cursor.getString(1);
                 String imageUrl = cursor.getString(2);
                 String videoTitle = cursor.getString(3);
@@ -141,6 +142,7 @@ public class VideoDBManager {
                 String uploadTime = cursor.getString(7);
                 int uploadTeacherId = cursor.getInt(8);//TODO
                 VideoData data = new VideoData();
+                data.setVideoId(videoId);
                 data.setVideoUrlString(url);
                 data.setVideoImgUrlString(imageUrl);
                 data.setVideoTitle(videoTitle);
@@ -162,6 +164,46 @@ public class VideoDBManager {
         } else {
             openDataBase();
             list = query();
+        }
+        return list;
+    }
+
+    public List<VideoData> getVideoDataListFromTeacherID(int teacherID) {
+        List<VideoData> list = new ArrayList<>();
+        if (mSQLiteDatabase != null) {
+            list = queryFromTeacher(teacherID);
+        } else {
+            openDataBase();
+            list = queryFromTeacher(teacherID);
+        }
+        return list;
+    }
+
+    private List<VideoData> queryFromTeacher(int teacherID) {
+        List<VideoData> list = new ArrayList<>();
+        Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + UPLOAD_TEACHER_ID + " = ?", new String[]{String.valueOf(teacherID)});
+        if (cursor != null || cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                int videoID = cursor.getInt(0);
+                String url = cursor.getString(1);
+                String imageUrl = cursor.getString(2);
+                String videoTitle = cursor.getString(3);
+                String videoIntroduction = cursor.getString(4);
+                String videoContext = cursor.getString(5);
+                // ???
+                boolean isVipClass = cursor.getInt(6) > 0;
+                String uploadTime = cursor.getString(7);
+                VideoData data = new VideoData();
+                data.setVideoId(videoID);
+                data.setVideoUrlString(url);
+                data.setVideoImgUrlString(imageUrl);
+                data.setVideoTitle(videoTitle);
+                data.setVideoIntroduction(videoIntroduction);
+                data.setVideoContext(videoContext);
+                data.setVipVideo(isVipClass);
+                data.setUploadTime(uploadTime);
+                list.add(data);
+            }
         }
         return list;
     }

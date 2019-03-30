@@ -43,6 +43,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activities.IKnowWordActivity" />
         <activity android:name=".activities.KnowActivity" />
         <activity android:name=".activities.NewWordsActivity" />
 
@@ -55,13 +56,11 @@
             android:name=".activities.StartActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".activities.MainActivity"
@@ -106,7 +105,7 @@
         <activity
             android:name=".activities.VideoPlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTop"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ResetPWDActivity"
@@ -121,19 +120,23 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-
         <service
             android:name=".managers.floatsmallvideo.FloatVideoService"
             android:exported="false" />
 
+        <receiver android:name=".receiver.NetworkReceiver">
+            　
 
-        <receiver android:name=".receiver.NetworkReceiver">　
             <intent-filter>
-                <!-- 监听的动作类型，这里是监听网络连接的状态  -->
+
+                <!-- 监听的动作类型，这里是监听网络连接的状态 -->
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activities.TeacherInfoActivity"
+
+            ></activity>
     </application>
 
 </manifest>

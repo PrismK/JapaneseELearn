@@ -1,6 +1,9 @@
 package com.prismk.japaneseelearn.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,15 +12,22 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.adapters.VideoAdapter;
+import com.prismk.japaneseelearn.bean.TeacherFollowedData;
 import com.prismk.japaneseelearn.bean.UserData;
+import com.prismk.japaneseelearn.bean.VideoCollectionData;
 import com.prismk.japaneseelearn.bean.VideoData;
+import com.prismk.japaneseelearn.managers.TeacherFollowedDBManager;
 import com.prismk.japaneseelearn.managers.UserDBManager;
+import com.prismk.japaneseelearn.managers.VideoCollectionDBManager;
 import com.prismk.japaneseelearn.managers.VideoDBManager;
 import com.prismk.japaneseelearn.managers.floatsmallvideo.FloatVideoController;
 import com.prismk.japaneseelearn.properties.ELearnAppProperties;
@@ -53,6 +63,21 @@ public class VideoPlayerActivity extends BaseActivity {
     private TextView videoDescription;
     private NoScrollListView videoRecommend;
     private VideoAdapter videoAdapter;
+    private int position;
+    private int teacherId;
+    private int loginUesrID;
+    private List<TeacherFollowedData> teacherFollowedDataList;
+    private TeacherFollowedDBManager teacherFollowedDBManager;
+    private UserDBManager userDBManager;
+    private VideoDBManager videoDBManager;
+    private VideoCollectionDBManager videoCollectionDBManager;
+    private int videoId;
+    private LinearLayout checkUserIsVip;
+    private TextView buyVip;
+    private boolean isClassVip;
+    private boolean isUserVip;
+    private List<UserData> userDataList;
+    private List<VideoData> videoDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,37 +132,94 @@ public class VideoPlayerActivity extends BaseActivity {
         //视频描述
         videoDescription = findViewById(R.id.tv_classes_description);
         videoRecommend = findViewById(R.id.lv_classes);
+        videoRecommend.setOnItemClickListener(new onNoScrollListViewItemClickListener());
+        checkUserIsVip = findViewById(R.id.ll_buy_vip);
+        buyVip = findViewById(R.id.tv_buy_vipclass);
+
 
     }
 
     private void initData() {
-        List<UserData> userDataList = new ArrayList<>();
-        UserDBManager userDBManager = new UserDBManager(VideoPlayerActivity.this);
+        userDBManager = new UserDBManager(VideoPlayerActivity.this);
+        videoDBManager = new VideoDBManager(VideoPlayerActivity.this);
+        teacherFollowedDBManager = new TeacherFollowedDBManager(VideoPlayerActivity.this);
+        videoCollectionDBManager = new VideoCollectionDBManager(VideoPlayerActivity.this);
+        loginUesrID = userDBManager.getLoginUesrID();
         userDataList = userDBManager.getUserDataListFromUserDB();
-        int teacherId = getIntent().getBundleExtra(ELearnAppProperties.INTENT_BUNDLE).getInt(ELearnAppProperties.INTENT_TEACHER_ID);
-        Glide.with(VideoPlayerActivity.this).load(userDataList.get(teacherId).getHeadImgUrlString()).into(teacherAvatar);
-        teacherName.setText(userDataList.get(teacherId).getNickName());
-        teacherSign.setText(userDataList.get(teacherId).getSign());
-        String vt = getIntent().getBundleExtra(ELearnAppProperties.INTENT_BUNDLE).getString(ELearnAppProperties.INTENT_VIDEO_TITLE);
-        videoTitle.setText(vt);
-        String vd = getIntent().getBundleExtra(ELearnAppProperties.INTENT_BUNDLE).getString(ELearnAppProperties.INTENT_VIDEO_DESCRIPTION);
-        videoDescription.setText(vd);
-        boolean Vip = getIntent().getBundleExtra(ELearnAppProperties.INTENT_BUNDLE).getBoolean(ELearnAppProperties.INTENT_IS_VIP);
-        if (Vip)
-            isVip.setVisibility(View.VISIBLE);
+        videoDataList = videoDBManager.getVideoDataListFromVideoDB();
+        position = getIntent().getIntExtra(ELearnAppProperties.INTENT_VIDEO_POSITION, -1);
+        teacherId = videoDataList.get(position).getUploadTeacherId();
+        videoId = videoDataList.get(position).getVideoId();
+        Glide.with(VideoPlayerActivity.this).load(userDataList.get(teacherId - 1).getHeadImgUrlString()).into(teacherAvatar);
+        teacherName.setText(userDataList.get(teacherId - 1).getNickName());
+        teacherSign.setText(userDataList.get(teacherId - 1).getSign());
+        videoTitle.setText(videoDataList.get(videoId - 1).getVideoTitle());
+        videoDescription.setText(videoDataList.get(videoId - 1).getVideoIntroduction());
+        videoRecommend.setItemCount(7);
+        isClassVip = videoDataList.get(videoId - 1).isVipVideo();
+        isUserVip = userDataList.get(loginUesrID - 1).isVIP();
+        checkUserAndClassVipState();
+        if (checkTeacherFavorite())
+            teacherFavorite.setBackgroundColor(getResources().getColor(R.color.gray1));
         else
-            isVip.setVisibility(View.INVISIBLE);
-
+            teacherFavorite.setBackgroundColor(getResources().getColor(R.color.teacher_favorite));
+        if (checkVideoFavorite())
+            videoFavorite.setImageResource(R.mipmap.collection_select);
+        else
+            videoFavorite.setImageResource(R.mipmap.collection_notselect);
         initAdapter();
+    }
+
+    private void checkUserAndClassVipState() {
+        if (isClassVip) {
+            isVip.setVisibility(View.VISIBLE);
+            if (isUserVip) {
+                checkUserIsVip.setVisibility(View.GONE);
+                mJcVideoPlayerStandard.setVisibility(View.VISIBLE);
+            } else {
+                checkUserIsVip.setVisibility(View.VISIBLE);
+                mJcVideoPlayerStandard.setVisibility(View.GONE);
+            }
+        } else {
+            isVip.setVisibility(View.INVISIBLE);
+            checkUserIsVip.setVisibility(View.GONE);
+        }
+    }
+
+    private boolean checkTeacherFavorite() {
+        teacherFollowedDataList = teacherFollowedDBManager.getTeacherFlollowedDataFromDB();
+        List<Integer> teacherIDlist = teacherFollowedDBManager.getFavoriteTeacherId(loginUesrID);
+        for (TeacherFollowedData data : teacherFollowedDataList) {
+            if (data.getStudentId() == loginUesrID) {
+                for (int i : teacherIDlist) {
+                    if (teacherId == i) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkVideoFavorite() {
+        List<VideoCollectionData> videoCollectionDataList = videoCollectionDBManager.getVideoFlollowedDataFromDB();
+        List<Integer> videoIDlist = videoCollectionDBManager.getFavoriteVideoId(loginUesrID);
+        for (VideoCollectionData data : videoCollectionDataList) {
+            if (data.getStudentId() == loginUesrID) {
+                for (int i : videoIDlist) {
+                    if (videoId == i) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private void initAdapter() {
         videoAdapter = null;
-        VideoDBManager videoDBManager = new VideoDBManager(VideoPlayerActivity.this);
-        List<VideoData>list = videoDBManager.getVideoDataListFromVideoDB();
-        videoAdapter = new VideoAdapter(VideoPlayerActivity.this, list);
+        videoAdapter = new VideoAdapter(VideoPlayerActivity.this, videoDataList, 7);
         videoRecommend.setAdapter(videoAdapter);
-
     }
 
     private void initTitle() {
@@ -178,33 +260,62 @@ public class VideoPlayerActivity extends BaseActivity {
                 finish();
                 break;
             //在这里处理关注和收藏视频的逻辑
-            case R.id.tv_teacher_favorite://关注
-                //TODO 关注和取消关注
+            case R.id.ll_teacher_favorite://关注
                 setTeacherFavoriteClick();
                 break;
             case R.id.ll_classes_favorite:
-                //TODO 收藏和取消收藏
                 setVideoFavoriteClick();
+                break;
+            case R.id.ll_teacher_info:
+                Intent intent = new Intent(this, TeacherInfoActivity.class);
+                intent.putExtra(ELearnAppProperties.INTENT_TEACHERINFO_POSITION, position);
+                startActivity(intent);
+                break;
+            case R.id.tv_buy_vipclass:
+                //展示购买成功效果
+                userDBManager.updateUserVipState();
+                userDataList = userDBManager.getUserDataListFromUserDB();
+                isUserVip = userDataList.get(loginUesrID - 1).isVIP();
+                checkUserAndClassVipState();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("购买成功");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+                break;
         }
     }
 
     private void setVideoFavoriteClick() {
+        isVideoFavorite = checkVideoFavorite();
+        VideoCollectionData data = new VideoCollectionData(loginUesrID, videoId);
         if (isVideoFavorite) {
             videoFavorite.setImageResource(R.mipmap.collection_notselect);
-            isVideoFavorite = false;
+            videoCollectionDBManager.deleteFavoriteVideo(data);
+            isVideoFavorite = checkVideoFavorite();
         } else {
             videoFavorite.setImageResource(R.mipmap.collection_select);
-            isVideoFavorite = true;
+            videoCollectionDBManager.insertFavoriteVideo(data);
+            isVideoFavorite = checkVideoFavorite();
         }
     }
 
     private void setTeacherFavoriteClick() {
+        isTeacherFavorite = checkTeacherFavorite();
+        TeacherFollowedData data = new TeacherFollowedData(loginUesrID, teacherId);
         if (isTeacherFavorite) {
-            teacherFavorite.setBackgroundColor(getResources().getColor(R.color.gray1));
-            isTeacherFavorite = false;
-        } else {
             teacherFavorite.setBackgroundColor(getResources().getColor(R.color.teacher_favorite));
-            isTeacherFavorite = true;
+            teacherFollowedDBManager.deleteFavoriteTeacher(data);
+            isTeacherFavorite = checkTeacherFavorite();
+        } else {
+            teacherFavorite.setBackgroundColor(getResources().getColor(R.color.gray1));
+            teacherFollowedDBManager.insertFavoriteTeacher(data);
+            isTeacherFavorite = checkTeacherFavorite();
         }
     }
 
@@ -275,6 +386,14 @@ public class VideoPlayerActivity extends BaseActivity {
                     Log.i("USER_EVENT", "unknow");
                     break;
             }
+        }
+    }
+    private class onNoScrollListViewItemClickListener implements ListView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(VideoPlayerActivity.this,VideoPlayerActivity.class);
+            intent.putExtra(ELearnAppProperties.INTENT_VIDEO_POSITION,position);
+            startActivity(intent);
         }
     }
 }

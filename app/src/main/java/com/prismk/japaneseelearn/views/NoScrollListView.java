@@ -14,44 +14,43 @@ import android.widget.ListView;
  * 你不愿回忆的过去已经死亡，就让黑夜把它永远埋葬
  */
 public class NoScrollListView extends ListView {
+    private int count = 7;//item条数，默认为count+1 = 8
 
-        public NoScrollListView(Context context, AttributeSet attrs) {
-            super(context, attrs);
+    public NoScrollListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-        }
-
-        /**
-         * 设置不滚动
-         */
-        public void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-        {
-            setListViewHeight();
+    }
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setListViewHeight();
 //            int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
 //                    MeasureSpec.AT_MOST);
 
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+    }
+
+    private void setListViewHeight() {
+        ListAdapter listAdapter = NoScrollListView.this.getAdapter();
+        if (listAdapter == null) {
+            return;
         }
-        private void setListViewHeight(){
-            ListAdapter listAdapter = NoScrollListView.this.getAdapter();
-            if (listAdapter == null){
-                return;
-            }
-            View view  = listAdapter.getView(0,null,NoScrollListView.this);
-            view.measure(0,0);
-            int itemHeight = view.getMeasuredHeight();
-            int itemCount = listAdapter.getCount();
-            LinearLayout.LayoutParams layoutParams = null;
-            if (itemCount<=1){
-                layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT ,itemHeight*itemCount);
-            }else if (itemCount>2){
-                layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT ,itemHeight*8);
-            }
-            //在这里调整与上面的距离
-            NoScrollListView.this.setPadding(0,15,0,0);
-            NoScrollListView.this.setLayoutParams(layoutParams);
-            }
+        View view = listAdapter.getView(0, null, NoScrollListView.this);
+        view.measure(0, 0);
+        int itemHeight = view.getMeasuredHeight();
+        int itemCount = listAdapter.getCount();
+        LinearLayout.LayoutParams layoutParams = null;
+        if (itemCount <= 1) {
+            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight * itemCount);
+        } else if (itemCount > 2) {
+            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight * (count+1));
         }
+        NoScrollListView.this.setLayoutParams(layoutParams);
+    }
+    //设置数量
+    public void setItemCount(int count) {
+        this.count = count;
+    }
+}
 
 
 

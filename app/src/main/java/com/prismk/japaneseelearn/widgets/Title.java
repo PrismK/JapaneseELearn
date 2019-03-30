@@ -117,7 +117,19 @@ public class Title extends RelativeLayout {
             pbTitlePending.setVisibility(View.GONE);
         }
     }
-
+    public void setButtonInfoNamePadding(int buttonInfoID,int left,int top,int right,int bottom){
+        switch (buttonInfoID){
+            case BUTTON_LEFT:
+                buttonHolderLeft.text.setPadding(left,top,right,bottom);
+                break;
+            case BUTTON_RIGHT1:
+                buttonHolderRight1.text.setPadding(left, top, right, bottom);
+                break;
+            case BUTTON_RIGHT2:
+                buttonHolderRight2.text.setPadding(left, top, right, bottom);
+                break;
+        }
+    }
     /**
      * 添加自定义View，将会替换前一个
      * @param customView

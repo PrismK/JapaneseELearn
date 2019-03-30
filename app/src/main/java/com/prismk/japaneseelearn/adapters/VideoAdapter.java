@@ -22,14 +22,22 @@ import java.util.List;
 public class VideoAdapter extends BaseAdapter {
     private Context context;
     private List<VideoData> list;
-
+    private int size ;
     public VideoAdapter(Context context, List<VideoData> list) {
         this.context = context;
         this.list = list;
     }
+    public VideoAdapter(Context context, List<VideoData> list, int size) {
+        this.context = context;
+        this.list = list;
+        this.size = size;
+    }
 
     @Override
     public int getCount() {
+        if (size!=0){
+            return size;
+        }
         return list.size();
     }
 
@@ -72,7 +80,7 @@ public class VideoAdapter extends BaseAdapter {
 
     }
 
-    private class ViewHolder {
+   private static class ViewHolder {
         ImageView videoImg;
         TextView videoTitle;
         TextView videoIntroduction;

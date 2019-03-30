@@ -2,13 +2,13 @@ package com.prismk.japaneseelearn.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.prismk.japaneseelearn.bean.UserData;
-import com.prismk.japaneseelearn.utils.ELearnAnimUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +62,7 @@ public class UserDBManager {
                 values.put(USER_SIGN, "" + i + "号学生的个性签名");
                 values.put(USER_TAG, "" + i + "号学生的标签");
                 values.put(USER_HEADIMG, "");
+                values.put(ISTEACHER, 0);
                 if (i >= 6) {
                     values.put(ISVIP, 1);
                 } else {
@@ -188,18 +189,20 @@ public class UserDBManager {
     }
 
     //用于VideoPlayerActivity显示老师的信息 - 根据ID 查找并返回信息
-    private List<UserData> query() {
+    private List<UserData> queryAll() {
         List<UserData> list = new ArrayList<>();
         Cursor cursor = mSQLiteDatabase.rawQuery("select * from users", null);
         if (cursor != null || cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 // 3 5 7 8
                 boolean isTeacher = cursor.getInt(3) > 0;
+                boolean isVip = cursor.getInt(4) > 0;
                 String teacherSign = cursor.getString(5);
                 String teacherAvator = cursor.getString(7);
                 String teacherName = cursor.getString(8);
                 UserData userData = new UserData();
                 userData.setTeacherUser(isTeacher);
+                userData.setVIP(isVip);
                 userData.setSign(teacherSign);
                 userData.setHeadImgUrlString(teacherAvator);
                 userData.setNickName(teacherName);
@@ -212,11 +215,100 @@ public class UserDBManager {
     public List<UserData> getUserDataListFromUserDB() {
         List<UserData> list = new ArrayList<>();
         if (mSQLiteDatabase != null) {
-            list = query();
+            list = queryAll();
         } else {
             openDataBase();
-            list = query();
+            list = queryAll();
         }
         return list;
+    }
+    public List<UserData>getTeacherListFromUserDB(){
+        List<UserData> list = new ArrayList<>();
+        if (mSQLiteDatabase != null) {
+            list = queryTeacher();
+        } else {
+            openDataBase();
+            list = queryTeacher();
+        }
+        return list;
+    }
+    private List<UserData> queryTeacher() {
+        List<UserData> list = new ArrayList<>();
+        Cursor cursor = mSQLiteDatabase.rawQuery("select * from users", null);
+        if (cursor != null || cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                // 3 5 7 8
+                int teacherId = cursor.getInt(0);
+                boolean isTeacher = cursor.getInt(3) > 0;
+                boolean isVip = cursor.getInt(4)>0;
+                String teacherSign = cursor.getString(5);
+                String teacherAvator = cursor.getString(7);
+                String teacherName = cursor.getString(8);
+                if (isTeacher){
+                    UserData userData = new UserData();
+                    userData.setUserId(teacherId);
+                    userData.setTeacherUser(isTeacher);
+                    userData.setVIP(isVip);
+                    userData.setSign(teacherSign);
+                    userData.setHeadImgUrlString(teacherAvator);
+                    userData.setNickName(teacherName);
+                    list.add(userData);
+                }
+            }
+        }
+        return list;
+    }
+    public int getLoginUesrID() {
+        int uesrID = 0;
+        if (mSQLiteDatabase != null) {
+            uesrID = getUserId();
+        } else {
+            openDataBase();
+            uesrID = getUserId();
+        }
+        return uesrID;
+    }
+
+    private int getUserId() {
+        SharedPreferences login_sp = mContext.getSharedPreferences("userInfo", 0);
+        String name = login_sp.getString("USER_NAME", "");
+        int userID = 0;
+        Cursor mCursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + USER_NAME + " = ?", new String[]{name});
+        if (mCursor != null && mCursor.getCount() > 0) {
+            while (mCursor.moveToNext()) {
+                userID = mCursor.getInt(1);
+            }
+        }
+        return userID;
+    }
+
+    public int updateUserVipState() {
+        if (mSQLiteDatabase != null) {
+            return updateVip();
+        } else {
+            openDataBase();
+            return updateVip();
+        }
+    }
+
+    private int updateVip() {
+        int l = 0;
+        SharedPreferences login_sp = mContext.getSharedPreferences("userInfo", 0);
+        String name = login_sp.getString("USER_NAME", "");
+        mSQLiteDatabase.beginTransaction();
+        ContentValues values = null;
+        try {
+            values = new ContentValues();
+            values.put(ISVIP, 1);
+            l = mSQLiteDatabase.update(TABLE_NAME, values, USER_NAME + " = ? ", new String[]{name});
+            mSQLiteDatabase.setTransactionSuccessful();
+        } finally {
+            mSQLiteDatabase.endTransaction();
+            if (l == 1)
+                return l;
+            else
+                return 0;
+        }
+
     }
 }
