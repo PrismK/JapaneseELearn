@@ -4,8 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.prismk.japaneseelearn.R;
+import com.prismk.japaneseelearn.adapters.VideoAdapter;
+import com.prismk.japaneseelearn.bean.VideoData;
+import com.prismk.japaneseelearn.managers.UserDBManager;
+import com.prismk.japaneseelearn.managers.VideoCollectionDBManager;
+import com.prismk.japaneseelearn.managers.VideoDBManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,6 +30,8 @@ import com.prismk.japaneseelearn.R;
 
 public class AllCollectionClassesFragment extends BaseFragment {
 
+    private ListView allCollectionClass;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_all_collection_classes;
@@ -29,8 +40,48 @@ public class AllCollectionClassesFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View mMeFragment = View.inflate(getActivity(), getLayoutId(), null);
+        mRootView = View.inflate(getActivity(), getLayoutId(), null);
+        initView();
+        initData();
         return mRootView;
     }
+
+    private void initData() {
+        List<VideoData> collectionVideoList = getAllCollectionVideo();
+        VideoAdapter videoAdapter = new VideoAdapter(getContext(), collectionVideoList);
+        allCollectionClass.setAdapter(videoAdapter);
+    }
+
+    private void initView() {
+        allCollectionClass = mRootView.findViewById(R.id.lv_all_collection);
+    }
+
+    private List<VideoData> getAllCollectionVideo() {
+        VideoDBManager videoDBManager = new VideoDBManager(getContext());
+        VideoCollectionDBManager videoCollectionDBManager = new VideoCollectionDBManager(getContext());
+        UserDBManager userDBManager = new UserDBManager(getContext());
+        List<VideoData> videoDataList = videoDBManager.getVideoDataListFromVideoDB();
+        List<VideoData> collectionVideoList = new ArrayList<>();
+        List<Integer> favoriteVideoId = videoCollectionDBManager.getFavoriteVideoId(userDBManager.getLoginUesrID());
+        for (VideoData videoData : videoDataList) {
+            for (int i : favoriteVideoId) {
+                if (videoData.getVideoId() == i) {
+                    VideoData data = new VideoData();
+                    i -= 1;
+                    data.setVideoId(i);
+                    data.setUploadTeacherId(videoDataList.get(i).getUploadTeacherId());
+                    data.setUploadTime(videoDataList.get(i).getUploadTime());
+                    data.setVipVideo(videoDataList.get(i).isVipVideo());
+                    data.setVideoIntroduction(videoDataList.get(i).getVideoIntroduction());
+                    data.setVideoTitle(videoDataList.get(i).getVideoTitle());
+                    data.setVideoImgUrlString(videoDataList.get(i).getVideoImgUrlString());
+                    data.setVideoUrlString(videoDataList.get(i).getVideoUrlString());
+                    collectionVideoList.add(data);
+                }
+            }
+        }
+        return collectionVideoList;
+    }
+
 
 }

@@ -36,7 +36,7 @@
                     android:layout_marginTop="50dp"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageHeader"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
@@ -74,6 +74,7 @@
                                 android:textColor="@color/pureWhite" />
 
                             <TextView
+                                android:id="@+id/tv_collection_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="XX"
@@ -96,6 +97,7 @@
                                 android:textColor="@color/pureWhite" />
 
                             <TextView
+                                android:id="@+id/tv_favorite_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="XX"
@@ -120,6 +122,7 @@
                             android:textColor="@color/pureWhite" />
 
                         <TextView
+                            android:id="@+id/tv_usersign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="80dp"

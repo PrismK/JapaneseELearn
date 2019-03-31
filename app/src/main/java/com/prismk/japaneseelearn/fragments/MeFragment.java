@@ -10,9 +10,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.activities.AllCollectionClassesActivity;
-import com.prismk.japaneseelearn.widgets.Title;
+import com.prismk.japaneseelearn.bean.TeacherFollowedData;
+import com.prismk.japaneseelearn.bean.UserData;
+import com.prismk.japaneseelearn.bean.VideoData;
+import com.prismk.japaneseelearn.managers.TeacherFollowedDBManager;
+import com.prismk.japaneseelearn.managers.UserDBManager;
+import com.prismk.japaneseelearn.managers.VideoCollectionDBManager;
+import com.prismk.japaneseelearn.managers.VideoDBManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -31,6 +43,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     private ImageView imv_classes_all;
     private ImageView imv_classes_notvip;
     private ImageView iv_classes_vip;
+    private CircleImageView imageHeader;
+    private UserDBManager userDBManager;
+    private TextView userName;
+    private TextView userSign;
+    private TextView userCollectionCount;
+    private TextView userFavoriteCount;
+    private RelativeLayout myFavoriteTeacher;
 
     @Override
     protected int getLayoutId() {
@@ -42,6 +61,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         super.onCreateView(inflater, container, savedInstanceState);
         mMeFragment = View.inflate(getActivity(), getLayoutId(), null);
         initView();
+        initData();
         setOnClickListener();
         return mRootView;
     }
@@ -51,6 +71,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         ll_classes_all.setOnClickListener(this);
         ll_classes_notvip.setOnClickListener(this);
         ll_classes_vip.setOnClickListener(this);
+        myFavoriteTeacher.setOnClickListener(this);
     }
 
     private void initView() {
@@ -67,6 +88,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         imv_classes_all = mRootView.findViewById(R.id.imv_classes_all);
         imv_classes_notvip = mRootView.findViewById(R.id.imv_classes_notvip);
         iv_classes_vip = mRootView.findViewById(R.id.iv_classes_vip);
+
+        imageHeader = mRootView.findViewById(R.id.imageHeader);
+        userName = mRootView.findViewById(R.id.tv_userInfo);
+        userSign = mRootView.findViewById(R.id.tv_usersign);
+        userCollectionCount = mRootView.findViewById(R.id.tv_collection_count);
+        userFavoriteCount = mRootView.findViewById(R.id.tv_favorite_count);
+        myFavoriteTeacher = mRootView.findViewById(R.id.rl_followedteacher);
     }
 
     @Override
@@ -93,5 +121,52 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void initData() {
+        userDBManager = new UserDBManager(getContext());
+        List<UserData> userDataList = userDBManager.getUserDataListFromUserDB();
+        Glide.with(getContext()).load(userDataList.get(userDBManager.getLoginUesrID() - 1).getHeadImgUrlString()).into(imageHeader);
+        userName.setText(userDataList.get(userDBManager.getLoginUesrID() - 1).getNickName().trim());
+        userSign.setText(userDataList.get(userDBManager.getLoginUesrID() - 1).getSign().trim());
+    }
+
+    private int getAllCollectionVideoCount() {
+        VideoDBManager videoDBManager = new VideoDBManager(getContext());
+        VideoCollectionDBManager videoCollectionDBManager = new VideoCollectionDBManager(getContext());
+        List<VideoData> videoDataList = videoDBManager.getVideoDataListFromVideoDB();
+        List<VideoData> collectionVideoList = new ArrayList<>();
+        List<Integer> favoriteVideoId = videoCollectionDBManager.getFavoriteVideoId(userDBManager.getLoginUesrID());
+        for (VideoData videoData : videoDataList) {
+            for (int i : favoriteVideoId) {
+                if (videoData.getVideoId() == i) {
+                    VideoData data = new VideoData();
+                    i -= 1;
+                    data.setVideoId(i);
+                    data.setUploadTeacherId(videoDataList.get(i).getUploadTeacherId());
+                    data.setUploadTime(videoDataList.get(i).getUploadTime());
+                    data.setVipVideo(videoDataList.get(i).isVipVideo());
+                    data.setVideoIntroduction(videoDataList.get(i).getVideoIntroduction());
+                    data.setVideoTitle(videoDataList.get(i).getVideoTitle());
+                    data.setVideoImgUrlString(videoDataList.get(i).getVideoImgUrlString());
+                    data.setVideoUrlString(videoDataList.get(i).getVideoUrlString());
+                    collectionVideoList.add(data);
+                }
+            }
+        }
+        return collectionVideoList.size();
+    }
+
+    private int getFavoriteTeacherCount() {
+        TeacherFollowedDBManager teacherFollowedDBManager = new TeacherFollowedDBManager(getContext());
+        List<Integer> favoriteTeacherIdList = teacherFollowedDBManager.getFavoriteTeacherId(userDBManager.getLoginUesrID());
+        return favoriteTeacherIdList.size();
+    }
+
+    @Override
+    public void onResume() {
+        userCollectionCount.setText(String.valueOf(getAllCollectionVideoCount()));
+        userFavoriteCount.setText(String.valueOf(getFavoriteTeacherCount()));
+        super.onResume();
     }
 }
