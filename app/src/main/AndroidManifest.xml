@@ -43,14 +43,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.IKnowWordActivity" />
-        <activity android:name=".activities.KnowActivity" />
-        <activity android:name=".activities.NewWordsActivity" />
-
-        <service
-            android:name=".services.WordsDBServer"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".activities.StartActivity"
@@ -105,7 +97,6 @@
         <activity
             android:name=".activities.VideoPlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ResetPWDActivity"
@@ -119,24 +110,34 @@
             android:name=".activities.StudyWordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.TeacherInfoActivity" />
+        <activity
+            android:name=".activities.KnowActivity" />
+        <activity
+            android:name=".activities.NewWordsActivity" />
+        <activity
+            android:name=".activities.MusicPlayerActivity" />
 
         <service
             android:name=".managers.floatsmallvideo.FloatVideoService"
             android:exported="false" />
+        <service
+            android:name=".services.WordsDBServer"
+            android:enabled="true"
+            android:exported="true" />
+        <service android:name=".services.MusicService"
+            android:enabled="true"
+            android:exported="false" />
+
 
         <receiver android:name=".receiver.NetworkReceiver">
-            　
-
             <intent-filter>
-
                 <!-- 监听的动作类型，这里是监听网络连接的状态 -->
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.TeacherInfoActivity"
-
-            ></activity>
     </application>
 
 </manifest>

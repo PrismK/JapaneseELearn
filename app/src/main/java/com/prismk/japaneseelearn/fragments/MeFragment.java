@@ -22,7 +22,6 @@ public class MeFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        initTitle();
         View mMeFragment = View.inflate(getActivity(), getLayoutId(), null);
         return mRootView;
     }
@@ -30,13 +29,6 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void initStatusBar() {
         super.initStatusBar();
-        setStatusBarView();
-    }
-
-    private void initTitle() {
-        Title title = mRootView.findViewById(R.id.title);
-        title.setTitleNameStr("我的");
-        title.setTheme(Title.TitleTheme.THEME_LIGHT);
-        title.setShowDivider(true);
+        setStatusBarDark();
     }
 }
