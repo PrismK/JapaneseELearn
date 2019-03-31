@@ -29,9 +29,9 @@ public class LoginActivity extends BaseActivity {
     private EditText edt_pw;
     private TextView tv_register;
     private Button btn_login;
-    private Button btn_cancel;
+    //private Button btn_cancel;
     private SharedPreferences login_sp;
-    private TextView tv_changepw;
+    //private TextView tv_changepw;
     private UserDBManager mUserDBManager;
     private LinearLayout ll_login_rootview;
     private RelativeLayout rl_logobg;
@@ -60,8 +60,8 @@ public class LoginActivity extends BaseActivity {
     private void initClickListener() {
         tv_register.setOnClickListener(mListener);
         btn_login.setOnClickListener(mListener);
-        btn_cancel.setOnClickListener(mListener);
-        tv_changepw.setOnClickListener(mListener);
+        //btn_cancel.setOnClickListener(mListener);
+        //tv_changepw.setOnClickListener(mListener);
         imbtn_delete_username.setOnClickListener(mListener);
         imbtn_delete_pw.setOnClickListener(mListener);
     }
@@ -79,8 +79,8 @@ public class LoginActivity extends BaseActivity {
         edt_pw = findViewById(R.id.edt_reginster_pw);
         tv_register = findViewById(R.id.tv_register);
         btn_login = findViewById(R.id.btn_login);
-        btn_cancel = findViewById(R.id.btn_cancel);
-        tv_changepw = findViewById(R.id.tv_changepw);
+        //btn_cancel = findViewById(R.id.btn_cancel);
+        //tv_changepw = findViewById(R.id.tv_changepw);
         ll_login_rootview = findViewById(R.id.ll_login_rootview);
         rl_logobg = findViewById(R.id.rl_logobg);
         imv_logo = findViewById(R.id.imv_logo);
@@ -99,14 +99,14 @@ public class LoginActivity extends BaseActivity {
                 case R.id.btn_login:
                     login();
                     break;
-                case R.id.btn_cancel:
+                /*case R.id.btn_cancel:
                     cancel();
                     break;
                 case R.id.tv_changepw:
                     Intent intent_Login_to_reset = new Intent(LoginActivity.this, ResetPWDActivity.class);    //切换Login Activity至User Activity
                     startActivity(intent_Login_to_reset);
                     goNextAnim();
-                    break;
+                    break;*/
                 case R.id.imbtn_delete_username:
                     edt_username.getText().clear();
                     break;

@@ -29,9 +29,8 @@ public class KnowActivity extends BaseActivity {
 
     private void initView() {
         rec_words = findViewById(R.id.rec_know_words);
-        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        rec_words.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         new LinearSnapHelper().attachToRecyclerView(rec_words);
-
     }
 
     @Override

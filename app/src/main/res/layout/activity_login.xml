@@ -174,19 +174,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_changepw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="修改密码"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="15dp"/>-->
 
-        <Button
+        <!--<Button
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注销" />
+            android:text="注销" />-->
 
     </LinearLayout>
 

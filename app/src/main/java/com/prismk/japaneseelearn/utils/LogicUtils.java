@@ -1,6 +1,7 @@
 package com.prismk.japaneseelearn.utils;
 
 public class LogicUtils {
+
     private long userPhone = 13666666666L;
     private static LogicUtils logicUtils;
 
@@ -22,7 +23,8 @@ public class LogicUtils {
         return isLogined() ? userPhone : 0;
     }
 
-    public void uerLogin(long userPhone) {
+    public void userLogin(long userPhone) {
         this.userPhone = userPhone;
     }
+
 }
