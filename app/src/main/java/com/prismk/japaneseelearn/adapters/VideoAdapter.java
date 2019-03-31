@@ -61,7 +61,7 @@ public class VideoAdapter extends BaseAdapter {
             viewHolder.videoImg = convertView.findViewById(R.id.iv_class_des);
             viewHolder.videoIntroduction = convertView.findViewById(R.id.tv_classes_description);
             viewHolder.uploadTime = convertView.findViewById(R.id.tv_pubdate);
-            viewHolder.isVipVideo = convertView.findViewById(R.id.iv_vip);
+            viewHolder.isVipVideo = convertView.findViewById(R.id.imv_vip);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

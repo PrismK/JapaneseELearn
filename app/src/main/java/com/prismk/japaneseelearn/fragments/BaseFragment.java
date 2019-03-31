@@ -79,6 +79,13 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    protected void setStatusBarLight() {
+        if (mImmersionBar != null) {
+            mImmersionBar.statusBarDarkFont(false, 0.2f)
+                    .init();
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

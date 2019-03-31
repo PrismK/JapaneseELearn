@@ -40,7 +40,7 @@
                     />
                 <!--VIP-->
                 <ImageView
-                    android:id="@+id/iv_vip"
+                    android:id="@+id/imv_vip"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"

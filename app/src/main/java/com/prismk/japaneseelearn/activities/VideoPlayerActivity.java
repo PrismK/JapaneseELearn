@@ -128,7 +128,7 @@ public class VideoPlayerActivity extends BaseActivity {
         //视频标题
         videoTitle = findViewById(R.id.tv_classes_title);
         //VIP
-        isVip = findViewById(R.id.iv_vip);
+        isVip = findViewById(R.id.imv_vip);
         //视频描述
         videoDescription = findViewById(R.id.tv_classes_description);
         videoRecommend = findViewById(R.id.lv_classes);
