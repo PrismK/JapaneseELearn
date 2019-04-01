@@ -83,7 +83,7 @@ public class VideoPlayerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        setStatusBarLight();
+        setStatusBarDark();
         initView();
         initTitle();
         initData();
@@ -154,15 +154,18 @@ public class VideoPlayerActivity extends BaseActivity {
         teacherName.setText(userDataList.get(teacherId - 1).getNickName());
         teacherSign.setText(userDataList.get(teacherId - 1).getSign());
         videoTitle.setText(videoDataList.get(videoId - 1).getVideoTitle());
-        videoDescription.setText(videoDataList.get(videoId - 1).getVideoIntroduction());
+        videoDescription.setText(videoDataList.get(videoId - 1).getVideoContext());
         videoRecommend.setItemCount(7);
         isClassVip = videoDataList.get(videoId - 1).isVipVideo();
         isUserVip = userDataList.get(loginUesrID - 1).isVIP();
         checkUserAndClassVipState();
-        if (checkTeacherFavorite())
+        if (checkTeacherFavorite()) {
             teacherFavorite.setBackgroundColor(getResources().getColor(R.color.gray1));
-        else
+            teacherFavorite.setText("✓已关注");
+        } else {
             teacherFavorite.setBackgroundColor(getResources().getColor(R.color.teacher_favorite));
+            teacherFavorite.setText("+加关注");
+        }
         if (checkVideoFavorite())
             videoFavorite.setImageResource(R.mipmap.collection_select);
         else
@@ -260,7 +263,7 @@ public class VideoPlayerActivity extends BaseActivity {
                 finish();
                 break;
             //在这里处理关注和收藏视频的逻辑
-            case R.id.ll_teacher_favorite://关注
+            case R.id.tv_teacher_favorite://关注
                 setTeacherFavoriteClick();
                 break;
             case R.id.ll_classes_favorite:
@@ -273,19 +276,32 @@ public class VideoPlayerActivity extends BaseActivity {
                 break;
             case R.id.tv_buy_vipclass:
                 //展示购买成功效果
-                userDBManager.updateUserVipState();
-                userDataList = userDBManager.getUserDataListFromUserDB();
-                isUserVip = userDataList.get(loginUesrID - 1).isVIP();
-                checkUserAndClassVipState();
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("购买成功");
+                builder.setTitle("购买VIP");
+                builder.setMessage("确认购买VIP?");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        userDBManager.updateUserVipState();
+                        userDataList = userDBManager.getUserDataListFromUserDB();
+                        isUserVip = userDataList.get(loginUesrID - 1).isVIP();
+                        checkUserAndClassVipState();
+
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(VideoPlayerActivity.this);
+                        builder1.setTitle("购买成功");
+                        builder1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+
                         dialog.dismiss();
                     }
                 }).show();
+
+
+
 
                 break;
         }
@@ -310,10 +326,12 @@ public class VideoPlayerActivity extends BaseActivity {
         TeacherFollowedData data = new TeacherFollowedData(loginUesrID, teacherId);
         if (isTeacherFavorite) {
             teacherFavorite.setBackgroundColor(getResources().getColor(R.color.teacher_favorite));
+            teacherFavorite.setText("+加关注");
             teacherFollowedDBManager.deleteFavoriteTeacher(data);
             isTeacherFavorite = checkTeacherFavorite();
         } else {
             teacherFavorite.setBackgroundColor(getResources().getColor(R.color.gray1));
+            teacherFavorite.setText("✓已关注");
             teacherFollowedDBManager.insertFavoriteTeacher(data);
             isTeacherFavorite = checkTeacherFavorite();
         }

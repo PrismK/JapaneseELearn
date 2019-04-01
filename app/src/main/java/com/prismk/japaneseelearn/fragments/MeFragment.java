@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.activities.AllCollectionClassesActivity;
 import com.prismk.japaneseelearn.activities.MyFavoriteTeacherActivity;
-import com.prismk.japaneseelearn.bean.TeacherFollowedData;
+import com.prismk.japaneseelearn.activities.SettingActivity;
 import com.prismk.japaneseelearn.bean.UserData;
 import com.prismk.japaneseelearn.bean.VideoData;
 import com.prismk.japaneseelearn.managers.TeacherFollowedDBManager;
@@ -51,6 +51,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     private TextView userCollectionCount;
     private TextView userFavoriteCount;
     private RelativeLayout myFavoriteTeacher;
+    private RelativeLayout rl_myvip;
+    private RelativeLayout rl_setting;
 
     @Override
     protected int getLayoutId() {
@@ -73,6 +75,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         ll_classes_notvip.setOnClickListener(this);
         ll_classes_vip.setOnClickListener(this);
         myFavoriteTeacher.setOnClickListener(this);
+        rl_myvip.setOnClickListener(this);
+        rl_setting.setOnClickListener(this);
     }
 
     private void initView() {
@@ -96,6 +100,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         userCollectionCount = mRootView.findViewById(R.id.tv_collection_count);
         userFavoriteCount = mRootView.findViewById(R.id.tv_favorite_count);
         myFavoriteTeacher = mRootView.findViewById(R.id.rl_followedteacher);
+
+        rl_myvip = mRootView.findViewById(R.id.rl_myvip);
+        rl_setting = mRootView.findViewById(R.id.rl_setting);
     }
 
     @Override
@@ -124,6 +131,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rl_followedteacher:
                 Intent intent1 = new Intent(getContext(), MyFavoriteTeacherActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.rl_setting:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
+            case R.id.rl_myvip:
+
                 break;
         }
     }
