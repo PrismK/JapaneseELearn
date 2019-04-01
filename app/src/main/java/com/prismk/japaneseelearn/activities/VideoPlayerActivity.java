@@ -86,8 +86,8 @@ public class VideoPlayerActivity extends BaseActivity {
         setStatusBarLight();
         initView();
         initTitle();
-        initVideoPlayer();
         initData();
+        initVideoPlayer();
     }
 
 
@@ -228,10 +228,10 @@ public class VideoPlayerActivity extends BaseActivity {
 
     private void initVideoPlayer() {
         mJcVideoPlayerStandard = (JCVideoPlayerStandard) findViewById(R.id.jc_video);
-        mJcVideoPlayerStandard.setUp("http://video.jiecao.fm/11/23/xin/%E5%81%87%E4%BA%BA.mp4"
-                , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "棱镜测试视频");
+        mJcVideoPlayerStandard.setUp(videoDataList.get(videoId - 1).getVideoUrlString(),
+                JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, videoDataList.get(videoId - 1).getVideoTitle());
         Picasso.with(this)
-                .load("http://img4.jiecaojingxuan.com/2016/11/23/00b026e7-b830-4994-bc87-38f4033806a6.jpg@!640_360")
+                .load(videoDataList.get(videoId - 1).getVideoImgUrlString())
                 .into(mJcVideoPlayerStandard.thumbImageView);
 
         JCVideoPlayer.setJcUserAction(new MyUserActionStandard());

@@ -11,6 +11,7 @@ import com.prismk.japaneseelearn.bean.NewWordSEvent;
 import com.prismk.japaneseelearn.db.word.bean.NewWordsBean;
 import com.prismk.japaneseelearn.managers.WordsDBManager;
 import com.prismk.japaneseelearn.utils.ToastUtils;
+import com.prismk.japaneseelearn.widgets.Title;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -22,9 +23,31 @@ public class NewWordsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusBarDark();
+        initTitle();
         initView();
         WordsDBManager.getInstance().queryNewsWords();
     }
+
+    private void initTitle() {
+        Title mTitle = findViewById(R.id.title);
+        mTitle.setShowDivider(false);
+        mTitle.setTitleNameStr("生词本");
+        mTitle.setTheme(Title.TitleTheme.THEME_LIGHT);
+        Title.ButtonInfo buttonInfoLeft = new Title.ButtonInfo(true, Title.BUTTON_LEFT);
+        buttonInfoLeft.iconRes = R.drawable.selector_btn_titleback;
+        mTitle.setButtonInfo(buttonInfoLeft);
+        mTitle.setOnTitleButtonClickListener(onTitleButtonClickListener);
+    }
+
+    private Title.OnTitleButtonClickListener onTitleButtonClickListener = new Title.OnTitleButtonClickListener() {
+        @Override
+        public void onClick(int id, Title.ButtonViewHolder viewHolder) {
+            if (id == Title.BUTTON_LEFT) {
+                goBack();
+            }
+        }
+    };
 
     private void initView() {
         rec_words = findViewById(R.id.rec_new_words);

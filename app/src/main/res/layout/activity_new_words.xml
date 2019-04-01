@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.NewWordsActivity">
+    tools:context=".activities.NewWordsActivity"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_zero" />
+
+    <include layout="@layout/layout_widget_title" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rec_new_words"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

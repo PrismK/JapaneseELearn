@@ -3,10 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CollectNewWordsActivity">
+    tools:context=".activities.CollectNewWordsActivity"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_zero" />
+
+    <include layout="@layout/layout_widget_title" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/vg_collect_newwords"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
 </LinearLayout>

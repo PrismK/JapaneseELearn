@@ -2,7 +2,15 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_zero" />
+
+    <include layout="@layout/layout_widget_title" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/words"

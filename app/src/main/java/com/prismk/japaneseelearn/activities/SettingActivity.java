@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private Button bt_unlogin;
 
     private SharedPreferences login_sp;
+    private LinearLayout ll_userinfo;
+    private RelativeLayout rl_share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        ll_userinfo = (LinearLayout) findViewById(R.id.ll_userinfo);
+        rl_share = (RelativeLayout) findViewById(R.id.rl_share);
     }
 
     private void initTitle() {
@@ -86,13 +92,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         rl_aboutour.setOnClickListener(this);
         rl_cache.setOnClickListener(this);
         bt_unlogin.setOnClickListener(this);
+        ll_userinfo.setOnClickListener(this);
+        rl_share.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_changepw:
-                Intent intent_Login_to_reset = new Intent(SettingActivity.this, ResetPWDActivity.class);    //切换Login Activity至User Activity
+                Intent intent_Login_to_reset = new Intent(SettingActivity.this, ResetPWDActivity.class);
                 startActivity(intent_Login_to_reset);
                 goNextAnim();
                 break;
@@ -143,6 +151,36 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     }
                 });
                 builder2.show();
+            case R.id.ll_userinfo:
+                Intent changeUserInfo = new Intent(SettingActivity.this, ChangeUserInfoActivity.class);
+                startActivity(changeUserInfo);
+                goNextAnim();
+                break;
+            case R.id.rl_share:
+                sms();
+                break;
         }
+    }
+
+    public void sms(){
+        AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
+        builder3.setTitle("注意！");
+        builder3.setMessage("该应用想要发送一条短信，允许吗？");
+        builder3.setPositiveButton("允许", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + ""));
+                intent .putExtra("sms_body",
+                        "我正在使用日语易学通App学习日语,非常好用哦，快来和我一起学习吧!");
+                startActivity(intent);
+            }
+        });
+        builder3.setNegativeButton("拒绝", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder3.show();
     }
 }
