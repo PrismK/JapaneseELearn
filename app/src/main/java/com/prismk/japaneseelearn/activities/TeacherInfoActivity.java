@@ -23,7 +23,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class TeacherInfoActivity extends Activity {
+public class TeacherInfoActivity extends BaseActivity {
 
     private CircleImageView teacherAvatar;
     private TextView teacherName;
@@ -37,37 +37,41 @@ public class TeacherInfoActivity extends Activity {
     private VideoAdapter videoAdapter;
     private List<VideoData> videoDataListFromTeacherID;
     private int position;
+    private int drawposition;
+    private int teacherId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_info);
+        setContentView(getLayoutId());
         initView();
         initData();
     }
 
     private void initData() {
         position = getIntent().getIntExtra(ELearnAppProperties.INTENT_TEACHERINFO_POSITION, -1);
+        drawposition = getIntent().getIntExtra(ELearnAppProperties.INTENT_TEACHERLIST_POSITION,-1);
         userDBManager = new UserDBManager(TeacherInfoActivity.this);
         videoDBManager = new VideoDBManager(TeacherInfoActivity.this);
         teacherFollowedDBManager = new TeacherFollowedDBManager(TeacherInfoActivity.this);
         List<UserData> userDataList = userDBManager.getUserDataListFromUserDB();
         List<UserData> teacherDataList = userDBManager.getTeacherListFromUserDB();
         List<VideoData> videoDataList = videoDBManager.getVideoDataListFromVideoDB();
-        int teacherId = 0;
+        teacherId = 0;
         if (position!=-1){
             teacherId = videoDataList.get(position).getUploadTeacherId();
-        } else {
-            int drawposition = getIntent().getIntExtra(ELearnAppProperties.INTENT_TEACHERID,-1);
+        } else if (drawposition!=-1){
             teacherId = teacherDataList.get(drawposition).getUserId();
+        }else {
+            int favoriteTeacherID = getIntent().getIntExtra(ELearnAppProperties.INTENT_TEACHERID,-1);
+            teacherId = favoriteTeacherID+2;
         }
 
         videoDataListFromTeacherID = videoDBManager.getVideoDataListFromTeacherID(teacherId);
-        Glide.with(TeacherInfoActivity.this).load(userDataList.get(teacherId-1).getHeadImgUrlString()).into(teacherAvatar);
+        Glide.with(TeacherInfoActivity.this).load(userDataList.get(teacherId -1).getHeadImgUrlString()).into(teacherAvatar);
         teacherName.setText(userDataList.get(teacherId - 1).getNickName());
         teacherSign.setText(userDataList.get(teacherId - 1).getSign());
-        teacherFans.setText(teacherFans.getText() + String.valueOf(teacherFollowedDBManager.getFansCount(teacherId)));
-        teacherRelease.setText(teacherRelease.getText()+String.valueOf(videoDataListFromTeacherID.size()));
+
         classesRelease.setItemCount(videoDataListFromTeacherID.size());
         initAdapter();
 //        for (VideoData data:videoDataListFromTeacherID) {
@@ -97,5 +101,17 @@ public class TeacherInfoActivity extends Activity {
             intent.putExtra(ELearnAppProperties.INTENT_VIDEO_POSITION,videoDataListFromTeacherID.get(position).getVideoId()-1);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        teacherFans.setText(String.valueOf(teacherFollowedDBManager.getFansCount(teacherId)));
+        teacherRelease.setText(String.valueOf(videoDataListFromTeacherID.size()));
+        super.onResume();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_teacher_info;
     }
 }

@@ -1,17 +1,21 @@
 package com.prismk.japaneseelearn.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.prismk.japaneseelearn.R;
+import com.prismk.japaneseelearn.activities.VideoPlayerActivity;
 import com.prismk.japaneseelearn.adapters.VideoAdapter;
 import com.prismk.japaneseelearn.bean.VideoData;
 import com.prismk.japaneseelearn.managers.UserDBManager;
 import com.prismk.japaneseelearn.managers.VideoCollectionDBManager;
 import com.prismk.japaneseelearn.managers.VideoDBManager;
+import com.prismk.japaneseelearn.properties.ELearnAppProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +58,14 @@ public class VipCollectionClassesFragment extends BaseFragment {
 
     private void initView() {
         vipCollectionClass = mRootView.findViewById(R.id.lv_vip_collection);
+        vipCollectionClass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), VideoPlayerActivity.class);
+                intent.putExtra(ELearnAppProperties.INTENT_VIDEO_POSITION, getVipCollectionVideo().get(position).getVideoId());
+                startActivity(intent);
+            }
+        });
     }
 
     private List<VideoData> getVipCollectionVideo() {
@@ -83,5 +95,11 @@ public class VipCollectionClassesFragment extends BaseFragment {
             }
         }
         return collectionVideoList;
+    }
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
     }
 }

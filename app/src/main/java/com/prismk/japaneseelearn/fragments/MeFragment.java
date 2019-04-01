@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.activities.AllCollectionClassesActivity;
+import com.prismk.japaneseelearn.activities.MyFavoriteTeacherActivity;
 import com.prismk.japaneseelearn.bean.TeacherFollowedData;
 import com.prismk.japaneseelearn.bean.UserData;
 import com.prismk.japaneseelearn.bean.VideoData;
@@ -119,6 +120,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.ll_classes_vip:
                 intent.putExtra("position", 2);
                 startActivity(intent);
+                break;
+            case R.id.rl_followedteacher:
+                Intent intent1 = new Intent(getContext(), MyFavoriteTeacherActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

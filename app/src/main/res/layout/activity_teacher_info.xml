@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
     tools:context=".activities.TeacherInfoActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
-        android:scrollbars="none"
-        >
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="15dp"
-            >
+            android:orientation="vertical">
             <!--头像-->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civ_teacher_avatar"
@@ -31,63 +31,90 @@
                 android:id="@+id/tv_teacher_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="用户昵称"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:textSize="20sp"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:maxLines="1"
+                android:text="用户昵称"
                 android:textColor="@color/pureBlack"
-                />
+                android:textSize="20sp" />
             <!--粉丝，发布课程-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="15dp"
-                >
+                android:orientation="horizontal">
                 <!--粉丝-->
-                <TextView
-                    android:id="@+id/tv_fans"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="粉丝:"
-                    android:textSize="20sp"
-                    android:textColor="@color/pureBlack"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    />
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="粉丝:"
+                        android:textColor="@color/pureBlack"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_fans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="df"
+                        android:textColor="@color/pureBlack"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/pureBlack"
-                    />
-                <!--发布课程-->
-                <TextView
-                    android:id="@+id/tv_teacher_release"
+                    android:background="@color/pureBlack" />
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="发布课程:"
-                    android:textSize="20sp"
-                    android:textColor="@color/pureBlack"
+                    android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    />
+                    android:gravity="left"
+                    android:orientation="horizontal">
+                    <!--发布课程-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发布课程:"
+                        android:textColor="@color/pureBlack"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_teacher_release"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="df"
+                        android:textColor="@color/pureBlack"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
             <!--个性签名-->
             <TextView
                 android:id="@+id/tv_teacher_sign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="个性签名:"
-                android:textSize="20sp"
-                android:textColor="@color/pureBlack"
-                android:maxLines="2"
-                android:maxLength="30"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                />
+                android:maxLength="30"
+                android:maxLines="2"
+                android:text="个性签名:"
+                android:textColor="@color/pureBlack"
+                android:textSize="20sp" />
             <!--课程listview-->
             <com.prismk.japaneseelearn.views.NoScrollListView
                 android:id="@+id/lv_classes_release"
@@ -95,13 +122,10 @@
                 android:layout_height="match_parent"
                 android:divider="@color/transparent"
                 android:dividerHeight="15dp"
-                android:scrollbars="none"
-                >
-            </com.prismk.japaneseelearn.views.NoScrollListView>
+                android:scrollbars="none"></com.prismk.japaneseelearn.views.NoScrollListView>
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </LinearLayout>

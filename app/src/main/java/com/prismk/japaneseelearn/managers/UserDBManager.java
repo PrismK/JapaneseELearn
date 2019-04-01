@@ -195,12 +195,14 @@ public class UserDBManager {
         if (cursor != null || cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 // 3 5 7 8
+                int userID = cursor.getInt(0);
                 boolean isTeacher = cursor.getInt(3) > 0;
                 boolean isVip = cursor.getInt(4) > 0;
                 String teacherSign = cursor.getString(5);
                 String teacherAvator = cursor.getString(7);
                 String teacherName = cursor.getString(8);
                 UserData userData = new UserData();
+                userData.setUserId(userID);
                 userData.setTeacherUser(isTeacher);
                 userData.setVIP(isVip);
                 userData.setSign(teacherSign);

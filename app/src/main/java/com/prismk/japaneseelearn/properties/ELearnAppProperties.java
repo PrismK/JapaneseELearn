@@ -32,5 +32,6 @@ public class ELearnAppProperties {
     //TODO ClassesFragment 与 VideoPlayerActivity 间通信
     public static final String INTENT_VIDEO_POSITION = "intent_teacher_position";
     public static final String INTENT_TEACHERINFO_POSITION = "intent_teacherinfo_position";
+    public static final String INTENT_TEACHERLIST_POSITION = "intent_teacherlist_position";
     public static final String INTENT_TEACHERID = "intent_teacherid";
 }

@@ -106,13 +106,13 @@ public class ClassesFragment extends BaseFragment {
         videoListView.setOnItemClickListener(new OnItemClickListener());
         drawerLayout = mRootView.findViewById(R.id.dl_classfragment);
         navigationView = mRootView.findViewById(R.id.nv_teacherlist);
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED); //关闭手势滑动
+//        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED); //关闭手势滑动
         drawHeaderView = (NoScrollListView) navigationView.getHeaderView(0);
         drawHeaderView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), TeacherInfoActivity.class);
-                intent.putExtra(ELearnAppProperties.INTENT_TEACHERID,position);
+                intent.putExtra(ELearnAppProperties.INTENT_TEACHERLIST_POSITION,position);
                 startActivity(intent);
             }
         });

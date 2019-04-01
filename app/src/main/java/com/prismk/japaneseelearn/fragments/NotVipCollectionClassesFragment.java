@@ -1,17 +1,21 @@
 package com.prismk.japaneseelearn.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.prismk.japaneseelearn.R;
+import com.prismk.japaneseelearn.activities.VideoPlayerActivity;
 import com.prismk.japaneseelearn.adapters.VideoAdapter;
 import com.prismk.japaneseelearn.bean.VideoData;
 import com.prismk.japaneseelearn.managers.UserDBManager;
 import com.prismk.japaneseelearn.managers.VideoCollectionDBManager;
 import com.prismk.japaneseelearn.managers.VideoDBManager;
+import com.prismk.japaneseelearn.properties.ELearnAppProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +57,16 @@ public class NotVipCollectionClassesFragment extends BaseFragment {
 
     private void initView() {
         notVipCollectionClass = mRootView.findViewById(R.id.lv_notvip_collection);
+        notVipCollectionClass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), VideoPlayerActivity.class);
+                intent.putExtra(ELearnAppProperties.INTENT_VIDEO_POSITION, getNotVipCollectionVideo().get(position).getVideoId());
+                startActivity(intent);
+            }
+        });
     }
+
     private List<VideoData> getNotVipCollectionVideo() {
         VideoDBManager videoDBManager = new VideoDBManager(getContext());
         VideoCollectionDBManager videoCollectionDBManager = new VideoCollectionDBManager(getContext());
@@ -66,7 +79,7 @@ public class NotVipCollectionClassesFragment extends BaseFragment {
                 if (videoData.getVideoId() == i) {
                     VideoData data = new VideoData();
                     i -= 1;
-                    if (!videoDataList.get(i).isVipVideo()){
+                    if (!videoDataList.get(i).isVipVideo()) {
                         data.setVideoId(i);
                         data.setUploadTeacherId(videoDataList.get(i).getUploadTeacherId());
                         data.setUploadTime(videoDataList.get(i).getUploadTime());
@@ -81,5 +94,11 @@ public class NotVipCollectionClassesFragment extends BaseFragment {
             }
         }
         return collectionVideoList;
+    }
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
     }
 }

@@ -67,6 +67,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activities.ChangePasswordActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.ChangeUserInfoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
@@ -111,8 +115,6 @@
         <activity android:name=".activities.NewWordsActivity" />
         <activity android:name=".activities.MusicPlayerActivity" />
         <activity android:name=".activities.AllCollectionClassesActivity" />
-        <activity android:name=".activities.SettingActivity" />
-
 
         <service
             android:name=".managers.floatsmallvideo.FloatVideoService"
@@ -133,6 +135,9 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+<activity android:name=".activities.MyFavoriteTeacherActivity"
+    android:launchMode="singleTop"
+    />
     </application>
 
 </manifest>
