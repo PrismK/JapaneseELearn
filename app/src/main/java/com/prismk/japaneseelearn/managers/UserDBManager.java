@@ -61,7 +61,7 @@ public class UserDBManager {
                 values.put(USER_NICKNAME, "" + i + "号学生的昵称");
                 values.put(USER_SIGN, "" + i + "号学生的个性签名");
                 values.put(USER_TAG, "" + i + "号学生的标签");
-                values.put(USER_HEADIMG, "");
+                values.put(USER_HEADIMG, "http://111.231.206.89/lyf/image/1.png");
                 values.put(ISTEACHER, 0);
                 if (i >= 6) {
                     values.put(ISVIP, 1);
