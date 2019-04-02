@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.load.engine.Resource;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.activities.MusicPlayerActivity;
+import com.prismk.japaneseelearn.views.loadview.ZProgressHUD;
 import com.prismk.japaneseelearn.widgets.Title;
 
 /**
@@ -22,6 +23,7 @@ public class HearFragment extends BaseFragment implements View.OnClickListener {
     private CardView cv_radio_third;
     private CardView cv_radio_fourth;
     private CardView cv_radio_fifth;
+    private ZProgressHUD progressHUD;
 
     @Override
     protected int getLayoutId() {
@@ -71,10 +73,21 @@ public class HearFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cv_radio_first:
-                //LoadingDialog loadingDialog = new LoadingDialog(this, Resource.Style.Theme_Transparent);
+                progressHUD = ZProgressHUD.getInstance(getActivity());
+                progressHUD.setMessage("正在加载");
+                progressHUD.setSpinnerType(ZProgressHUD.SIMPLE_ROUND_SPINNER);
+                progressHUD.show();
                 Intent intent = new Intent(getActivity(), MusicPlayerActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (progressHUD != null) {
+            progressHUD.dismiss();
         }
     }
 }
