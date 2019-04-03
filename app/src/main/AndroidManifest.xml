@@ -112,6 +112,8 @@
         <activity android:name=".activities.MusicPlayerActivity" />
         <activity android:name=".activities.AllCollectionClassesActivity" />
         <activity android:name=".activities.SettingActivity" />
+        <activity android:name=".activities.ADContextActivity" />
+
 
         <service
             android:name=".managers.floatsmallvideo.FloatVideoService"
@@ -132,9 +134,10 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-<activity android:name=".activities.MyFavoriteTeacherActivity"
-    android:launchMode="singleTop"
-    />
+
+        <activity
+            android:name=".activities.MyFavoriteTeacherActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

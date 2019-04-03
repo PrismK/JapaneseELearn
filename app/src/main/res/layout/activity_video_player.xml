@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp" />
 
-        <Button
+        <!--<Button
             android:id="@+id/btn_tiny_window"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -70,7 +70,7 @@
             android:onClick="onViewClick"
             android:textColor="@color/pureWhite"
             android:text="切换到小窗口模式播放"
-            android:background="@color/blueMain"/>
+            android:background="@color/blueMain"/>-->
 
 
         <com.prismk.japaneseelearn.widgets.overscrolllayout.OverScrollLayout

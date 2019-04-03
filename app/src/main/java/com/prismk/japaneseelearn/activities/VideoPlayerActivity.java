@@ -135,8 +135,6 @@ public class VideoPlayerActivity extends BaseActivity {
         videoRecommend.setOnItemClickListener(new onNoScrollListViewItemClickListener());
         checkUserIsVip = findViewById(R.id.ll_buy_vip);
         buyVip = findViewById(R.id.tv_buy_vipclass);
-
-
     }
 
     private void initData() {
@@ -257,11 +255,10 @@ public class VideoPlayerActivity extends BaseActivity {
     @Override
     public void onViewClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_tiny_window:
+            /*case R.id.btn_tiny_window:
                 //mJcVideoPlayerStandard.startWindowTiny();
                 doOpenSmallWindow();
-                finish();
-                break;
+                break;*/
             //在这里处理关注和收藏视频的逻辑
             case R.id.tv_teacher_favorite://关注
                 setTeacherFavoriteClick();

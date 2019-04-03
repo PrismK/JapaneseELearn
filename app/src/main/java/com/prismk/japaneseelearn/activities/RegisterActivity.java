@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -174,10 +175,24 @@ public class RegisterActivity extends BaseActivity {
         }
     };
 
-    public void register_check() {                                //确认按钮的监听事件
+    /**
+     * 验证手机号格式正确性
+     */
+    public static boolean isMobileNO(String mobiles) {
+        //"[1]"代表第1位为数字1，"[4578]"代表第二位可以为3、4、5、7、8中的一个
+        // d{9}"代表后面是可以是0～9的数字，有9位。
+        String telRegex = "[1][34578]\\d{9}";
+        return mobiles.matches(telRegex);
+    }
+
+    public void register_check() {
         if (isUserNameAndPwdValid()) {
             String userName = edt_register_username.getText().toString().trim();
             String userPwd = edt_register_pw.getText().toString().trim();
+            if (!isMobileNO(userName)) {
+                Toast.makeText(this, "手机号码格式不正确！", Toast.LENGTH_SHORT).show();
+                return;
+            }
             String userPwdCheck = edt_register_repw.getText().toString().trim();
             if (!cb_agree.isChecked()) {
                 Toast.makeText(this, "请阅读条款", Toast.LENGTH_SHORT).show();

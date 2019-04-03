@@ -2,6 +2,7 @@ package com.prismk.japaneseelearn.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;

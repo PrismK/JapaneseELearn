@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.widgets.Title;
 
-
 /**
  * 首页Fragment
  */
+
 public class HomeFragment extends BaseFragment {
 
     @Override
