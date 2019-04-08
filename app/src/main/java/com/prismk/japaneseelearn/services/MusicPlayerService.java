@@ -185,4 +185,11 @@ public class MusicPlayerService extends Service implements MediaPlayer.OnComplet
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
+    @Override
+    public boolean onUnbind(Intent intent) {
+        if (mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+        }
+        return super.onUnbind(intent);
+    }
 }

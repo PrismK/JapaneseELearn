@@ -133,8 +133,7 @@ public class DiscView extends RelativeLayout {
             int lastPositionOffsetPixels = 0;
             int currentItem = 0;
             @Override
-            public void onPageScrolled(int position, float positionOffset, int
-                    positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //左滑
                 if (lastPositionOffsetPixels > positionOffsetPixels) {
                     if (positionOffset < 0.5) {
