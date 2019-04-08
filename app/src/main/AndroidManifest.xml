@@ -106,13 +106,38 @@
             android:name=".activities.StudyWordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.TeacherInfoActivity" />
-        <activity android:name=".activities.KnowActivity" />
-        <activity android:name=".activities.NewWordsActivity" />
-        <activity android:name=".activities.MusicPlayerActivity" />
-        <activity android:name=".activities.AllCollectionClassesActivity" />
-        <activity android:name=".activities.SettingActivity" />
-        <activity android:name=".activities.ADContextActivity" />
+        <activity
+            android:name=".activities.TeacherInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.KnowActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.NewWordsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.MusicPlayerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.AllCollectionClassesActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.SettingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.ADContextActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.MyFavoriteTeacherActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
 
         <service
@@ -126,6 +151,11 @@
             android:name=".services.MusicPlayerService"
             android:enabled="true"
             android:exported="false" />
+        <service
+            android:name=".services.MusicService"
+            android:enabled="true"
+            android:exported="false" />
+
 
         <receiver android:name=".receiver.NetworkReceiver">
             <intent-filter>
@@ -135,9 +165,7 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".activities.MyFavoriteTeacherActivity"
-            android:launchMode="singleTop" />
+
     </application>
 
 </manifest>
