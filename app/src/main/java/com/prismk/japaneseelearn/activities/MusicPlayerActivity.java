@@ -28,14 +28,14 @@ import com.prismk.japaneseelearn.bean.MusicData;
 import com.prismk.japaneseelearn.services.MusicPlayerService;
 import com.prismk.japaneseelearn.utils.radio.DisplayUtil;
 import com.prismk.japaneseelearn.utils.radio.FastBlurUtil;
-import com.prismk.japaneseelearn.widgets.radio.BackgourndAnimationRelativeLayout;
-import com.prismk.japaneseelearn.widgets.radio.DiscView;
+import com.prismk.japaneseelearn.widgets.music.BackgourndAnimationRelativeLayout;
+import com.prismk.japaneseelearn.widgets.music.DiscView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.prismk.japaneseelearn.widgets.radio.DiscView.DURATION_NEEDLE_ANIAMTOR;
+import static com.prismk.japaneseelearn.widgets.music.DiscView.DURATION_NEEDLE_ANIAMTOR;
 
 
 public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayInfo, View.OnClickListener {
@@ -67,7 +67,7 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        initMusicDatas();
+        initMusicDatas(getIntent().getIntExtra("num",1));
         initView();
         initMusicReceiver();
         makeStatusBarTransparent();
@@ -143,15 +143,43 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
         }
     }
 
-    private void initMusicDatas() {
-        MusicData musicData1 = new MusicData(R.raw.music1, R.raw.ic_music1, "寻", "三亩地");
-        MusicData musicData2 = new MusicData(R.raw.music2, R.raw.ic_music2, "Nightingale", "YANI");
-        MusicData musicData3 = new MusicData(R.raw.music3, R.raw.ic_music3, "Cornfield Chase", "Hans Zimmer");
-
-        mMusicDatas.add(musicData1);
-        mMusicDatas.add(musicData2);
-        mMusicDatas.add(musicData3);
-
+    private void initMusicDatas(int num) {
+        MusicData musicData1 = new MusicData(R.raw.music1, R.raw.ic_music1, "1", "1");
+        MusicData musicData2 = new MusicData(R.raw.music2, R.raw.ic_music2, "2", "2");
+        MusicData musicData3 = new MusicData(R.raw.music3, R.raw.ic_music3, "3", "3");
+        MusicData musicData4 = new MusicData(R.raw.music2, R.raw.ic_music2, "4", "4");
+        MusicData musicData5 = new MusicData(R.raw.music1, R.raw.ic_music1, "5", "5");
+        if (num == 2) {
+            mMusicDatas.add(musicData2);
+            mMusicDatas.add(musicData3);
+            mMusicDatas.add(musicData4);
+            mMusicDatas.add(musicData5);
+            mMusicDatas.add(musicData1);
+        } else if (num == 3) {
+            mMusicDatas.add(musicData3);
+            mMusicDatas.add(musicData4);
+            mMusicDatas.add(musicData5);
+            mMusicDatas.add(musicData1);
+            mMusicDatas.add(musicData2);
+        } else if (num == 4) {
+            mMusicDatas.add(musicData4);
+            mMusicDatas.add(musicData5);
+            mMusicDatas.add(musicData1);
+            mMusicDatas.add(musicData2);
+            mMusicDatas.add(musicData3);
+        } else if (num == 5) {
+            mMusicDatas.add(musicData5);
+            mMusicDatas.add(musicData1);
+            mMusicDatas.add(musicData2);
+            mMusicDatas.add(musicData3);
+            mMusicDatas.add(musicData4);
+        } else {
+            mMusicDatas.add(musicData1);
+            mMusicDatas.add(musicData2);
+            mMusicDatas.add(musicData3);
+            mMusicDatas.add(musicData4);
+            mMusicDatas.add(musicData5);
+        }
         Intent intent = new Intent(this, MusicPlayerService.class);
         intent.putExtra(PARAM_MUSIC_LIST, (Serializable) mMusicDatas);
         startService(intent);

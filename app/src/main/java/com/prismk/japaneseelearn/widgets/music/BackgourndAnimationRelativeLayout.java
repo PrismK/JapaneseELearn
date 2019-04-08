@@ -1,4 +1,4 @@
-package com.prismk.japaneseelearn.widgets.radio;
+package com.prismk.japaneseelearn.widgets.music;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

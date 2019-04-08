@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import com.bumptech.glide.load.engine.Resource;
 import com.prismk.japaneseelearn.R;
@@ -74,14 +75,35 @@ public class HearFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cv_radio_first:
-                progressHUD = ZProgressHUD.getInstance(getActivity());
-                progressHUD.setMessage("正在加载");
-                progressHUD.setSpinnerType(ZProgressHUD.SIMPLE_ROUND_SPINNER);
-                progressHUD.show();
-                Intent intent = new Intent(getActivity(), MusicPlayerActivity.class);
-                startActivity(intent);
+                dropActivity(1);
+                break;
+            case R.id.cv_radio_second:
+                dropActivity(2);
+                break;
+            case R.id.cv_radio_third:
+                dropActivity(3);
+                break;
+            case R.id.cv_radio_fourth:
+                dropActivity(4);
+                break;
+            case R.id.cv_radio_fifth:
+                dropActivity(5);
                 break;
         }
+    }
+
+    private void dropActivity(int num) {
+        showLoadingView();
+        Intent intent = new Intent(getActivity(), MusicPlayerActivity.class);
+        intent.putExtra("num",num);
+        startActivity(intent);
+    }
+
+    private void showLoadingView() {
+        progressHUD = ZProgressHUD.getInstance(getActivity());
+        progressHUD.setMessage("正在加载");
+        progressHUD.setSpinnerType(ZProgressHUD.SIMPLE_ROUND_SPINNER);
+        progressHUD.show();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.prismk.japaneseelearn.widgets.radio;
+package com.prismk.japaneseelearn.widgets.music;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -14,7 +14,6 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,7 @@ public class DiscView extends RelativeLayout {
 
     private List<View> mDiscLayouts = new ArrayList<>();
 
-    private List<MusicData> mMusicDatas = new ArrayList<>();
+    private List<MusicData> mMusicData = new ArrayList<>();
     private List<ObjectAnimator> mDiscAnimators = new ArrayList<>();
     /*标记ViewPager是否处于偏移的状态*/
     private boolean mViewPagerIsOffset = false;
@@ -108,7 +107,6 @@ public class DiscView extends RelativeLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
         initDiscBlackground();
         initViewPager();
         initNeedle();
@@ -339,12 +337,9 @@ public class DiscView extends RelativeLayout {
         drawables[1] = discDrawable;
 
         LayerDrawable layerDrawable = new LayerDrawable(drawables);
-        int musicPicMargin = (int) ((DisplayUtil.SCALE_DISC_SIZE - DisplayUtil
-                .SCALE_MUSIC_PIC_SIZE) * mScreenWidth / 2);
+        int musicPicMargin = (int) ((DisplayUtil.SCALE_DISC_SIZE - DisplayUtil.SCALE_MUSIC_PIC_SIZE) * mScreenWidth / 2);
         //调整专辑图片的四周边距，让其显示在正中
-        layerDrawable.setLayerInset(0, musicPicMargin, musicPicMargin, musicPicMargin,
-                musicPicMargin);
-
+        layerDrawable.setLayerInset(0, musicPicMargin, musicPicMargin, musicPicMargin, musicPicMargin);
         return layerDrawable;
     }
 
@@ -364,22 +359,24 @@ public class DiscView extends RelativeLayout {
         //设置图片采样率
         options.inSampleSize = dstSample;
         //设置图片解码格式
-        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        //options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inPreferredConfig = Bitmap.Config.ALPHA_8;
 
-        return Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
-                musicPicRes, options), musicPicSize, musicPicSize, true);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), musicPicRes, options);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, musicPicSize, musicPicSize, true);
+        return scaledBitmap;
     }
 
     public void setMusicDataList(List<MusicData> musicDataList) {
-        if (musicDataList.isEmpty()) return;
-
+        if (musicDataList.isEmpty())
+            return;
         mDiscLayouts.clear();
-        mMusicDatas.clear();
+        mMusicData.clear();
         mDiscAnimators.clear();
-        mMusicDatas.addAll(musicDataList);
+        mMusicData.addAll(musicDataList);
 
         int i = 0;
-        for (MusicData musicData : mMusicDatas) {
+        for (MusicData musicData : mMusicData) {
             View discLayout = LayoutInflater.from(getContext()).inflate(R.layout.layout_disc,
                     mVpContain, false);
 
@@ -391,7 +388,7 @@ public class DiscView extends RelativeLayout {
         }
         mViewPagerAdapter.notifyDataSetChanged();
 
-        MusicData musicData = mMusicDatas.get(0);
+        MusicData musicData = mMusicData.get(0);
         if (mIPlayInfo != null) {
             mIPlayInfo.onMusicInfoChanged(musicData.getMusicName(), musicData.getMusicAuthor());
             mIPlayInfo.onMusicPicChanged(musicData.getMusicPicRes());
@@ -403,7 +400,6 @@ public class DiscView extends RelativeLayout {
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         objectAnimator.setDuration(20 * 1000);
         objectAnimator.setInterpolator(new LinearInterpolator());
-
         return objectAnimator;
     }
 
@@ -474,14 +470,14 @@ public class DiscView extends RelativeLayout {
 
     public void notifyMusicInfoChanged(int position) {
         if (mIPlayInfo != null) {
-            MusicData musicData = mMusicDatas.get(position);
+            MusicData musicData = mMusicData.get(position);
             mIPlayInfo.onMusicInfoChanged(musicData.getMusicName(), musicData.getMusicAuthor());
         }
     }
 
     public void notifyMusicPicChanged(int position) {
         if (mIPlayInfo != null) {
-            MusicData musicData = mMusicDatas.get(position);
+            MusicData musicData = mMusicData.get(position);
             mIPlayInfo.onMusicPicChanged(musicData.getMusicPicRes());
         }
     }
@@ -516,7 +512,7 @@ public class DiscView extends RelativeLayout {
 
     public void next() {
         int currentItem = mVpContain.getCurrentItem();
-        if (currentItem == mMusicDatas.size() - 1) {
+        if (currentItem == mMusicData.size() - 1) {
             Toast.makeText(getContext(), "已经到达最后一首", Toast.LENGTH_SHORT).show();
         } else {
             selectMusicWithButton();

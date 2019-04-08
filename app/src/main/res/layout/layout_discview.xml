@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.prismk.japaneseelearn.widgets.radio.DiscView
+<com.prismk.japaneseelearn.widgets.music.DiscView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -9,22 +9,20 @@
         android:id="@+id/ivDiscBlackgound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 
     <!--实现切换-->
     <android.support.v4.view.ViewPager
         android:id="@+id/vpDiscContain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 
     <!--唱针-->
     <ImageView
         android:id="@+id/ivNeedle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_needle"/>
+        android:src="@drawable/ic_needle" />
 
-</com.prismk.japaneseelearn.widgets.radio.DiscView>
+</com.prismk.japaneseelearn.widgets.music.DiscView>

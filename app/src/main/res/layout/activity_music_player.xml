@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.prismk.japaneseelearn.widgets.radio.BackgourndAnimationRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.prismk.japaneseelearn.widgets.music.BackgourndAnimationRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
@@ -99,4 +99,4 @@
 
     </LinearLayout>
 
-</com.prismk.japaneseelearn.widgets.radio.BackgourndAnimationRelativeLayout>
+</com.prismk.japaneseelearn.widgets.music.BackgourndAnimationRelativeLayout>
