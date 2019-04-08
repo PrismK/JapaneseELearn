@@ -138,6 +138,10 @@
             android:name=".activities.MyFavoriteTeacherActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MusicActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
 
         <service

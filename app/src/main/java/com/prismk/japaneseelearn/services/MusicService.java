@@ -35,7 +35,7 @@ public class MusicService extends Service {
 
     public class MyBinder extends Binder implements IMusic {
 
-        MusicService getService() {
+        public MusicService getService() {
             return MusicService.this;
         }
 
