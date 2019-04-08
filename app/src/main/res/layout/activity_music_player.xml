@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.prismk.japaneseelearn.widgets.radio.BackgourndAnimationRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.prismk.japaneseelearn.widgets.radio.BackgourndAnimationRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_blackground"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
@@ -23,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@id/toolBar"
-        android:background="#33ffffff"/>
+        android:background="#33ffffff" />
 
     <include
         android:id="@+id/discview"
@@ -31,40 +29,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rlMusicTime"
-        android:layout_below="@id/toolBar"/>
+        android:layout_below="@id/toolBar" />
 
     <RelativeLayout
         android:id="@+id/rlMusicTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/llPlayOption"
-        android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp">
 
         <TextView
             android:id="@+id/tvCurrentTime"
             style="@style/neteasa_music_time_text_sytle"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            tools:text="01:34"/>
+            tools:text="01:34" />
 
         <SeekBar
             android:id="@+id/musicSeekBar"
             style="@style/neteasa_music_time_seek_bar_sytle"
             android:layout_centerInParent="true"
-            android:layout_toEndOf="@id/tvCurrentTime"
             android:layout_toStartOf="@+id/tvTotalTime"
-            android:paddingEnd="15dp"
+            android:layout_toEndOf="@id/tvCurrentTime"
             android:paddingStart="15dp"
-            />
+            android:paddingEnd="15dp" />
 
         <TextView
             android:id="@+id/tvTotalTime"
             style="@style/neteasa_music_time_text_sytle"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            tools:text="05:34"/>
+            tools:text="05:34" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -74,32 +72,31 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="20dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:paddingTop="10dp"
-        >
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp">
 
         <ImageView
             android:id="@+id/ivLast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_last"/>
+            android:src="@drawable/ic_last" />
 
         <ImageView
             android:id="@+id/ivPlayOrPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/ic_play"/>
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_play" />
 
         <ImageView
             android:id="@+id/ivNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_next"/>
-    </LinearLayout>
+            android:src="@drawable/ic_next" />
 
+    </LinearLayout>
 
 </com.prismk.japaneseelearn.widgets.radio.BackgourndAnimationRelativeLayout>
