@@ -19,7 +19,7 @@ import java.util.List;
  * Created by AchillesL on 2016/11/18.
  */
 
-public class MusicService extends Service implements MediaPlayer.OnCompletionListener {
+public class MusicPlayerService extends Service implements MediaPlayer.OnCompletionListener {
 
     /*操作指令*/
     public static final String ACTION_OPT_MUSIC_PLAY = "ACTION_OPT_MUSIC_PLAY";

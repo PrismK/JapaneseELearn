@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.bean.MusicData;
-import com.prismk.japaneseelearn.services.MusicService;
+import com.prismk.japaneseelearn.services.MusicPlayerService;
 import com.prismk.japaneseelearn.utils.radio.DisplayUtil;
 import com.prismk.japaneseelearn.utils.radio.FastBlurUtil;
 import com.prismk.japaneseelearn.widgets.radio.BackgourndAnimationRelativeLayout;
@@ -75,10 +75,10 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
 
     private void initMusicReceiver() {
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(MusicService.ACTION_STATUS_MUSIC_PLAY);
-        intentFilter.addAction(MusicService.ACTION_STATUS_MUSIC_PAUSE);
-        intentFilter.addAction(MusicService.ACTION_STATUS_MUSIC_DURATION);
-        intentFilter.addAction(MusicService.ACTION_STATUS_MUSIC_COMPLETE);
+        intentFilter.addAction(MusicPlayerService.ACTION_STATUS_MUSIC_PLAY);
+        intentFilter.addAction(MusicPlayerService.ACTION_STATUS_MUSIC_PAUSE);
+        intentFilter.addAction(MusicPlayerService.ACTION_STATUS_MUSIC_DURATION);
+        intentFilter.addAction(MusicPlayerService.ACTION_STATUS_MUSIC_COMPLETE);
         /*注册本地广播*/
         LocalBroadcastManager.getInstance(this).registerReceiver(mMusicReceiver,intentFilter);
     }
@@ -152,7 +152,7 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
         mMusicDatas.add(musicData2);
         mMusicDatas.add(musicData3);
 
-        Intent intent = new Intent(this, MusicService.class);
+        Intent intent = new Intent(this, MusicPlayerService.class);
         intent.putExtra(PARAM_MUSIC_LIST, (Serializable) mMusicDatas);
         startService(intent);
     }
@@ -280,12 +280,12 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
     }
 
     private void play() {
-        optMusic(MusicService.ACTION_OPT_MUSIC_PLAY);
+        optMusic(MusicPlayerService.ACTION_OPT_MUSIC_PLAY);
         startUpdateSeekBarProgress();
     }
 
     private void pause() {
-        optMusic(MusicService.ACTION_OPT_MUSIC_PAUSE);
+        optMusic(MusicPlayerService.ACTION_OPT_MUSIC_PAUSE);
         stopUpdateSeekBarProgree();
     }
 
@@ -301,7 +301,7 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
         mRootLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                optMusic(MusicService.ACTION_OPT_MUSIC_NEXT);
+                optMusic(MusicPlayerService.ACTION_OPT_MUSIC_NEXT);
             }
         }, DURATION_NEEDLE_ANIAMTOR);
         stopUpdateSeekBarProgree();
@@ -313,7 +313,7 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
         mRootLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                optMusic(MusicService.ACTION_OPT_MUSIC_LAST);
+                optMusic(MusicPlayerService.ACTION_OPT_MUSIC_LAST);
             }
         }, DURATION_NEEDLE_ANIAMTOR);
         stopUpdateSeekBarProgree();
@@ -334,8 +334,8 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
     }
 
     private void seekTo(int position) {
-        Intent intent = new Intent(MusicService.ACTION_OPT_MUSIC_SEEK_TO);
-        intent.putExtra(MusicService.PARAM_MUSIC_SEEK_TO,position);
+        Intent intent = new Intent(MusicPlayerService.ACTION_OPT_MUSIC_SEEK_TO);
+        intent.putExtra(MusicPlayerService.PARAM_MUSIC_SEEK_TO,position);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
@@ -366,23 +366,23 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(MusicService.ACTION_STATUS_MUSIC_PLAY)) {
+            if (action.equals(MusicPlayerService.ACTION_STATUS_MUSIC_PLAY)) {
                 mIvPlayOrPause.setImageResource(R.drawable.ic_pause);
-                int currentPosition = intent.getIntExtra(MusicService.PARAM_MUSIC_CURRENT_POSITION, 0);
+                int currentPosition = intent.getIntExtra(MusicPlayerService.PARAM_MUSIC_CURRENT_POSITION, 0);
                 mSeekBar.setProgress(currentPosition);
                 if(!mDisc.isPlaying()){
                     mDisc.playOrPause();
                 }
-            } else if (action.equals(MusicService.ACTION_STATUS_MUSIC_PAUSE)) {
+            } else if (action.equals(MusicPlayerService.ACTION_STATUS_MUSIC_PAUSE)) {
                 mIvPlayOrPause.setImageResource(R.drawable.ic_play);
                 if (mDisc.isPlaying()) {
                     mDisc.playOrPause();
                 }
-            } else if (action.equals(MusicService.ACTION_STATUS_MUSIC_DURATION)) {
-                int duration = intent.getIntExtra(MusicService.PARAM_MUSIC_DURATION, 0);
+            } else if (action.equals(MusicPlayerService.ACTION_STATUS_MUSIC_DURATION)) {
+                int duration = intent.getIntExtra(MusicPlayerService.PARAM_MUSIC_DURATION, 0);
                 updateMusicDurationInfo(duration);
-            } else if (action.equals(MusicService.ACTION_STATUS_MUSIC_COMPLETE)) {
-                boolean isOver = intent.getBooleanExtra(MusicService.PARAM_MUSIC_IS_OVER, true);
+            } else if (action.equals(MusicPlayerService.ACTION_STATUS_MUSIC_COMPLETE)) {
+                boolean isOver = intent.getBooleanExtra(MusicPlayerService.PARAM_MUSIC_IS_OVER, true);
                 complete(isOver);
             }
         }

@@ -123,7 +123,7 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".services.MusicService"
+            android:name=".services.MusicPlayerService"
             android:enabled="true"
             android:exported="false" />
 
