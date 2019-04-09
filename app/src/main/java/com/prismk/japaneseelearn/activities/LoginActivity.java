@@ -127,11 +127,19 @@ public class LoginActivity extends BaseActivity {
                 editor.putString("USER_NAME", userName);
                 editor.putString("PASSWORD", userPwd);
                 editor.commit();
-
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);    //切换Login Activity至User Activity
-                startActivity(intent);
-                finish();
-                goNextAnim();
+                //TODO 在此判断是不是老师，然后跳转
+                UserDBManager userDBManager = new UserDBManager(LoginActivity.this);
+                if (userDBManager.getUserDataListFromUserDB().get(userDBManager.getLoginUesrID()).isTeacherUser()) {
+                    Intent intent = new Intent(LoginActivity.this, MainOfTeacherActivity.class);
+                    startActivity(intent);
+                    finish();
+                    goNextAnim();
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);    //切换Login Activity至User Activity
+                    startActivity(intent);
+                    finish();
+                    goNextAnim();
+                }
                 Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
             } else if (result == 0) {
                 Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show();

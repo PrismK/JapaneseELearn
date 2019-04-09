@@ -140,7 +140,7 @@ public class VideoDBManager {
                 // ???
                 boolean isVipClass = cursor.getInt(6) > 0;
                 String uploadTime = cursor.getString(7);
-                int uploadTeacherId = cursor.getInt(8);//TODO
+                int uploadTeacherId = cursor.getInt(8);
                 VideoData data = new VideoData();
                 data.setVideoId(videoId);
                 data.setVideoUrlString(url);

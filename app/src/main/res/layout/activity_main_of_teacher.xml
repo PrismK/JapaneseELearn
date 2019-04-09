@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/fl_fragmentOfTeacher"
@@ -10,36 +11,50 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/imb_addResource"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="30dp"
+            android:background="@mipmap/teacher_add" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/ll_home"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_marginRight="40dp"
+                >
 
                 <ImageView
                     android:id="@+id/imv_home"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-                    android:src="@mipmap/home_select"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:src="@mipmap/home_select" />
 
                 <TextView
                     android:id="@+id/tv_home"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="首页"
                     android:gravity="center_horizontal"
+                    android:text="首页"
                     android:textColor="@color/blueMain"
-                    android:textSize="12dp"/>
+                    android:textSize="12dp" />
 
             </LinearLayout>
 
@@ -47,37 +62,33 @@
                 android:id="@+id/ll_me"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_marginLeft="35dp"
+                >
 
                 <ImageView
                     android:id="@+id/imv_me"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-                    android:src="@mipmap/me"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:src="@mipmap/me" />
 
                 <TextView
                     android:id="@+id/tv_me"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="我的"
                     android:gravity="center_horizontal"
+                    android:text="我的"
                     android:textColor="#707070"
-                    android:textSize="12dp"/>
+                    android:textSize="12dp" />
 
             </LinearLayout>
 
         </LinearLayout>
+    </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/imb_addResource"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@mipmap/teacher_add"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="30dp"/>
 
-</FrameLayout>
+</LinearLayout>

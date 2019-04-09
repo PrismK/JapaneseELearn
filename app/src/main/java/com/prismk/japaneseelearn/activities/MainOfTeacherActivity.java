@@ -93,14 +93,23 @@ public class MainOfTeacherActivity extends AppCompatActivity {
     }
 
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_main_of_teacher;
     }
 
     private View.OnClickListener onBottomViewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            initLayout(v);
-            onClickViewChange(v);
+            switch (v.getId()){
+                case R.id.ll_home:
+                case R.id.ll_me:
+                    initLayout(v);
+                    onClickViewChange(v);
+                    break;
+                case R.id.imb_addResource:
+                    onClickViewChange(v);
+                    break;
+            }
+
         }
     };
 

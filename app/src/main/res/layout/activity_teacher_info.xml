@@ -94,7 +94,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="关注："
+                                android:text="发布："
                                 android:textColor="@color/pureWhite" />
 
                             <TextView
@@ -141,16 +141,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/gray1">
+                android:background="@color/gray1"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="发布的课程"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="发布的课程" />
 
             </LinearLayout>
 
@@ -168,122 +168,122 @@
 
 </LinearLayout>
 
-<!--
-<ScrollView
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:clipChildren="false"
-android:scrollbars="none">
-
-<LinearLayout
+    <!--
+    <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
-    android:orientation="vertical">
-    &lt;!&ndash;头像&ndash;&gt;
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_teacher_avatar"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@color/pureBlack" />
-    &lt;!&ndash;昵称&ndash;&gt;
-    <TextView
-        android:id="@+id/tv_teacher_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ellipsize="end"
-        android:gravity="center_horizontal"
-        android:maxLines="1"
-        android:text="用户昵称"
-        android:textColor="@color/pureBlack"
-        android:textSize="20sp" />
-    &lt;!&ndash;粉丝，发布课程&ndash;&gt;
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:scrollbars="none">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-        &lt;!&ndash;粉丝&ndash;&gt;
-        <LinearLayout
-            android:layout_width="0dp"
+        android:orientation="vertical">
+        &lt;!&ndash;头像&ndash;&gt;
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_teacher_avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@color/pureBlack" />
+        &lt;!&ndash;昵称&ndash;&gt;
+        <TextView
+            android:id="@+id/tv_teacher_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="粉丝:"
-                android:textColor="@color/pureBlack"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_fans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="df"
-                android:textColor="@color/pureBlack"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/pureBlack" />
-
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="用户昵称"
+            android:textColor="@color/pureBlack"
+            android:textSize="20sp" />
+        &lt;!&ndash;粉丝，发布课程&ndash;&gt;
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+            &lt;!&ndash;粉丝&ndash;&gt;
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="粉丝:"
+                    android:textColor="@color/pureBlack"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_fans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="df"
+                    android:textColor="@color/pureBlack"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/pureBlack" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="horizontal">
+                &lt;!&ndash;发布课程&ndash;&gt;
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发布课程:"
+                    android:textColor="@color/pureBlack"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_teacher_release"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="df"
+                    android:textColor="@color/pureBlack"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        &lt;!&ndash;个性签名&ndash;&gt;
+        <TextView
+            android:id="@+id/tv_teacher_sign"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:orientation="horizontal">
-            &lt;!&ndash;发布课程&ndash;&gt;
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发布课程:"
-                android:textColor="@color/pureBlack"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_teacher_release"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="df"
-                android:textColor="@color/pureBlack"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
+            android:layout_marginTop="15dp"
+            android:maxLength="30"
+            android:maxLines="2"
+            android:text="个性签名:"
+            android:textColor="@color/pureBlack"
+            android:textSize="20sp" />
+        &lt;!&ndash;课程listview&ndash;&gt;
+        <com.prismk.japaneseelearn.views.NoScrollListView
+            android:id="@+id/lv_classes_release"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/transparent"
+            android:dividerHeight="15dp"
+            android:scrollbars="none"></com.prismk.japaneseelearn.views.NoScrollListView>
     </LinearLayout>
-    &lt;!&ndash;个性签名&ndash;&gt;
-    <TextView
-        android:id="@+id/tv_teacher_sign"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:maxLength="30"
-        android:maxLines="2"
-        android:text="个性签名:"
-        android:textColor="@color/pureBlack"
-        android:textSize="20sp" />
-    &lt;!&ndash;课程listview&ndash;&gt;
-    <com.prismk.japaneseelearn.views.NoScrollListView
-        android:id="@+id/lv_classes_release"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/transparent"
-        android:dividerHeight="15dp"
-        android:scrollbars="none"></com.prismk.japaneseelearn.views.NoScrollListView>
-</LinearLayout>
 
-</ScrollView>-->
+    </ScrollView>-->

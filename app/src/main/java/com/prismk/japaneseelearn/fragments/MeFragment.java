@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.activities.AllCollectionClassesActivity;
 import com.prismk.japaneseelearn.activities.MyFavoriteTeacherActivity;
+import com.prismk.japaneseelearn.activities.MyReleasedClassActivity;
 import com.prismk.japaneseelearn.activities.SettingActivity;
 import com.prismk.japaneseelearn.bean.UserData;
 import com.prismk.japaneseelearn.bean.VideoData;
@@ -53,6 +54,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout myFavoriteTeacher;
     private RelativeLayout rl_myvip;
     private RelativeLayout rl_setting;
+    private RelativeLayout myReleasedClass;
 
     @Override
     protected int getLayoutId() {
@@ -77,6 +79,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         myFavoriteTeacher.setOnClickListener(this);
         rl_myvip.setOnClickListener(this);
         rl_setting.setOnClickListener(this);
+        myReleasedClass.setOnClickListener(this);
     }
 
     private void initView() {
@@ -94,13 +97,14 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         imv_classes_notvip = mRootView.findViewById(R.id.imv_classes_notvip);
         iv_classes_vip = mRootView.findViewById(R.id.iv_classes_vip);
 
+
         imageHeader = mRootView.findViewById(R.id.imageHeader);
         userName = mRootView.findViewById(R.id.tv_userInfo);
         userSign = mRootView.findViewById(R.id.tv_usersign);
         userCollectionCount = mRootView.findViewById(R.id.tv_collection_count);
         userFavoriteCount = mRootView.findViewById(R.id.tv_favorite_count);
         myFavoriteTeacher = mRootView.findViewById(R.id.rl_followedteacher);
-
+        myReleasedClass = mRootView.findViewById(R.id.rl_releasedclass);
         rl_myvip = mRootView.findViewById(R.id.rl_myvip);
         rl_setting = mRootView.findViewById(R.id.rl_setting);
     }
@@ -138,15 +142,24 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rl_myvip:
 
                 break;
+            case R.id.rl_releasedclass:
+                Intent intent2 = new Intent(getContext(), MyReleasedClassActivity.class);
+                startActivity(intent2);
+                break;
         }
     }
 
     private void initData() {
         userDBManager = new UserDBManager(getContext());
         List<UserData> userDataList = userDBManager.getUserDataListFromUserDB();
-        Glide.with(getContext()).load(userDataList.get(userDBManager.getLoginUesrID() - 1).getHeadImgUrlString()).into(imageHeader);
+
+        Glide.with(getContext()).load(userDataList.get(userDBManager.getLoginUesrID()).getHeadImgUrlString()).into(imageHeader);
         userName.setText(userDataList.get(userDBManager.getLoginUesrID() - 1).getNickName().trim());
         userSign.setText(userDataList.get(userDBManager.getLoginUesrID() - 1).getSign().trim());
+
+        //判断是不是老师
+        if (userDataList.get(userDBManager.getLoginUesrID()).isTeacherUser())
+            myReleasedClass.setVisibility(View.VISIBLE);
     }
 
     private int getAllCollectionVideoCount() {

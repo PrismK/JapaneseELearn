@@ -47,7 +47,7 @@ public class StartActivity extends BaseActivity {
         if (mUserDBManager == null) {
             mUserDBManager = new UserDBManager(this);
             mUserDBManager.openDataBase();
-            mUserDBManager.closeDataBase();
+//            mUserDBManager.closeDataBase();
         }
         if (mVideoDBManager == null) {
             mVideoDBManager = new VideoDBManager(this);
@@ -97,7 +97,10 @@ public class StartActivity extends BaseActivity {
                 String pwd = login_sp.getString("PASSWORD", "");
                 Intent intent = null;
                 if (!name.isEmpty() && !pwd.isEmpty()) {
-                    intent = new Intent(StartActivity.this, MainActivity.class);
+                    if (!mUserDBManager.getUserDataListFromUserDB().get(mUserDBManager.getLoginUesrID()).isTeacherUser())
+                        intent = new Intent(StartActivity.this, MainActivity.class);
+                    else
+                        intent = new Intent(StartActivity.this, MainOfTeacherActivity.class);
                 } else {
                     intent = new Intent(StartActivity.this, LoginActivity.class);
                 }
@@ -121,11 +124,11 @@ public class StartActivity extends BaseActivity {
             public void run() {
                 SharedPreferences sharedPreferences = StartActivity.this.getSharedPreferences("IsLogin", Context.MODE_PRIVATE);
                 Boolean isLogin = sharedPreferences.getBoolean("islogin", false);
-                if (isLogin){
+                if (isLogin) {
                     Intent intent = new Intent(StartActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
                     Intent intent = new Intent(StartActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -136,8 +139,8 @@ public class StartActivity extends BaseActivity {
 
     private class MyCountDownTimer extends CountDownTimer {
         /*
-        * 此类用于需要在页面上显示倒计时的情况，配合splashCountdown方法使用
-        * */
+         * 此类用于需要在页面上显示倒计时的情况，配合splashCountdown方法使用
+         * */
         //millisInFuture:倒计时的总数,单位毫秒
         //例如 millisInFuture=1000;表示1秒
         //countDownInterval:表示间隔多少毫秒,调用一次onTick方法()
@@ -153,5 +156,11 @@ public class StartActivity extends BaseActivity {
         public void onTick(long millisUntilFinished) {
             //tv_countDown.setText(getResources().getString(R.string.splash_countdown) + millisUntilFinished / 1000 );
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        mUserDBManager.closeDataBase();
+        super.onDestroy();
     }
 }
