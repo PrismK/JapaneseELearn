@@ -278,7 +278,8 @@ public class UserDBManager {
         Cursor mCursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + USER_NAME + " = ?", new String[]{name});
         if (mCursor != null && mCursor.getCount() > 0) {
             while (mCursor.moveToNext()) {
-                userID = mCursor.getInt(1);
+                //userID = mCursor.getInt(1);
+                userID = mCursor.getInt(mCursor.getColumnIndex(USER_NAME));
             }
         }
         return userID;
