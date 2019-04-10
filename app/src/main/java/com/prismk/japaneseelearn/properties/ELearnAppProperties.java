@@ -34,4 +34,5 @@ public class ELearnAppProperties {
     public static final String INTENT_TEACHERINFO_POSITION = "intent_teacherinfo_position";
     public static final String INTENT_TEACHERLIST_POSITION = "intent_teacherlist_position";
     public static final String INTENT_TEACHERID = "intent_teacherid";
+    public static final String USER_INFO = "user_info";
 }

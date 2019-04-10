@@ -297,6 +297,13 @@
                     android:layout_marginRight="20dp"
                     android:background="@mipmap/arrow_right" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/grayDividerDark"
+                    android:layout_alignParentBottom="true"
+                    />
             </RelativeLayout>
 
             <LinearLayout
@@ -341,7 +348,13 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:background="@mipmap/arrow_right" />
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/grayDividerDark"
+                    android:layout_alignParentBottom="true"
+                    />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_releasedclass"
@@ -374,7 +387,13 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:background="@mipmap/arrow_right" />
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/grayDividerDark"
+                    android:layout_alignParentBottom="true"
+                    />
             </RelativeLayout>
 
             <RelativeLayout

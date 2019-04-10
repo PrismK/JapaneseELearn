@@ -124,7 +124,12 @@
             android:name=".activities.MyReleasedClassActivity"
             android:launchMode="singleTop" />
         <activity android:name=".guidepage.GuideActivity" />
-
+        <activity android:name=".activities.PersonalInfoActivity"
+            android:launchMode="singleTop"
+            />
+<activity android:name=".activities.ModifyPersonalInfoActivity"
+    android:launchMode="singleTop"
+    />
         <service
             android:name=".managers.floatsmallvideo.FloatVideoService"
             android:exported="false" />

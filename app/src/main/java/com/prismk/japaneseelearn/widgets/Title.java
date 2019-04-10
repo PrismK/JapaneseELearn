@@ -94,6 +94,10 @@ public class Title extends RelativeLayout {
         }
     }
 
+    public String getTitleNameStr(){
+        return this.titleNameStr;
+    }
+
     public void setTitleNameStr(String name){
         this.titleNameStr = name;
         if(null != titleName){
