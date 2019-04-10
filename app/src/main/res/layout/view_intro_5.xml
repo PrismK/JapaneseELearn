@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent" >
+
+    <TextView
+        android:id="@+id/iv_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="尽在日语易学通!"
+        android:textSize="22dp"
+        app:x_in="1.2"
+        app:x_out="1.2" />
+
+    <ImageView
+        android:id="@+id/iv_1"
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/intro1_item_1"
+        app:y_in="0.5"
+        app:y_out="1" />
+
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="90dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="133dp"
+        android:layout_marginTop="39dp"
+        android:src="@drawable/intro2_item_2"
+        app:y_in="0.6"
+        app:y_out="0.9" />
+
+    <ImageView
+        android:id="@+id/iv_3"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="63dp"
+        android:layout_marginRight="32dp"
+        android:src="@drawable/intro4_item_3"
+        app:y_in="0.7"
+        app:y_out="1" />
+
+    <ImageView
+        android:id="@+id/iv_4"
+        android:layout_width="88dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="115dp"
+        android:layout_marginTop="175dp"
+        android:src="@drawable/intro2_item_4"
+        app:y_in="1.2"
+        app:y_out="1.2" />
+
+    <ImageView
+        android:id="@+id/iv_5"
+        android:layout_width="48dp"
+        android:layout_height="47dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="248dp"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/intro5_item_5"
+        app:y_in="1"
+        app:y_out="1.1" />
+
+    <ImageView
+        android:id="@+id/iv_6"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="223dp"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/intro4_item_1"
+        app:y_in="1"
+        app:y_out="1" />
+
+    <ImageView
+        android:id="@+id/iv_7"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="190dp"
+        android:src="@drawable/intro1_item_2"
+        app:y_in="1"
+        app:y_out="1" />
+
+    
+    
+    <ImageView
+        android:id="@+id/iv_8"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="200dp"
+        android:layout_marginLeft="68dp"
+        android:src="@drawable/intro3_item_3"
+        app:y_in="-1.4"
+        app:y_out="-1.4" />
+     
+    <ImageView
+        android:id="@+id/iv_9"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="188dp"
+        android:layout_marginRight="71dp"
+        android:src="@drawable/intro3_item_7"
+        app:y_in="-1.2"
+        app:y_out="-1.2" />
+
+    <ImageView
+        android:id="@+id/iv_10"
+        android:layout_width="22dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="101dp"
+        android:layout_marginLeft="39dp"
+        android:src="@drawable/intro5_item_10"
+        app:y_in="-1"
+        app:y_out="-1" />
+
+    <ImageView
+        android:id="@+id/iv_11"
+        android:layout_width="88dp"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="66dp"
+        android:layout_marginLeft="140dp"
+        android:src="@drawable/intro3_item_2"
+        app:y_in="-1.3"
+        app:y_out="-1.3" />
+
+    <ImageView
+        android:id="@+id/iv_12"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="126dp"
+        android:layout_marginRight="44dp"
+        android:src="@drawable/intro2_item_2"
+        app:y_in="-1.2"
+        app:y_out="-1.2" />
+
+</RelativeLayout>

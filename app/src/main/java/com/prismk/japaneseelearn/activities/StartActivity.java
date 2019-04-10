@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
 import com.prismk.japaneseelearn.R;
+import com.prismk.japaneseelearn.guidepage.GuideActivity;
 import com.prismk.japaneseelearn.managers.TeacherFollowedDBManager;
 import com.prismk.japaneseelearn.managers.UserDBManager;
 import com.prismk.japaneseelearn.managers.VideoCollectionDBManager;
@@ -95,12 +96,18 @@ public class StartActivity extends BaseActivity {
                 SharedPreferences login_sp = getSharedPreferences("userInfo", 0);
                 String name = login_sp.getString("USER_NAME", "");
                 String pwd = login_sp.getString("PASSWORD", "");
+                boolean isFirstIn = login_sp.getBoolean("isFirstIn", true);
                 Intent intent = null;
                 if (!name.isEmpty() && !pwd.isEmpty()) {
                     if (!mUserDBManager.getUserDataListFromUserDB().get(mUserDBManager.getLoginUesrID()).isTeacherUser())
                         intent = new Intent(StartActivity.this, MainActivity.class);
                     else
                         intent = new Intent(StartActivity.this, MainOfTeacherActivity.class);
+                } else if (name.isEmpty() && pwd.isEmpty() && isFirstIn == true){
+                    intent = new Intent(StartActivity.this, GuideActivity.class);
+                    SharedPreferences.Editor edit = login_sp.edit();
+                    edit.putBoolean("isFirstIn",false);
+                    edit.commit();
                 } else {
                     intent = new Intent(StartActivity.this, LoginActivity.class);
                 }

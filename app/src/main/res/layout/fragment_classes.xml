@@ -30,7 +30,8 @@
                 android:divider="@color/transparent"
                 android:dividerHeight="1px"
                 android:scrollbars="none"
-                android:overScrollMode="never"/>
+                android:overScrollMode="never"
+                android:layout_marginBottom="50dp"/>
 
         </com.prismk.japaneseelearn.widgets.overscrolllayout.OverScrollLayout>
 
