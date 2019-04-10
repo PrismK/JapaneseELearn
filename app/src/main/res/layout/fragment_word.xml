@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginBottom="50dp">
+    android:paddingBottom="50dp">
 
     <View
         android:id="@+id/status_bar_view"
@@ -12,7 +12,7 @@
 
     <include layout="@layout/layout_widget_title" />
 
-    <Button
+    <!--<Button
         android:id="@+id/btn_all_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,5 +31,117 @@
         android:id="@+id/btn_unknow_correct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="特别生词" />
+        android:text="特别生词" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_all_word"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:text="单词汇总"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/pureWhite"
+                android:background="@drawable/selector_circle_blue"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            android:background="@color/blueMain"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_unknow"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:text="生词本"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/pureWhite"
+                android:background="@drawable/selector_circle_green"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/blueMain"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_know"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:text="已记住单词"
+                android:background="@drawable/selector_circle_pink"
+                android:textColor="@color/pureWhite"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="70dp"
+            android:background="@color/blueMain"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_unknow_correct"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:text="记忆困难单词"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/pureWhite"
+                android:background="@drawable/selector_circle_yellow"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

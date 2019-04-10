@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.prismk.japaneseelearn.R;
@@ -72,6 +73,7 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
         private int position;
         private WordBean wordBean;
         private final EasyFlipView easyFlipView;
+        private LinearLayout ll_get_it;
 
         public ViewHolder(View view) {
             super(view);
@@ -84,6 +86,7 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
 
             forget = view.findViewById(R.id.btn_add_forget);
             get = view.findViewById(R.id.btn_get_it);
+            ll_get_it = view.findViewById(R.id.ll_get_it);
         }
 
         public void bindData(int position) {
@@ -94,6 +97,7 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.ViewHolder> 
             }
             if (isKnowWords) {
                 get.setVisibility(View.GONE);
+                ll_get_it.setVisibility(View.GONE);
             }
             this.position = position;
             wordBean = wordBeans.get(position);

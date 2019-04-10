@@ -15,10 +15,10 @@
         app:flipOnTouch="true">
 
         <!-- Back Layout Goes Here -->
-        <include layout="@layout/item_flip_back" />
+        <include layout="@layout/item_flip_front" />
 
         <!-- Front Layout Goes Here -->
-        <include layout="@layout/item_flip_front" />
+        <include layout="@layout/item_flip_back" />
 
     </com.prismk.japaneseelearn.views.EasyFlipView>
 
@@ -26,18 +26,45 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_add_forget"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="添加到生词本" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_get_it"
+            <Button
+                android:id="@+id/btn_add_forget"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textColor="@color/pureWhite"
+                android:background="@drawable/selector_circle_pink"
+                android:text="没记住" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_get_it"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="已记住" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btn_get_it"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textColor="@color/pureWhite"
+                android:background="@drawable/selector_circle_blue"
+                android:text="已记住" />
+
+        </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>
