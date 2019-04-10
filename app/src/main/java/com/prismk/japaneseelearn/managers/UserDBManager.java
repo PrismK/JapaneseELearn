@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.prismk.japaneseelearn.bean.UserData;
+import com.prismk.japaneseelearn.utils.PermissionsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -195,6 +196,7 @@ public class UserDBManager {
         if (cursor != null || cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 // 3 5 7 8
+                String userName = cursor.getString(1);
                 int userID = cursor.getInt(0);
                 boolean isTeacher = cursor.getInt(3) > 0;
                 boolean isVip = cursor.getInt(4) > 0;
@@ -202,6 +204,7 @@ public class UserDBManager {
                 String teacherAvator = cursor.getString(7);
                 String teacherName = cursor.getString(8);
                 UserData userData = new UserData();
+                userData.setUserName(userName);
                 userData.setUserId(userID);
                 userData.setTeacherUser(isTeacher);
                 userData.setVIP(isVip);
@@ -292,7 +295,6 @@ public class UserDBManager {
             return updateVip();
         }
     }
-
     private int updateVip() {
         int l = 0;
         SharedPreferences login_sp = mContext.getSharedPreferences("userInfo", 0);
