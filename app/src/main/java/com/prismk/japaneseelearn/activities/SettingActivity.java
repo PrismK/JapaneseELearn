@@ -153,8 +153,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 builder2.show();
                 break;
             case R.id.ll_userinfo:
-                Intent changeUserInfo = new Intent(SettingActivity.this, ChangeUserInfoActivity.class);
-                startActivity(changeUserInfo);
+                Intent intent3 = new Intent(SettingActivity.this, PersonalInfoActivity.class);
+                startActivity(intent3);
                 goNextAnim();
                 break;
             case R.id.rl_share:

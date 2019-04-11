@@ -163,7 +163,7 @@ public class UserDBManager {
     public boolean updateUserDataById(String columnName, int id, String columnValue) {
         ContentValues values = new ContentValues();
         values.put(columnName, columnValue);
-        return mSQLiteDatabase.update(TABLE_NAME, values, ID + "=" + id, null) > 0;
+        return mSQLiteDatabase.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
     //根据用户名找用户，可以判断注册时用户名是否已经存在
@@ -309,6 +309,7 @@ public class UserDBManager {
             return updateVip();
         }
     }
+
     private int updateVip() {
         int l = 0;
         SharedPreferences login_sp = mContext.getSharedPreferences("userInfo", 0);

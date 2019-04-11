@@ -16,6 +16,7 @@ import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.activities.AllCollectionClassesActivity;
 import com.prismk.japaneseelearn.activities.MyFavoriteTeacherActivity;
 import com.prismk.japaneseelearn.activities.MyReleasedClassActivity;
+import com.prismk.japaneseelearn.activities.PersonalInfoActivity;
 import com.prismk.japaneseelearn.activities.SettingActivity;
 import com.prismk.japaneseelearn.bean.UserData;
 import com.prismk.japaneseelearn.bean.VideoData;
@@ -56,6 +57,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout rl_myvip;
     private RelativeLayout rl_setting;
     private RelativeLayout myReleasedClass;
+    private LinearLayout meItemHead;
 
     @Override
     protected int getLayoutId() {
@@ -81,6 +83,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         rl_myvip.setOnClickListener(this);
         rl_setting.setOnClickListener(this);
         myReleasedClass.setOnClickListener(this);
+        meItemHead.setOnClickListener(this);
     }
 
     private void initView() {
@@ -108,6 +111,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         myReleasedClass = mRootView.findViewById(R.id.rl_releasedclass);
         rl_myvip = mRootView.findViewById(R.id.rl_myvip);
         rl_setting = mRootView.findViewById(R.id.rl_setting);
+
+        meItemHead = mRootView.findViewById(R.id.meItemHead);
     }
 
     @Override
@@ -199,6 +204,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void onResume() {
         userCollectionCount.setText(String.valueOf(getAllCollectionVideoCount()));
         userFavoriteCount.setText(String.valueOf(getFavoriteTeacherCount()));
+        initData();
         super.onResume();
     }
 }

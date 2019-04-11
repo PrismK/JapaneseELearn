@@ -1,5 +1,6 @@
 package com.prismk.japaneseelearn.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CursorAdapter;
@@ -85,12 +86,15 @@ public class ModifyPersonalInfoActivity extends BaseActivity {
                     break;
                 case MODIFYTEL:
                     userDBManager.updateUserDataById(UserDBManager.USER_NAME,loginuserid,updateInfo);
+                    SharedPreferences sp = getSharedPreferences("userInfo", 0);
+                    SharedPreferences.Editor edit = sp.edit();
+                    edit.putString("USER_NAME",updateInfo);
+                    edit.commit();
                     finish();
                     goPreAnim();
                     break;
             }
         }
-
 
         @Override
         protected int getLayoutId () {
