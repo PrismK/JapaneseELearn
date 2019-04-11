@@ -195,14 +195,26 @@ public class UserDBManager {
         Cursor cursor = mSQLiteDatabase.rawQuery("select * from users", null);
         if (cursor != null || cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
+
+
+
                 // 3 5 7 8
-                String userName = cursor.getString(1);
-                int userID = cursor.getInt(0);
-                boolean isTeacher = cursor.getInt(3) > 0;
-                boolean isVip = cursor.getInt(4) > 0;
-                String teacherSign = cursor.getString(5);
-                String teacherAvator = cursor.getString(7);
-                String teacherName = cursor.getString(8);
+                //String userName = cursor.getString(1);
+                //int userID = cursor.getInt(0);
+                //boolean isTeacher = cursor.getInt(3) > 0;
+                //boolean isVip = cursor.getInt(4) > 0;
+                //String teacherSign = cursor.getString(5);
+                //String teacherAvator = cursor.getString(7);
+                //String teacherName = cursor.getString(8);
+
+                int userID = cursor.getInt(cursor.getColumnIndex(ID));
+                String userName = cursor.getString(cursor.getColumnIndex(USER_NAME));
+                boolean isTeacher = cursor.getInt(cursor.getColumnIndex(ISTEACHER)) > 0;
+                boolean isVip = cursor.getInt(cursor.getColumnIndex(ISVIP)) > 0;
+                String teacherSign = cursor.getString(cursor.getColumnIndex(USER_SIGN));
+                String teacherAvator = cursor.getString(cursor.getColumnIndex(USER_HEADIMG));
+                String teacherName = cursor.getString(cursor.getColumnIndex(USER_NICKNAME));
+
                 UserData userData = new UserData();
                 userData.setUserName(userName);
                 userData.setUserId(userID);
@@ -283,7 +295,7 @@ public class UserDBManager {
             while (mCursor.moveToNext()) {
                 //userID = mCursor.getInt(1);
                 userID = mCursor.getInt(mCursor.getColumnIndex(ID));
-                System.out.println("----------------------"+ userID);
+                System.out.println("----------------------userID：" + userID);
             }
         }
         return userID;

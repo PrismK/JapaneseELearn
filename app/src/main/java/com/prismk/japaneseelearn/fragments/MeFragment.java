@@ -2,6 +2,7 @@ package com.prismk.japaneseelearn.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Trace;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,12 +154,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         userDBManager = new UserDBManager(getContext());
         List<UserData> userDataList = userDBManager.getUserDataListFromUserDB();
 
-        Glide.with(getContext()).load(userDataList.get(userDBManager.getLoginUesrID()).getHeadImgUrlString()).into(imageHeader);
-        userName.setText(userDataList.get(userDBManager.getLoginUesrID() - 1).getNickName().trim());
-        userSign.setText(userDataList.get(userDBManager.getLoginUesrID() - 1).getSign().trim());
+        Glide.with(getContext()).load(userDataList.get(userDBManager.getLoginUesrID() - 1).getHeadImgUrlString()).into(imageHeader);
+        userName.setText(userDataList.get(userDBManager.getLoginUesrID() -1).getNickName().trim());
+        userSign.setText(userDataList.get(userDBManager.getLoginUesrID() -1).getSign().trim());
 
         //判断是不是老师
-        if (userDataList.get(userDBManager.getLoginUesrID()).isTeacherUser())
+        if (userDataList.get(userDBManager.getLoginUesrID() - 1).isTeacherUser())
             myReleasedClass.setVisibility(View.VISIBLE);
     }
 

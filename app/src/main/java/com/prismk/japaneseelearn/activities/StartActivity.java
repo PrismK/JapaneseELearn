@@ -99,7 +99,7 @@ public class StartActivity extends BaseActivity {
                 boolean isFirstIn = login_sp.getBoolean("isFirstIn", true);
                 Intent intent = null;
                 if (!name.isEmpty() && !pwd.isEmpty()) {
-                    if (!mUserDBManager.getUserDataListFromUserDB().get(mUserDBManager.getLoginUesrID()).isTeacherUser())
+                    if (!mUserDBManager.getUserDataListFromUserDB().get(mUserDBManager.getLoginUesrID() - 1).isTeacherUser())
                         intent = new Intent(StartActivity.this, MainActivity.class);
                     else
                         intent = new Intent(StartActivity.this, MainOfTeacherActivity.class);
