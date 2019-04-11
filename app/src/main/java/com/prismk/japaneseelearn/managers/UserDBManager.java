@@ -278,11 +278,12 @@ public class UserDBManager {
         SharedPreferences login_sp = mContext.getSharedPreferences("userInfo", 0);
         String name = login_sp.getString("USER_NAME", "");
         int userID = 0;
-        Cursor mCursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + USER_NAME + " = ?", new String[]{name});
+        Cursor mCursor = mSQLiteDatabase.rawQuery("select " + ID +  " from " + TABLE_NAME + " where " + USER_NAME + " = ?", new String[]{name});
         if (mCursor != null && mCursor.getCount() > 0) {
             while (mCursor.moveToNext()) {
                 //userID = mCursor.getInt(1);
-                userID = mCursor.getInt(mCursor.getColumnIndex(USER_NAME));
+                userID = mCursor.getInt(mCursor.getColumnIndex(ID));
+                System.out.println("----------------------"+ userID);
             }
         }
         return userID;
