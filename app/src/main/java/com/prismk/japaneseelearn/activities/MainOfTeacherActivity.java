@@ -7,10 +7,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -127,6 +129,14 @@ public class MainOfTeacherActivity extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    private void initRadioListPopupWindow() {
+        /*mRadioList = this.getLayoutInflater().inflate(R.layout.layout_map_radiolist, null);
+        mRadioListPopup = new PopupWindow(mRadioList, WindowManager.LayoutParams.MATCH_PARENT, 1750);
+        mRadioListPopup.setAnimationStyle(R.style.popupAnimation);
+        mRadioListPopup.setFocusable(true);
+        mRadioListPopup.setOutsideTouchable(true);*/
     }
 
     private void selectHome() {
