@@ -11,15 +11,4 @@
 
     <include layout="@layout/layout_widget_title" />
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="180dp">
-
-        <com.prismk.japaneseelearn.views.BannerView
-            android:id="@+id/ssv_lunbo"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-    </FrameLayout>
-
 </LinearLayout>

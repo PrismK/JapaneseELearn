@@ -49,8 +49,8 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         mRootView = View.inflate(getActivity(), getLayoutId(), null);
-        initTitle();
         initData();
+        initTitle();
         initView();
         return mRootView;
     }
@@ -66,6 +66,7 @@ public class HomeFragment extends BaseFragment {
         title.setTitleNameStr("首页");
         title.setTheme(Title.TitleTheme.THEME_LIGHT);
         title.setShowDivider(true);
+        //TODO:加判断是否教师用户
         Title.ButtonInfo drawer = new Title.ButtonInfo(true,Title.BUTTON_LEFT,0,"教师列表");
         title.setButtonInfoNamePadding(Title.BUTTON_LEFT,15,0,0,0);
         title.setButtonInfo(drawer);
