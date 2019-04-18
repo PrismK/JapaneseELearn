@@ -39,6 +39,7 @@ public class HomeFragment extends BaseFragment {
     private NoScrollListView drawHeaderView;
     private TeacherListAdapter teacherListAdapter;
     private List<UserData> teacherDataList;
+    private boolean teacherUser;
 
     @Override
     protected int getLayoutId() {
@@ -67,22 +68,25 @@ public class HomeFragment extends BaseFragment {
         title.setTheme(Title.TitleTheme.THEME_LIGHT);
         title.setShowDivider(true);
         //TODO:加判断是否教师用户
-        Title.ButtonInfo drawer = new Title.ButtonInfo(true,Title.BUTTON_LEFT,0,"教师列表");
-        title.setButtonInfoNamePadding(Title.BUTTON_LEFT,15,0,0,0);
-        title.setButtonInfo(drawer);
-        title.setOnTitleButtonClickListener(new Title.OnTitleButtonClickListener() {
-            @Override
-            public void onClick(int id, Title.ButtonViewHolder viewHolder) {
-                switch (id){
-                    case Title.BUTTON_LEFT:
-                        if (drawerLayout.isDrawerOpen(navigationView))
-                            drawerLayout.closeDrawer(navigationView);
-                        else
-                            drawerLayout.openDrawer(navigationView);
-                        break;
+        if (teacherUser){
+            Title.ButtonInfo drawer = new Title.ButtonInfo(true,Title.BUTTON_LEFT,0,"教师列表");
+            title.setButtonInfoNamePadding(Title.BUTTON_LEFT,15,0,0,0);
+            title.setButtonInfo(drawer);
+            title.setOnTitleButtonClickListener(new Title.OnTitleButtonClickListener() {
+                @Override
+                public void onClick(int id, Title.ButtonViewHolder viewHolder) {
+                    switch (id){
+                        case Title.BUTTON_LEFT:
+                            if (drawerLayout.isDrawerOpen(navigationView))
+                                drawerLayout.closeDrawer(navigationView);
+                            else
+                                drawerLayout.openDrawer(navigationView);
+                            break;
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
     private void initData(){
@@ -125,7 +129,7 @@ public class HomeFragment extends BaseFragment {
           userDBManager = new UserDBManager(getContext());
         }
         List<UserData> userDataListFromUserDB = userDBManager.getUserDataListFromUserDB();
-        boolean teacherUser = userDataListFromUserDB.get(userDBManager.getLoginUesrID() - 1).isTeacherUser();
+        teacherUser = userDataListFromUserDB.get(userDBManager.getLoginUesrID() - 1).isTeacherUser();
         if (teacherUser)
             return R.layout.fragment_classes;
         else
