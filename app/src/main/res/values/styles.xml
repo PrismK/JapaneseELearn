@@ -119,11 +119,6 @@
         </attr>
     </declare-styleable>
 
-    <style name="popupAnimation" parent="android:Animation" mce_bogus="1">
-        <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
-        <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
-    </style>
-
     <style name="netease_toolbar_title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">17sp</item>
@@ -149,6 +144,16 @@
 
     <style name="DialogTheme" parent="android:Theme.Dialog">
         <item name="android:windowBackground">@drawable/dialog_background</item>
+    </style>
+
+    <style name="popupAnimation" parent="android:Animation" mce_bogus="1">
+        <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
+    </style>
+
+    <style name="popupAnimationEx" parent="android:Animation" mce_bogus="1">
+        <item name="android:windowEnterAnimation">@anim/anim_radio_popup_show</item>
+        <item name="android:windowExitAnimation">@anim/anim__radio_popup_hide</item>
     </style>
 
 </resources>
