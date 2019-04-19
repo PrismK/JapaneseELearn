@@ -7,7 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,11 +19,8 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.fragments.BaseFragment;
-import com.prismk.japaneseelearn.fragments.ClassesFragment;
-import com.prismk.japaneseelearn.fragments.HearFragment;
 import com.prismk.japaneseelearn.fragments.HomeFragment;
 import com.prismk.japaneseelearn.fragments.MeFragment;
-import com.prismk.japaneseelearn.fragments.WordFragment;
 
 import java.util.ArrayList;
 
@@ -57,6 +55,9 @@ public class MainOfTeacherActivity extends AppCompatActivity {
     //缓存Fragment或上次显示的Fragment
     private Fragment tempFragment;
     private ImageButton imb_addResource;
+    private FrameLayout fl_popview;
+    private TranslateAnimation showAnim;
+    private TranslateAnimation dismissAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class MainOfTeacherActivity extends AppCompatActivity {
         initFragment();
         initOnClickListener();
         initLayout(ll_home);
+        initAmimation();
     }
 
     private void initStatusBar() {
@@ -76,22 +78,21 @@ public class MainOfTeacherActivity extends AppCompatActivity {
 
     private void initView() {
         fl_fragmentOfTeacher = findViewById(R.id.fl_fragmentOfTeacher);
-
         ll_home = findViewById(R.id.ll_home);
         imv_home = findViewById(R.id.imv_home);
         tv_home = findViewById(R.id.tv_home);
-
         ll_me = findViewById(R.id.ll_me);
         imv_me = findViewById(R.id.imv_me);
         tv_me = findViewById(R.id.tv_me);
-
         imb_addResource = findViewById(R.id.imb_addResource);
+        fl_popview = findViewById(R.id.fl_popview);
     }
 
     private void initOnClickListener() {
         ll_home.setOnClickListener(onBottomViewClickListener);
         ll_me.setOnClickListener(onBottomViewClickListener);
         imb_addResource.setOnClickListener(onBottomViewClickListener);
+        fl_popview.setOnClickListener(onBottomViewClickListener);
     }
 
     protected int getLayoutId() {
@@ -101,7 +102,7 @@ public class MainOfTeacherActivity extends AppCompatActivity {
     private View.OnClickListener onBottomViewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.ll_home:
                 case R.id.ll_me:
                     initLayout(v);
@@ -109,11 +110,42 @@ public class MainOfTeacherActivity extends AppCompatActivity {
                     break;
                 case R.id.imb_addResource:
                     onClickViewChange(v);
+                    showReleaseView();
+                    break;
+                case R.id.fl_popview:
+                    dismissReleaseView();
                     break;
             }
 
         }
     };
+
+    private void initAmimation() {
+        showAnim = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f
+        );
+        showAnim.setDuration(300);
+        dismissAnim = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f
+        );
+        dismissAnim.setDuration(300);
+    }
+
+    private void showReleaseView() {
+        fl_popview.startAnimation(showAnim);
+        fl_popview.setVisibility(View.VISIBLE);
+    }
+
+    private void dismissReleaseView() {
+        fl_popview.startAnimation(dismissAnim);
+        fl_popview.setVisibility(View.GONE);
+    }
 
     private void onClickViewChange(View v) {
         switch (v.getId()) {
@@ -129,14 +161,6 @@ public class MainOfTeacherActivity extends AppCompatActivity {
 
                 break;
         }
-    }
-
-    private void initRadioListPopupWindow() {
-        /*mRadioList = this.getLayoutInflater().inflate(R.layout.layout_map_radiolist, null);
-        mRadioListPopup = new PopupWindow(mRadioList, WindowManager.LayoutParams.MATCH_PARENT, 1750);
-        mRadioListPopup.setAnimationStyle(R.style.popupAnimation);
-        mRadioListPopup.setFocusable(true);
-        mRadioListPopup.setOutsideTouchable(true);*/
     }
 
     private void selectHome() {

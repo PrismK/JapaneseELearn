@@ -331,24 +331,29 @@
             <RelativeLayout
                 android:id="@+id/rl_releasedclass"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/selector_setting_choose_item"
                 android:clickable="true"
                 android:visibility="gone">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray1" />
+
                 <ImageView
                     android:id="@+id/img_releasedclass"
                     android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="13dp"
                     android:padding="13dp"
-                    android:src="@mipmap/look" />
+                    android:src="@mipmap/push" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@+id/img_releasedclass"
-                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
                     android:text="我发布的课程" />
 
                 <Button
@@ -359,12 +364,6 @@
                     android:layout_marginRight="20dp"
                     android:background="@mipmap/arrow_right" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="30dp"
-                    android:background="@color/grayDividerDark" />
             </RelativeLayout>
 
             <RelativeLayout
