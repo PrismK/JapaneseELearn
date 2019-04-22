@@ -37,7 +37,7 @@ public class WxDemoActivity extends AppCompatActivity implements ImagePickerAdap
 
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
-    private int maxImgCount = 8;               //允许选择图片最大数
+    private int maxImgCount = 1;               //允许选择图片最大数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

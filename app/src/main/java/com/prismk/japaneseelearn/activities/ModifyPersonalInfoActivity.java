@@ -54,51 +54,52 @@ public class ModifyPersonalInfoActivity extends BaseActivity {
         Title.ButtonInfo savebutton = new Title.ButtonInfo(true, Title.BUTTON_RIGHT1, 0, "保存");
         title.setButtonInfo(backbutton);
         title.setButtonInfo(savebutton);
-       title.setOnTitleButtonClickListener(new Title.OnTitleButtonClickListener() {
-           @Override
-           public void onClick(int id, Title.ButtonViewHolder viewHolder) {
-               switch (id) {
-                   case Title.BUTTON_LEFT:
-                       finish();
-                       goPreAnim();
-                       break;
-                   case Title.BUTTON_RIGHT1:
-                       modify(title.getTitleNameStr());
-                       break;
-               }
-           }
-       });
-    }
-        private void modify (String titleStr){
-            UserDBManager userDBManager = new UserDBManager(ModifyPersonalInfoActivity.this);
-            int loginuserid = userDBManager.getLoginUesrID();
-            String updateInfo = modifyInfo.getText().toString().trim();
-            switch (titleStr) {
-                case MODIFYNICKNAME:
-                    userDBManager.updateUserDataById(UserDBManager.USER_NICKNAME,loginuserid,updateInfo);
-                    finish();
-                    goPreAnim();
-                    break;
-                case MODIFYSIGN:
-                    userDBManager.updateUserDataById(UserDBManager.USER_SIGN,loginuserid,updateInfo);
-                    finish();
-                    goPreAnim();
-                    break;
-                case MODIFYTEL:
-                    userDBManager.updateUserDataById(UserDBManager.USER_NAME,loginuserid,updateInfo);
-                    SharedPreferences sp = getSharedPreferences("userInfo", 0);
-                    SharedPreferences.Editor edit = sp.edit();
-                    edit.putString("USER_NAME",updateInfo);
-                    edit.commit();
-                    finish();
-                    goPreAnim();
-                    break;
+        title.setOnTitleButtonClickListener(new Title.OnTitleButtonClickListener() {
+            @Override
+            public void onClick(int id, Title.ButtonViewHolder viewHolder) {
+                switch (id) {
+                    case Title.BUTTON_LEFT:
+                        finish();
+                        goPreAnim();
+                        break;
+                    case Title.BUTTON_RIGHT1:
+                        modify(title.getTitleNameStr());
+                        break;
+                }
             }
-        }
+        });
+    }
 
-        @Override
-        protected int getLayoutId () {
-            return R.layout.activity_modify_personal_nickname;
+    private void modify(String titleStr) {
+        UserDBManager userDBManager = new UserDBManager(ModifyPersonalInfoActivity.this);
+        int loginuserid = userDBManager.getLoginUesrID();
+        String updateInfo = modifyInfo.getText().toString().trim();
+        switch (titleStr) {
+            case MODIFYNICKNAME:
+                userDBManager.updateUserDataById(UserDBManager.USER_NICKNAME, loginuserid, updateInfo);
+                finish();
+                goPreAnim();
+                break;
+            case MODIFYSIGN:
+                userDBManager.updateUserDataById(UserDBManager.USER_SIGN, loginuserid, updateInfo);
+                finish();
+                goPreAnim();
+                break;
+            case MODIFYTEL:
+                userDBManager.updateUserDataById(UserDBManager.USER_NAME, loginuserid, updateInfo);
+                SharedPreferences sp = getSharedPreferences("userInfo", 0);
+                SharedPreferences.Editor edit = sp.edit();
+                edit.putString("USER_NAME", updateInfo);
+                edit.commit();
+                finish();
+                goPreAnim();
+                break;
         }
     }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_modify_personal_nickname;
+    }
+}
 

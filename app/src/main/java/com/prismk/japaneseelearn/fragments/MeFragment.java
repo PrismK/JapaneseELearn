@@ -158,7 +158,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     private void initData() {
         userDBManager = new UserDBManager(getContext());
         List<UserData> userDataList = userDBManager.getUserDataListFromUserDB();
-
         Glide.with(getContext()).load(userDataList.get(userDBManager.getLoginUesrID() - 1).getHeadImgUrlString()).into(imageHeader);
         userName.setText(userDataList.get(userDBManager.getLoginUesrID() -1).getNickName().trim());
         userSign.setText(userDataList.get(userDBManager.getLoginUesrID() -1).getSign().trim());
