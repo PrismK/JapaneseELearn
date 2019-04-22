@@ -22,7 +22,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-
 /**
  * create by Nevermore
  * 2019/4/16
@@ -45,7 +44,7 @@ public class mLunBoTuManager {
     private int defalutDotRound = 16;
     private int selectDotRound = 24;
     private OnPageClickListener onPageClickListener;
-
+    private View view;
 
 
     private Handler handler = new Handler() {
@@ -62,10 +61,10 @@ public class mLunBoTuManager {
         }
     };
 
-    public mLunBoTuManager(Context context, ViewPager viewPager) {
+    public mLunBoTuManager(Context context, ViewPager viewPager, View view) {
         this.context = context;
         this.mViewPager = viewPager;
-
+        this.view = view;
     }
 
     private void initData() {
@@ -75,7 +74,12 @@ public class mLunBoTuManager {
 
     private void addDotToLinearLayout() {
         //添加轮播点
-        LinearLayout linearLayoutDots = (LinearLayout) ((Activity) context).findViewById(R.id.lineLayout_dot);
+        LinearLayout linearLayoutDots = null;
+        if (view!=null){
+            linearLayoutDots = (LinearLayout) view.findViewById(R.id.lineLayout_dot);
+        }else {
+            linearLayoutDots = ((Activity)context).findViewById(R.id.lineLayout_dot);
+        }
         mDots = addDots(linearLayoutDots, fromResToDrawable(R.drawable.vector_lunbotu), mImageList.size());
         mDots.get(0).post(new Runnable() {
             @Override
@@ -173,6 +177,7 @@ public class mLunBoTuManager {
         int IMAGE1 = R.id.pager_image1;
         int IMAGE2 = R.id.pager_image2;
         int IMAGE3 = R.id.pager_image3;
+
         void OnPageClick(int id);
     }
 
@@ -183,13 +188,10 @@ public class mLunBoTuManager {
     private class pagerImageOnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-                    if (onPageClickListener!=null)
-                    onPageClickListener.OnPageClick(v.getId());
-            }
+            if (onPageClickListener != null)
+                onPageClickListener.OnPageClick(v.getId());
         }
-
-
-
+    }
 
 
     /**
@@ -214,7 +216,10 @@ public class mLunBoTuManager {
         List<View> dots = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             int dotId = addDot(linearLayout, backgount);
-            dots.add(((Activity) context).findViewById(dotId));
+            if (view != null)
+            dots.add(view.findViewById(dotId));
+            else
+                dots.add(((Activity)context).findViewById(dotId));
         }
         return dots;
     }
@@ -276,7 +281,6 @@ public class mLunBoTuManager {
     private void startPlayView() {
         handler.sendEmptyMessage(START);
     }
-
 
 
     public void setDelayAndPeriodTime(long periodTime) {

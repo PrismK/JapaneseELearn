@@ -11,33 +11,115 @@
 
     <include layout="@layout/layout_widget_title" />
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="180dp">
+    <!--<FrameLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="180dp">-->
 
-        <com.prismk.japaneseelearn.views.BannerView
-            android:id="@+id/ssv_lunbo"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
+        <!--<com.prismk.japaneseelearn.views.BannerView-->
+            <!--android:id="@+id/ssv_lunbo"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp" />-->
 
-    </FrameLayout>
-    <RelativeLayout
+    <!--</FrameLayout>-->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_lunbotu"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
-        </android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
         <LinearLayout
-            android:id="@+id/lineLayout_dot"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             >
+            <!--轮播图-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_lunbotu"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    >
+                </android.support.v4.view.ViewPager>
+                <LinearLayout
+                    android:id="@+id/lineLayout_dot"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_alignParentBottom="true"
+                    >
+                </LinearLayout>
+            </RelativeLayout>
+            <!--每日一句-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="每日一句"
+                    android:textSize="20dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_update_everyday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="enen "
+                    android:textSize="15dp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    />
+
+            </LinearLayout>
+            <!--精选文章-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="精选文章"
+                    android:textSize="20dp"
+                    />
+             <com.prismk.japaneseelearn.views.NoScrollListView
+                 android:id="@+id/nlv_article"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:scrollbars="none"
+                 ></com.prismk.japaneseelearn.views.NoScrollListView>
+            </LinearLayout>
+            <!--精选网课-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="精选网课"
+                    android:textSize="20dp"
+                    />
+                <com.prismk.japaneseelearn.views.NoScrollListView
+                    android:id="@+id/nlv_net_class"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    ></com.prismk.japaneseelearn.views.NoScrollListView>
+            </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </ScrollView>
+
 
 </LinearLayout>
