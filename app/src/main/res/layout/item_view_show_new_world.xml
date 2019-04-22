@@ -4,48 +4,79 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_japanese"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <TextView
-        android:id="@+id/tv_kata"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_japanese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="XXXXXXX"
+            android:textColor="@color/pureBlack"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_chinese"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_kata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="XXXXXXXXXX"
+            android:textSize="26dp" />
 
-    <TextView
-        android:id="@+id/tv_exa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_chinese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="XXXXXXXXXX"
+            android:textSize="26dp" />
 
-    <TextView
-        android:id="@+id/tv_exa_china"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_exa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="XXXXXXXXXX"
+            android:textSize="26dp" />
+
+        <TextView
+            android:id="@+id/tv_exa_china"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="XXXXXXXXXX"
+            android:textSize="26dp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:gravity="bottom|center">
 
         <Button
             android:id="@+id/btn_sumbit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="假装是对号" />
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/selector_circle_blue"
+            android:text="已记住"
+            android:layout_marginRight="100dp"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btn_cancle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="假装是错号" />
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/selector_circle_pink"
+            android:text="没记住"
+            android:textColor="#ffffff" />
+
     </LinearLayout>
 
 </LinearLayout>

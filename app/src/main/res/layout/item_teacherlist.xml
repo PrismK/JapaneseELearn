@@ -3,49 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:orientation="horizontal"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    >
-    <!--头像-->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_teacher_avatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_vertical"
-        />
-    <!--教师姓名和个性签名-->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="80dp"
         android:layout_marginLeft="15dp"
-        android:padding="10dp"
-        >
-        <!--姓名-->
-        <TextView
-            android:id="@+id/tv_teacher_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/pureBlack"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="20dp"
-            />
-        <!--个性签名-->
-        <TextView
-            android:id="@+id/tv_teacher_sign"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+        <!--头像-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_teacher_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical" />
+        <!--教师姓名和个性签名-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:gravity="bottom"
-            android:maxLength="30"
-            android:maxLines="2"
-            android:textSize="16dp"
-            />
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <!--姓名-->
+            <TextView
+                android:id="@+id/tv_teacher_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="XXX"
+                android:textColor="@color/pureBlack"
+                android:textSize="20dp" />
+            <!--个性签名-->
+            <TextView
+                android:id="@+id/tv_teacher_sign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:gravity="bottom"
+                android:text="XXX"
+                android:maxLength="30"
+                android:maxLines="2"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+
 </LinearLayout>

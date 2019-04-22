@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -58,6 +59,8 @@ public class MainOfTeacherActivity extends AppCompatActivity {
     private FrameLayout fl_popview;
     private TranslateAnimation showAnim;
     private TranslateAnimation dismissAnim;
+    private Button btn_release_vip;
+    private Button btn_release_notvip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,8 @@ public class MainOfTeacherActivity extends AppCompatActivity {
         tv_me = findViewById(R.id.tv_me);
         imb_addResource = findViewById(R.id.imb_addResource);
         fl_popview = findViewById(R.id.fl_popview);
+        btn_release_vip = findViewById(R.id.btn_release_vip);
+        btn_release_notvip = findViewById(R.id.btn_release_notvip);
     }
 
     private void initOnClickListener() {
@@ -93,6 +98,8 @@ public class MainOfTeacherActivity extends AppCompatActivity {
         ll_me.setOnClickListener(onBottomViewClickListener);
         imb_addResource.setOnClickListener(onBottomViewClickListener);
         fl_popview.setOnClickListener(onBottomViewClickListener);
+        btn_release_notvip.setOnClickListener(onBottomViewClickListener);
+        btn_release_vip.setOnClickListener(onBottomViewClickListener);
     }
 
     protected int getLayoutId() {
@@ -114,6 +121,16 @@ public class MainOfTeacherActivity extends AppCompatActivity {
                     break;
                 case R.id.fl_popview:
                     dismissReleaseView();
+                    break;
+                case R.id.btn_release_notvip:
+                    Intent intent = new Intent(MainOfTeacherActivity.this, ReleaseClassesActivity.class);
+                    intent.putExtra("isVip",false);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_release_vip:
+                    Intent intent1 = new Intent(MainOfTeacherActivity.this, ReleaseClassesActivity.class);
+                    intent1.putExtra("isVip",true);
+                    startActivity(intent1);
                     break;
             }
 

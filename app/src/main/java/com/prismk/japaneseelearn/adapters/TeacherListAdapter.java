@@ -16,11 +16,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * create by Nevermore
- * 2019/3/30
- * 你不愿回忆的过去已经死亡，就让黑夜把它永远埋葬
- */
+
 public class TeacherListAdapter extends BaseAdapter {
     private Context context;
     private List<UserData> list;
