@@ -13,9 +13,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.prismk.japaneseelearn.R;
+import com.prismk.japaneseelearn.bean.UserData;
+import com.prismk.japaneseelearn.managers.UserDBManager;
 import com.prismk.japaneseelearn.utils.CleanMessageUtil;
 import com.prismk.japaneseelearn.widgets.Title;
+
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
@@ -28,6 +35,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private SharedPreferences login_sp;
     private LinearLayout ll_userinfo;
     private RelativeLayout rl_share;
+    private CircleImageView imv_userhead;
+    private TextView nickname;
+    private TextView tv_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +46,17 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         setStatusBarDark();
         initTitle();
         initView();
+        initData();
         setOnClick();
         initSP();
+    }
+
+    private void initData() {
+        UserDBManager userDBManager = new UserDBManager(SettingActivity.this);
+        List<UserData> userDataListFromUserDB = userDBManager.getUserDataListFromUserDB();
+        Glide.with(SettingActivity.this).load(userDataListFromUserDB.get(userDBManager.getLoginUesrID() - 1).getHeadImgUrlString()).into(imv_userhead);
+        nickname.setText(userDataListFromUserDB.get(userDBManager.getLoginUesrID() - 1).getNickName());
+        tv_username.setText(userDataListFromUserDB.get(userDBManager.getLoginUesrID() - 1).getSign());
     }
 
     private void initSP() {
@@ -60,6 +79,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
         ll_userinfo = (LinearLayout) findViewById(R.id.ll_userinfo);
         rl_share = (RelativeLayout) findViewById(R.id.rl_share);
+
+        imv_userhead = (CircleImageView) findViewById(R.id.imv_userhead);
+        nickname = (TextView) findViewById(R.id.nickname);
+        tv_username = (TextView) findViewById(R.id.tv_username);
     }
 
     private void initTitle() {
