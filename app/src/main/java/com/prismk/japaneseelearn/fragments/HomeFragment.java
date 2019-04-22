@@ -28,6 +28,7 @@ import com.prismk.japaneseelearn.properties.ELearnAppProperties;
 import com.prismk.japaneseelearn.views.NoScrollListView;
 import com.prismk.japaneseelearn.widgets.Title;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -94,14 +95,26 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initData() {
+        VideoDBManager videoDBManager = new VideoDBManager(getContext());
+        videoDataList = videoDBManager.getVideoDataListFromVideoDB();
         if (getLayoutId() == R.layout.fragment_classes) {
             userDBManager = new UserDBManager(getContext());
-            VideoDBManager videoDBManager = new VideoDBManager(getContext());
-            videoDataList = videoDBManager.getVideoDataListFromVideoDB();
             videoAdapter = new VideoAdapter(getContext(), videoDataList);
             teacherDataList = userDBManager.getTeacherListFromUserDB();
             teacherListAdapter = new TeacherListAdapter(getContext(), teacherDataList);
+        } else if (getLayoutId() == R.layout.fragment_home) {
+            videoAdapter = new VideoAdapter(getContext(), getVipVideoList(),6);
         }
+    }
+
+    private List<VideoData> getVipVideoList() {
+        List<VideoData> VipVideoList = new ArrayList<>();
+        for (VideoData videoData : videoDataList) {
+            if (videoData.isVipVideo()) {
+                VipVideoList.add(videoData);
+            }
+        }
+        return VipVideoList;
     }
 
     private void initView() {
@@ -133,7 +146,17 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initNetClass() {
-
+        NoScrollListView netclass = mRootView.findViewById(R.id.nlv_net_class);
+        netclass.setItemCount(6);
+        netclass.setAdapter(videoAdapter);
+        netclass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(),VideoPlayerActivity.class);
+                intent.putExtra(ELearnAppProperties.INTENT_VIDEO_POSITION,getVipVideoList().get(position).getVideoId()-1);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initArticle() {
@@ -147,8 +170,8 @@ public class HomeFragment extends BaseFragment {
 
     private void initmLunBoTu() {
         ViewPager mlunBoTu = mRootView.findViewById(R.id.vp_lunbotu);
-        mLunBoTuManager manager = new mLunBoTuManager(getContext(), mlunBoTu,mRootView);
-        manager.setLunBoImages(new int[]{R.drawable.a,R.drawable.b,R.drawable.c});
+        mLunBoTuManager manager = new mLunBoTuManager(getContext(), mlunBoTu, mRootView);
+        manager.setLunBoImages(new int[]{R.drawable.a, R.drawable.b, R.drawable.c});
         //点击事件
 //            manager.setOnPageClickListener(new mLunBoTuManager.OnPageClickListener() {
 //                @Override
