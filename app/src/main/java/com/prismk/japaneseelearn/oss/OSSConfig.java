@@ -6,4 +6,6 @@ public class OSSConfig {
     public static final String endPoint = "http://oss-cn-shenzhen.aliyuncs.com";
     public static final String upRootPath = "zack/";
     public static final String uploadHalfPath = "https://thethreestooges.oss-cn-shenzhen.aliyuncs.com/";
+
+    public static final String avatar = "https://thethreestooges.oss-cn-shenzhen.aliyuncs.com/zack/avatar/1.jpg";
 }
