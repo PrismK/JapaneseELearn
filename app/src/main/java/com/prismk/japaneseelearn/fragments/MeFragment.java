@@ -80,7 +80,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         ll_classes_notvip.setOnClickListener(this);
         ll_classes_vip.setOnClickListener(this);
         myFavoriteTeacher.setOnClickListener(this);
-        rl_myvip.setOnClickListener(this);
+        //rl_myvip.setOnClickListener(this);
         rl_setting.setOnClickListener(this);
         myReleasedClass.setOnClickListener(this);
         meItemHead.setOnClickListener(this);
@@ -109,7 +109,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         userFavoriteCount = mRootView.findViewById(R.id.tv_favorite_count);
         myFavoriteTeacher = mRootView.findViewById(R.id.rl_followedteacher);
         myReleasedClass = mRootView.findViewById(R.id.rl_releasedclass);
-        rl_myvip = mRootView.findViewById(R.id.rl_myvip);
+        //rl_myvip = mRootView.findViewById(R.id.rl_myvip);
         rl_setting = mRootView.findViewById(R.id.rl_setting);
 
         meItemHead = mRootView.findViewById(R.id.meItemHead);
@@ -145,9 +145,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rl_setting:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
-            case R.id.rl_myvip:
+            /*case R.id.rl_myvip:
 
-                break;
+                break;*/
             case R.id.rl_releasedclass:
                 Intent intent2 = new Intent(getContext(), MyReleasedClassActivity.class);
                 startActivity(intent2);

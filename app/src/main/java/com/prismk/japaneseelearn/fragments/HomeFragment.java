@@ -146,7 +146,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initNetClass() {
-        /*NoScrollListView netclass = mRootView.findViewById(R.id.nlv_net_class);
+        NoScrollListView netclass = mRootView.findViewById(R.id.nlv_net_class);
         netclass.setItemCount(6);
         netclass.setAdapter(videoAdapter);
         netclass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -156,16 +156,16 @@ public class HomeFragment extends BaseFragment {
                 intent.putExtra(ELearnAppProperties.INTENT_VIDEO_POSITION,getVipVideoList().get(position).getVideoId()-1);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 
     private void initArticle() {
     }
 
     private void initUpdateEveryDay() {
-        /*TextView tv = mRootView.findViewById(R.id.tv_update_everyday);
+        TextView tv = mRootView.findViewById(R.id.tv_update_everyday);
         UpdateEverydayManager manager = new UpdateEverydayManager(tv);
-        manager.checkSystemTime();*/
+        manager.checkSystemTime();
     }
 
     private void initmLunBoTu() {

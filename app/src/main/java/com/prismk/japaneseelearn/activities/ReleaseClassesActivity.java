@@ -105,18 +105,18 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
     }
 
     private void releaseClass() {
-        int userid = userId;
+        String photoUpPath = OSSConfig.upRootPath + "zack/" + userId + "/img/" + System.currentTimeMillis() + ".jpg";
+        String videoUpPath = OSSConfig.upRootPath + "zack/" + userId + "/" + System.currentTimeMillis()+ ".mp4";
+
         String currentTime = getCurrentTime();
         String title = tv_classes_title.getText().toString().trim();
         String introduction = tv_introduction.getText().toString().trim();
         String context = tv_context.getText().toString().trim();
-        String videoPath = this.videoPath;
         String imgPath = saveImageToGallery(bitmap);
-        VideoData videoData = new VideoData(videoPath, imgPath, title, introduction, context, isVip, currentTime, userid);
+        VideoData videoData = new VideoData(videoPath, photoUpPath, title, introduction, context, isVip, currentTime, userId);
 
-        String photoUpPath = OSSConfig.upRootPath + "zack/" + userid + "/" + System.currentTimeMillis();
         upFile.upfile(imgPath, photoUpPath);
-        upFile.upfile(videoPath, photoUpPath);
+        upFile.upfile(videoPath, videoUpPath);
 
         videoDBManager.insertVideoData(videoData);
         Toast.makeText(ReleaseClassesActivity.this, "发布成功！", Toast.LENGTH_SHORT).show();
@@ -230,16 +230,16 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
     public String saveImageToGallery(Bitmap bmp) {
         //生成路径
         String root = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String dirName = "1ELearnFolder";
+        String dirName = "1ELearnFolder/";
         File appDir = new File(root, dirName);
         if (!appDir.exists()) {
             appDir.mkdirs();
         }
         //文件名为时间
         long timeStamp = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String sd = sdf.format(new Date(timeStamp));
-        String fileName = sd + ".jpg";
+        /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String sd = sdf.format(new Date(timeStamp));*/
+        String fileName = timeStamp + ".jpg";
         //获取文件
         File file = new File(appDir, fileName);
         FileOutputStream fos = null;

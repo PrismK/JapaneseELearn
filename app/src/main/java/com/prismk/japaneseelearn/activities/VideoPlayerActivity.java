@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.prismk.japaneseelearn.R;
@@ -78,6 +79,7 @@ public class VideoPlayerActivity extends BaseActivity {
     private boolean isUserVip;
     private List<UserData> userDataList;
     private List<VideoData> videoDataList;
+    private LinearLayout ll_feedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +137,8 @@ public class VideoPlayerActivity extends BaseActivity {
         videoRecommend.setOnItemClickListener(new onNoScrollListViewItemClickListener());
         checkUserIsVip = findViewById(R.id.ll_buy_vip);
         buyVip = findViewById(R.id.tv_buy_vipclass);
+
+        ll_feedback = (LinearLayout) findViewById(R.id.ll_feedback);
     }
 
     private void initData() {
@@ -296,10 +300,9 @@ public class VideoPlayerActivity extends BaseActivity {
                         dialog.dismiss();
                     }
                 }).show();
-
-
-
-
+                break;
+            case R.id.ll_feedback:
+                Toast.makeText(this, "我们已将问题提交，感谢您的反馈！", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
