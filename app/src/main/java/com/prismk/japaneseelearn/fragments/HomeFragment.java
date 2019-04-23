@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.prismk.japaneseelearn.R;
 import com.prismk.japaneseelearn.activities.TeacherInfoActivity;
 import com.prismk.japaneseelearn.activities.VideoPlayerActivity;
+import com.prismk.japaneseelearn.adapters.ArticleAdapter;
 import com.prismk.japaneseelearn.adapters.TeacherListAdapter;
 import com.prismk.japaneseelearn.adapters.VideoAdapter;
 import com.prismk.japaneseelearn.bean.UserData;
@@ -25,9 +26,12 @@ import com.prismk.japaneseelearn.managers.UserDBManager;
 import com.prismk.japaneseelearn.managers.VideoDBManager;
 import com.prismk.japaneseelearn.managers.mLunBoTuManager;
 import com.prismk.japaneseelearn.properties.ELearnAppProperties;
+import com.prismk.japaneseelearn.utils.ArticleXmlParser;
 import com.prismk.japaneseelearn.views.NoScrollListView;
 import com.prismk.japaneseelearn.widgets.Title;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,6 +164,15 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initArticle() {
+        try {
+            InputStream inputStream = getContext().getAssets().open("article.xml");
+            ListView article = mRootView.findViewById(R.id.nlv_article);
+//            article.setItemCount(2);
+            article.setAdapter(new ArticleAdapter(ArticleXmlParser.parser(inputStream),getContext()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initUpdateEveryDay() {

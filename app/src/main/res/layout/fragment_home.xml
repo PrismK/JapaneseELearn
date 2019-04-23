@@ -75,7 +75,7 @@
             <!--精选文章-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
@@ -84,15 +84,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="精选文章"
-                    android:textSize="20dp"
+                    android:textSize="20dp" />
 
-                    />
-
-                <com.prismk.japaneseelearn.views.NoScrollListView
+                <ListView
                     android:id="@+id/nlv_article"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none"></com.prismk.japaneseelearn.views.NoScrollListView>
+                    android:scrollbars="none" />
 
             </LinearLayout>
             <!--精选网课-->
