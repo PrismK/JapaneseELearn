@@ -38,7 +38,7 @@ public class VideoAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (size != 0) {
-            return size;
+            return size + 1;
         }
         return list.size();
     }

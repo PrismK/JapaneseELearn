@@ -1,9 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/pureWhite"
+    android:orientation="vertical"
+    tools:context=".activities.PersonalInfoActivity">
 
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
+    <include layout="@layout/layout_widget_title" />
+
+    <RelativeLayout
+        android:id="@+id/rl_classes_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/selector_setting_choose_item"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="课程题目" />
+
+        <TextView
+            android:id="@+id/tv_classes_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/title"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:hint="请输入课程题目"/>
+
+        <Button
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/selector_setting_choose_item"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/tv_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="视频简介" />
+
+        <TextView
+            android:id="@+id/tv_introduction"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/tv_intro"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="35dp"
+            android:gravity="center_vertical"
+            android:hint="请输入课程简介"/>
+
+        <Button
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_context"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:background="@drawable/selector_setting_choose_item"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/tv_con"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="详细内容" />
+
+        <TextView
+            android:id="@+id/tv_context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@+id/tv_con"
+            android:layout_marginRight="35dp"
+            android:gravity="center_vertical"
+            android:hint="请输入课程的详细内容"/>
+
+        <Button
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:layout_marginTop="15dp"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/tv_video"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="课程视频" />
+
+        <ImageView
+            android:id="@+id/imv_video"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/tv_video"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:src="@mipmap/lib_imagepicker_image_add_nor"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

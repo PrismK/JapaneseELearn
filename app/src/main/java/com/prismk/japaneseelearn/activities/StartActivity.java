@@ -103,12 +103,14 @@ public class StartActivity extends BaseActivity {
                         intent = new Intent(StartActivity.this, MainActivity.class);
                     else
                         intent = new Intent(StartActivity.this, MainOfTeacherActivity.class);
-                } else if (name.isEmpty() && pwd.isEmpty() && isFirstIn == true){
+                }
+                /*else if (name.isEmpty() && pwd.isEmpty() && isFirstIn == true){
                     intent = new Intent(StartActivity.this, GuideActivity.class);
                     SharedPreferences.Editor edit = login_sp.edit();
                     edit.putBoolean("isFirstIn",false);
                     edit.commit();
-                } else {
+                }*/
+                else {
                     intent = new Intent(StartActivity.this, LoginActivity.class);
                 }
                 startActivity(intent);

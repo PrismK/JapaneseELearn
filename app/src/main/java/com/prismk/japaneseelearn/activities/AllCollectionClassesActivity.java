@@ -49,7 +49,7 @@ public class AllCollectionClassesActivity extends BaseActivity implements View.O
 
     private void initTitle() {
         Title title = findViewById(R.id.title);
-        title.setTitleNameStr("收藏的视频");
+        title.setTitleNameStr("收藏的课程");
         title.setTheme(Title.TitleTheme.THEME_LIGHT);
         title.setShowDivider(true);
         Title.ButtonInfo drawer = new Title.ButtonInfo(true,Title.BUTTON_LEFT,R.mipmap.navigationbar_back,"");

@@ -105,12 +105,30 @@
             android:name=".activities.StudyWordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.TeacherInfoActivity" />
-        <activity android:name=".activities.KnowActivity" />
-        <activity android:name=".activities.NewWordsActivity" />
-        <activity android:name=".activities.MusicPlayerActivity" />
-        <activity android:name=".activities.AllCollectionClassesActivity" />
-        <activity android:name=".activities.SettingActivity" />
+        <activity
+            android:name=".activities.TeacherInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.KnowActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.NewWordsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.MusicPlayerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.AllCollectionClassesActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.SettingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.MyFavoriteTeacherActivity"
             android:launchMode="singleTop"
@@ -122,7 +140,10 @@
         <activity
             android:name=".activities.MyReleasedClassActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".guidepage.GuideActivity" />
+        <activity
+            android:name=".guidepage.GuideActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.PersonalInfoActivity"
             android:launchMode="singleTop" />
@@ -132,11 +153,16 @@
         <activity
             android:name=".activities.ReleaseClassesActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EditVideoInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
 
         <service
             android:name=".managers.floatsmallvideo.FloatVideoService"
+            android:enabled="true"
             android:exported="false" />
         <service
             android:name=".services.WordsDBServer"
@@ -159,6 +185,8 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+
     </application>
 
 </manifest>

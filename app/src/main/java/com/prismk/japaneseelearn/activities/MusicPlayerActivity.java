@@ -151,8 +151,6 @@ public class MusicPlayerActivity extends BaseActivity implements DiscView.IPlayI
     }
 
     private void initMusicData() {
-
-
         switch (position) {
             case 1:
                 MusicData musicData1_1 = new MusicData(R.raw.music1, R.raw.ic_music1, "第一册-第一课-第一部分", "Administrator-1");

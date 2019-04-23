@@ -1,8 +1,10 @@
 package com.prismk.japaneseelearn.activities;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 
@@ -13,6 +15,9 @@ import com.prismk.japaneseelearn.properties.ELearnAppProperties;
 import com.prismk.japaneseelearn.widgets.Title;
 
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ModifyPersonalInfoActivity extends BaseActivity {
 
@@ -32,6 +37,16 @@ public class ModifyPersonalInfoActivity extends BaseActivity {
 
     private void initView() {
         modifyInfo = findViewById(R.id.et_modify);
+        modifyInfo.requestFocus();
+        modifyInfo.setFocusable(true);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+                           public void run() {
+                               InputMethodManager inputManager = (InputMethodManager) modifyInfo.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                               inputManager.showSoftInput(modifyInfo, 0);
+                           }
+                       },
+                1000);
     }
 
 
