@@ -30,7 +30,7 @@ public class ArticleAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return 1;
     }
 
     @Override

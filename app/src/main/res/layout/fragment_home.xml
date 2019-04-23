@@ -75,7 +75,7 @@
             <!--精选文章-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
@@ -97,8 +97,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="40dp"
                 android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
@@ -115,10 +115,12 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
                     android:divider="@color/transparent"
-                    android:scrollbars="none"></com.prismk.japaneseelearn.views.NoScrollListView>
+                    android:scrollbars="none" />
+
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 

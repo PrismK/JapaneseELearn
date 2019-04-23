@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,6 +24,7 @@ import com.prismk.japaneseelearn.managers.VideoDBManager;
 import com.prismk.japaneseelearn.oss.InitOssClient;
 import com.prismk.japaneseelearn.oss.OSSConfig;
 import com.prismk.japaneseelearn.oss.UpFile;
+import com.prismk.japaneseelearn.utils.PermissionsUtil;
 import com.prismk.japaneseelearn.views.loadview.ZProgressHUD;
 import com.prismk.japaneseelearn.widgets.Title;
 
@@ -50,6 +52,8 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
     private VideoDBManager videoDBManager;
     private UpFile upFile;
     private ZProgressHUD progressHUD;
+
+    private static final int REQUEST_CODE_SELECT_PHOTO_NEEDS_READ_EXTERNAL_STORAGE = 120;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,6 +196,12 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
      * 从相册中选择视频
      */
     private void choiceVideo() {
+        if (!PermissionsUtil.checkAndRequestIfNoPermissionForActivity(this, PermissionsUtil.Permission.READ_EXTERNAL_STORAGE, REQUEST_CODE_SELECT_PHOTO_NEEDS_READ_EXTERNAL_STORAGE)) {
+            return;
+        }
+        if (!PermissionsUtil.checkAndRequestIfNoPermissionForActivity(this, PermissionsUtil.Permission.WRITE_EXTERNAL_STORAGE, REQUEST_CODE_SELECT_PHOTO_NEEDS_READ_EXTERNAL_STORAGE)) {
+            return;
+        }
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, 1001);
     }
@@ -225,7 +235,16 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
         } else if (requestCode == 2003) {
             tv_context.setText(data.getStringExtra("edit"));
         }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE_SELECT_PHOTO_NEEDS_READ_EXTERNAL_STORAGE
+                && PermissionsUtil.hasPermission(ReleaseClassesActivity.this, PermissionsUtil.Permission.READ_EXTERNAL_STORAGE) && PermissionsUtil.hasPermission(ReleaseClassesActivity.this, PermissionsUtil.Permission.WRITE_EXTERNAL_STORAGE)) {
+            choiceVideo();
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     public String saveImageToGallery(Bitmap bmp) {

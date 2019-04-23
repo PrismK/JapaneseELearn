@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity {
     private ImageView imv_logo;
     private ImageButton imbtn_delete_username;
     private ImageButton imbtn_delete_pw;
+    private TextView tv_forgetpw;
 
 
     @Override
@@ -86,6 +87,8 @@ public class LoginActivity extends BaseActivity {
         imv_logo = findViewById(R.id.imv_logo);
         imbtn_delete_username = findViewById(R.id.imbtn_delete_username);
         imbtn_delete_pw = findViewById(R.id.imbtn_delete_pw);
+        tv_forgetpw = (TextView) findViewById(R.id.tv_forgetpw);
+        tv_forgetpw.setOnClickListener(mListener);
     }
 
     OnClickListener mListener = new OnClickListener() {
@@ -99,14 +102,9 @@ public class LoginActivity extends BaseActivity {
                 case R.id.btn_login:
                     login();
                     break;
-                /*case R.id.btn_cancel:
-                    cancel();
+                case R.id.tv_forgetpw:
+                    Toast.makeText(LoginActivity.this, "该功能正在维护中！敬请期待", Toast.LENGTH_SHORT).show();
                     break;
-                case R.id.tv_changepw:
-                    Intent intent_Login_to_reset = new Intent(LoginActivity.this, ResetPWDActivity.class);    //切换Login Activity至User Activity
-                    startActivity(intent_Login_to_reset);
-                    goNextAnim();
-                    break;*/
                 case R.id.imbtn_delete_username:
                     edt_username.getText().clear();
                     break;
@@ -127,7 +125,6 @@ public class LoginActivity extends BaseActivity {
                 editor.putString("USER_NAME", userName);
                 editor.putString("PASSWORD", userPwd);
                 editor.commit();
-                //TODO 在此判断是不是老师，然后跳转
                 UserDBManager userDBManager = new UserDBManager(LoginActivity.this);
                 if (userDBManager.getUserDataListFromUserDB().get(userDBManager.getLoginUesrID()).isTeacherUser()) {
                     Intent intent = new Intent(LoginActivity.this, MainOfTeacherActivity.class);
