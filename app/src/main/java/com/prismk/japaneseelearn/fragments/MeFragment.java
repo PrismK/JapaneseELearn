@@ -151,6 +151,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rl_releasedclass:
                 Intent intent2 = new Intent(getContext(), MyReleasedClassActivity.class);
                 startActivity(intent2);
+                getActivity().finish();
                 break;
         }
     }

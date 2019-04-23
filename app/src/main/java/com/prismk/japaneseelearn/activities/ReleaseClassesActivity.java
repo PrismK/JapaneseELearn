@@ -83,6 +83,7 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
             public void onClick(int id, Title.ButtonViewHolder viewHolder) {
                 switch (id) {
                     case Title.BUTTON_LEFT:
+                        startActivity(new Intent(ReleaseClassesActivity.this,MainOfTeacherActivity.class));
                         finish();
                         goPreAnim();
                         break;
@@ -306,5 +307,13 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
         } else {
             return true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ReleaseClassesActivity.this,MainOfTeacherActivity.class));
+        finish();
+        goPreAnim();
+        super.onBackPressed();
     }
 }
