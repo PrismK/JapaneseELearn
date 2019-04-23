@@ -37,6 +37,7 @@ public class ClassesFragment extends BaseFragment {
     private NoScrollListView drawHeaderView;
     private TeacherListAdapter teacherListAdapter;
     private List<UserData> teacherDataList;
+    private VideoDBManager videoDBManager;
 
     @Override
     protected int getLayoutId() {
@@ -121,7 +122,7 @@ public class ClassesFragment extends BaseFragment {
     }
     private void initData(){
         videoAdapter = null;
-        VideoDBManager videoDBManager = new VideoDBManager(getContext());
+        videoDBManager = new VideoDBManager(getContext());
         videoDataList = videoDBManager.getVideoDataListFromVideoDB();
         videoAdapter = new VideoAdapter(getContext(), videoDataList);
         UserDBManager userDBManager = new UserDBManager(getContext());

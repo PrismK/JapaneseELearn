@@ -128,7 +128,8 @@ public class VideoDBManager {
 
     private List<VideoData> query() {
         List<VideoData> list = new ArrayList<>();
-        Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME, null);
+        Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME + " order by " + VIDEO_UPLOAD_TIME + " DESC", null);
+//        Cursor cursor = mSQLiteDatabase.query(TABLE_NAME,null,null,null,null,null,VIDEO_UPLOAD_TIME + " DESC");
         if (cursor != null || cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 int videoId = cursor.getInt(0);
@@ -181,7 +182,7 @@ public class VideoDBManager {
 
     private List<VideoData> queryFromTeacher(int teacherID) {
         List<VideoData> list = new ArrayList<>();
-        Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + UPLOAD_TEACHER_ID + " = ?", new String[]{String.valueOf(teacherID)});
+        Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + UPLOAD_TEACHER_ID + " = ?" + "order by " + VIDEO_UPLOAD_TIME + " DESC", new String[]{String.valueOf(teacherID)});
         if (cursor != null || cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 int videoID = cursor.getInt(0);

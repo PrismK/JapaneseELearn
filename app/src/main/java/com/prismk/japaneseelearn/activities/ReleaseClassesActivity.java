@@ -89,6 +89,7 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
                         } else {
                             return;
                         }
+                        startActivity(new Intent(ReleaseClassesActivity.this,MainOfTeacherActivity.class));
                         finish();
                         goPreAnim();
                         break;

@@ -126,11 +126,13 @@ public class MainOfTeacherActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainOfTeacherActivity.this, ReleaseClassesActivity.class);
                     intent.putExtra("isVip",false);
                     startActivity(intent);
+                    finish();
                     break;
                 case R.id.btn_release_vip:
                     Intent intent1 = new Intent(MainOfTeacherActivity.this, ReleaseClassesActivity.class);
                     intent1.putExtra("isVip",true);
                     startActivity(intent1);
+                    finish();
                     break;
             }
 
