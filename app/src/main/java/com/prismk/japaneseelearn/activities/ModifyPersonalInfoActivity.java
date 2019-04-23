@@ -46,7 +46,7 @@ public class ModifyPersonalInfoActivity extends BaseActivity {
                                inputManager.showSoftInput(modifyInfo, 0);
                            }
                        },
-                1000);
+                100);
     }
 
 
