@@ -60,9 +60,9 @@ public class UserDBManager {
                 values.put(USER_NAME, "" + i);
                 values.put(USER_PWD, "" + i);
                 values.put(USER_NICKNAME, "" + i + "号学生的昵称");
-                values.put(USER_SIGN, "" + i + "号学生的个性签名的个性签名的个性签名的个性签名的个性签名的个性签名");
+                values.put(USER_SIGN, "" + i + "号学生的个性签名的个性签名");
                 values.put(USER_TAG, "" + i + "号学生的标签");
-                values.put(USER_HEADIMG, "https://thethreestooges.oss-cn-shenzhen.aliyuncs.com/zack/avatar/1.jpg");
+                values.put(USER_HEADIMG, "https://thethreestooges.oss-cn-shenzhen.aliyuncs.com/zack/avatar/" + i + ".jpg");
                 values.put(ISTEACHER, 0);
                 if (i >= 6) {
                     values.put(ISVIP, 1);
@@ -77,9 +77,13 @@ public class UserDBManager {
                 values.put(USER_NAME, "" + i);
                 values.put(USER_PWD, "" + i);
                 values.put(USER_NICKNAME, "" + i + "号教师的昵称");
-                values.put(USER_SIGN, "" + i + "号教师的个性签名的个性签名的个性签名的个性签名的个性签名的个性签名");
+                values.put(USER_SIGN, "" + i + "号教师的个性签名的个性签名");
                 values.put(USER_TAG, "" + i + "号教师的标签");
-                values.put(USER_HEADIMG, "https://thethreestooges.oss-cn-shenzhen.aliyuncs.com/zack/avatar/1.jpg");
+                if (i < 15) {
+                    values.put(USER_HEADIMG, "https://thethreestooges.oss-cn-shenzhen.aliyuncs.com/zack/avatar/" + i + ".jpg");
+                } else {
+                    values.put(USER_HEADIMG, "https://thethreestooges.oss-cn-shenzhen.aliyuncs.com/zack/avatar/" + i + ".png");
+                }
                 values.put(ISTEACHER, 1);
                 if (i >= 16) {
                     values.put(ISVIP, 1);
