@@ -1,6 +1,9 @@
 package com.prismk.japaneseelearn.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.prismk.japaneseelearn.R;
@@ -8,6 +11,7 @@ import com.prismk.japaneseelearn.adapters.VideoAdapter;
 import com.prismk.japaneseelearn.bean.VideoData;
 import com.prismk.japaneseelearn.managers.UserDBManager;
 import com.prismk.japaneseelearn.managers.VideoDBManager;
+import com.prismk.japaneseelearn.properties.ELearnAppProperties;
 import com.prismk.japaneseelearn.widgets.Title;
 
 import java.util.List;
@@ -16,6 +20,7 @@ public class MyReleasedClassActivity extends BaseActivity {
 
     private ListView myReleasedClass;
     private VideoAdapter videoAdapter;
+    private List<VideoData> videoDataListFromTeacherID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +35,25 @@ public class MyReleasedClassActivity extends BaseActivity {
     private void initData() {
         VideoDBManager videoDBManager = new VideoDBManager(MyReleasedClassActivity.this);
         UserDBManager userDBManager = new UserDBManager(MyReleasedClassActivity.this);
-        List<VideoData> videoDataListFromTeacherID = videoDBManager.getVideoDataListFromTeacherID(userDBManager.getLoginUesrID());
-        videoAdapter = new VideoAdapter(MyReleasedClassActivity.this,videoDataListFromTeacherID);
+        videoDataListFromTeacherID = videoDBManager.getVideoDataListFromTeacherID(userDBManager.getLoginUesrID());
+        videoAdapter = new VideoAdapter(MyReleasedClassActivity.this, videoDataListFromTeacherID);
     }
 
     private void initView() {
         myReleasedClass = findViewById(R.id.lv_classes_release);
         myReleasedClass.setAdapter(videoAdapter);
+        setOnItemClick();
+    }
+
+    private void setOnItemClick() {
+        myReleasedClass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MyReleasedClassActivity.this, VideoPlayerActivity.class);
+                intent.putExtra(ELearnAppProperties.INTENT_VIDEO_POSITION, videoDataListFromTeacherID.get(position).getVideoId() - 1);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -44,7 +61,7 @@ public class MyReleasedClassActivity extends BaseActivity {
         return R.layout.activity_my_released_class;
     }
 
-    private void initTitle(){
+    private void initTitle() {
         Title title = findViewById(R.id.title);
         title.setTitleNameStr("我发布的课程");
         title.setTheme(Title.TitleTheme.THEME_LIGHT);
