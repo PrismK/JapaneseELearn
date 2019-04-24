@@ -338,4 +338,12 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
             return true;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ReleaseClassesActivity.this,MainOfTeacherActivity.class));
+        finish();
+        goPreAnim();
+        super.onBackPressed();
+    }
 }
