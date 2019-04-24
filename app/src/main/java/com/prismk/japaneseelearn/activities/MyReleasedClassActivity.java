@@ -1,6 +1,5 @@
 package com.prismk.japaneseelearn.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -44,10 +43,25 @@ public class MyReleasedClassActivity extends BaseActivity {
     protected int getLayoutId() {
         return R.layout.activity_my_released_class;
     }
+
     private void initTitle(){
         Title title = findViewById(R.id.title);
-        title.setTitleNameStr("发布的课程");
+        title.setTitleNameStr("我发布的课程");
         title.setTheme(Title.TitleTheme.THEME_LIGHT);
         title.setShowDivider(true);
+        Title.ButtonInfo backbutton = new Title.ButtonInfo(true, Title.BUTTON_LEFT, R.mipmap.navigationbar_back_gray, null);
+        title.setButtonInfo(backbutton);
+        title.setOnTitleButtonClickListener(new Title.OnTitleButtonClickListener() {
+            @Override
+            public void onClick(int id, Title.ButtonViewHolder viewHolder) {
+                switch (id) {
+                    case Title.BUTTON_LEFT:
+                        finish();
+                        goPreAnim();
+                        break;
+                }
+            }
+        });
     }
+
 }

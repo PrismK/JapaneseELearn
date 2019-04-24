@@ -241,7 +241,7 @@
                         android:layout_height="10dp"
                         android:background="@color/pureWhite" />
 
-                    <!--推荐视频-->
+                    <!--&lt;!&ndash;推荐视频&ndash;&gt;
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -259,7 +259,7 @@
                         android:divider="@color/transparent"
                         android:dividerHeight="1px"
                         android:overScrollMode="never"
-                        android:scrollbars="none" />
+                        android:scrollbars="none" />-->
 
                 </LinearLayout>
 

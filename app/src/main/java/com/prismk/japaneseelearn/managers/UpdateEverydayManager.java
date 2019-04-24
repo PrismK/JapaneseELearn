@@ -11,16 +11,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * create by Nevermore
- * 2019/4/22
- * 你不愿回忆的过去已经死亡，就让黑夜把它永远埋葬
- */
 public class UpdateEverydayManager {
+
     List<String> updateStrList;
     String[] updateStrArray;
     private static final int UPDATE = 0;
     private TextView toUpdate;
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -35,6 +32,7 @@ public class UpdateEverydayManager {
             }
         }
     };
+
     private CharSequence timerTime;
     private CharSequence todayDate;
 
@@ -73,7 +71,7 @@ public class UpdateEverydayManager {
     }
 
     private void initFakeData() {
-        updateStrArray = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8"};
+        updateStrArray = new String[]{"こんにちは。", "こんばんは。", "おはようございます。", "お休(やす)みなさい。", "お元気(げんき)ですか。", "いくらですか。 ", "すみません。", "ごめんなさい。", "どういうことですか。"};
         updateStrList = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             updateStrList.add(String.valueOf(i));

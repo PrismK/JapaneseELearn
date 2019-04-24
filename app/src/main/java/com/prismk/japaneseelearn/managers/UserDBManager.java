@@ -113,12 +113,22 @@ public class UserDBManager {
         mDatabaseHelper.close();
     }
 
-    public long insertUserNameAndPWD(UserData userData) {
+    public long insertUser(UserData userData) {
         String userName = userData.getUserName();
         String userPwd = userData.getUserPwd();
+        boolean isTeacher = userData.isTeacherUser();
+        boolean isVip = userData.isVIP();
+        String sign = userData.getSign();
+        String avatar = userData.getHeadImgUrlString();
+        String nickName = userData.getNickName();
         ContentValues values = new ContentValues();
         values.put(USER_NAME, userName);
         values.put(USER_PWD, userPwd);
+        values.put(ISTEACHER, isTeacher);
+        values.put(ISVIP, isVip);
+        values.put(USER_SIGN, sign);
+        values.put(USER_HEADIMG, avatar);
+        values.put(USER_NICKNAME, nickName);
         return mSQLiteDatabase.insert(TABLE_NAME, ID, values);
     }
 

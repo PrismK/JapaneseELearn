@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -213,9 +212,9 @@ public class RegisterActivity extends BaseActivity {
                 return;
             } else {
                 boolean teacherChecked = rb_teacher.isChecked();
-                UserData mUser = new UserData(userName, userPwd,teacherChecked,false,null,null,null,null);
+                UserData mUser = new UserData(userName, userPwd,teacherChecked,false,"这个用户很懒，什么也没写~",null,"https://thethreestooges.oss-cn-shenzhen.aliyuncs.com/zack/avatar/1.jpg",userName);
                 mUserDBManager.openDataBase();
-                long flag = mUserDBManager.insertUserNameAndPWD(mUser); //新建用户信息
+                long flag = mUserDBManager.insertUser(mUser); //新建用户信息
                 if (flag == -1) {
                     Toast.makeText(this, getString(R.string.register_fail), Toast.LENGTH_SHORT).show();
                 } else {
@@ -224,8 +223,13 @@ public class RegisterActivity extends BaseActivity {
                     editor.putString("PASSWORD", userPwd);
                     editor.putBoolean("IS_TEACHER",teacherChecked);
                     editor.commit();
-                    Intent intent_Register_to_Login = new Intent(RegisterActivity.this, MainActivity.class);    //切换User Activity至Login Activity
-                    startActivity(intent_Register_to_Login);
+                    if (!teacherChecked) {
+                        Intent intent_Register_to_Login = new Intent(RegisterActivity.this, MainActivity.class);    //切换User Activity至Login Activity
+                        startActivity(intent_Register_to_Login);
+                    } else {
+                        Intent intent_Register_to_Login = new Intent(RegisterActivity.this, MainOfTeacherActivity.class);    //切换User Activity至Login Activity
+                        startActivity(intent_Register_to_Login);
+                    }
                     finish();
                     goNextAnim();
                 }

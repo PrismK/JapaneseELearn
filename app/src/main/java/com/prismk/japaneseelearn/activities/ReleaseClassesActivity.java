@@ -2,10 +2,12 @@ package com.prismk.japaneseelearn.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -54,6 +56,8 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
     private ZProgressHUD progressHUD;
 
     private static final int REQUEST_CODE_SELECT_PHOTO_NEEDS_READ_EXTERNAL_STORAGE = 120;
+    private ImageView imv_img;
+    private String imgPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,7 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
             public void onClick(int id, Title.ButtonViewHolder viewHolder) {
                 switch (id) {
                     case Title.BUTTON_LEFT:
+                        startActivity(new Intent(ReleaseClassesActivity.this,MainOfTeacherActivity.class));
                         finish();
                         goPreAnim();
                         break;
@@ -117,8 +122,8 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
         String title = tv_classes_title.getText().toString().trim();
         String introduction = tv_introduction.getText().toString().trim();
         String context = tv_context.getText().toString().trim();
-        String imgPath = saveImageToGallery(bitmap);
-        VideoData videoData = new VideoData(videoPath, photoUpPath, title, introduction, context, isVip, currentTime, userId);
+        //String imgPath = saveImageToGallery(bitmap);
+        VideoData videoData = new VideoData(videoPath, imgPath, title, introduction, context, isVip, currentTime, userId);
 
         upFile.upfile(imgPath, photoUpPath);
         upFile.upfile(videoPath, videoUpPath);
@@ -141,9 +146,8 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
     }
 
     private void initUserInfo() {
-        UserDBManager userDBManager = new UserDBManager(ReleaseClassesActivity.this);
-        List<UserData> userDataListFromUserDB = userDBManager.getUserDataListFromUserDB();
-        userId = userDataListFromUserDB.get(userDBManager.getLoginUesrID() - 1).getUserId();
+        UserDBManager userDBManager = new UserDBManager(this);
+        userId = userDBManager.getLoginUesrID();
     }
 
     private void initView() {
@@ -154,10 +158,12 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
         rl_classes_title = (RelativeLayout) findViewById(R.id.rl_classes_title);
         rl_introduction = (RelativeLayout) findViewById(R.id.rl_introduction);
         rl_context = (RelativeLayout) findViewById(R.id.rl_context);
+        imv_img = (ImageView) findViewById(R.id.imv_img);
         rl_classes_title.setOnClickListener(this);
         rl_introduction.setOnClickListener(this);
         rl_context.setOnClickListener(this);
         imv_video.setOnClickListener(this);
+        imv_img.setOnClickListener(this);
     }
 
     private void getVipIntentValue() {
@@ -189,7 +195,22 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
             case R.id.imv_video:
                 choiceVideo();
                 break;
+            case R.id.imv_img:
+                choiceImg();
+                break;
         }
+    }
+
+    private void choiceImg() {
+        if (!PermissionsUtil.checkAndRequestIfNoPermissionForActivity(this, PermissionsUtil.Permission.READ_EXTERNAL_STORAGE, REQUEST_CODE_SELECT_PHOTO_NEEDS_READ_EXTERNAL_STORAGE)) {
+            return;
+        }
+        if (!PermissionsUtil.checkAndRequestIfNoPermissionForActivity(this, PermissionsUtil.Permission.WRITE_EXTERNAL_STORAGE, REQUEST_CODE_SELECT_PHOTO_NEEDS_READ_EXTERNAL_STORAGE)) {
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+        startActivityForResult(intent,1002);
     }
 
     /**
@@ -224,10 +245,20 @@ public class ReleaseClassesActivity extends BaseActivity implements View.OnClick
 
             cursor.close();
         }
+        if (requestCode == 1002) {
+            Uri imgUri = data.getData();
+            String[] filePathColumn = {MediaStore.Video.Media.DATA};
+            Cursor cursor = getContentResolver().query(imgUri,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            imgPath = cursor.getString(columnIndex);
+            imv_img.setImageURI(imgUri);
+            cursor.close();
+        }
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-
         if (requestCode == 2001) {
             tv_classes_title.setText(data.getStringExtra("edit"));
         } else if (requestCode == 2002) {

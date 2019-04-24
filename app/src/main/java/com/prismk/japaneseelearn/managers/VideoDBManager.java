@@ -61,13 +61,13 @@ public class VideoDBManager {
                 values.put(VIDEO_IMG_URL, "http://img4.jiecaojingxuan.com/2016/11/23/00b026e7-b830-4994-bc87-38f4033806a6.jpg@!640_360");
                 values.put(VIDEO_TITLE, "" + i + "号视频的标题");
                 values.put(VIDEO_INTRODUCTION, "" + i + "号视频的简介");
-                values.put(VIDEO_CONTEXT, "" + i + "号视频的内容文字描述安徽v就爱看女傻女那是陇南市吕尼拉v你啊啊是离开农村快乐女声v扣篮速率那粮库看来你真v看来嫩绿嫩绿那里的女郎在哪里");
+                values.put(VIDEO_CONTEXT, "" + i + "号视频的内容文字描述========安徽v就爱看女傻女那是陇南市吕尼拉v你啊啊是离开农村快乐女声v扣篮速率那粮库看来你真v看来嫩绿嫩绿那里的女郎在哪里安徽v就爱看女傻女那是陇南市吕尼拉v你啊啊是离开农村快乐女声v扣篮速率那粮库看来你真v看来嫩绿嫩绿那里的女郎在哪里安徽v就爱看女傻女那是陇南市吕尼拉v你啊啊是离开农村快乐女声v扣篮速率那粮库看来你真v看来嫩绿嫩绿那里的女郎在哪里");
                 String dayNum = null;
                 if (i <= 9)
                     dayNum = "0" + i;
                 else
                     dayNum = "" + i;
-                values.put(VIDEO_UPLOAD_TIME, "2019-03-" + dayNum);
+                values.put(VIDEO_UPLOAD_TIME, "2019年03月" + dayNum + "日");
                 if (i >= 11 && i <= 20) {
                     values.put(UPLOAD_TEACHER_ID, i);
                 } else if (i <= 10 && i >= 6) {
@@ -178,6 +178,17 @@ public class VideoDBManager {
             list = queryFromTeacher(teacherID);
         }
         return list;
+    }
+
+    public int getTeacherIdFromVideoId(int videoId) {
+        int teacherId = 0;
+        Cursor cursor = mSQLiteDatabase.rawQuery("select " + UPLOAD_TEACHER_ID + "  from " + TABLE_NAME + " where " + ID + " = ?", new String[]{String.valueOf(videoId)});
+        if (cursor != null || cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                teacherId = cursor.getInt(0);
+            }
+        }
+        return teacherId;
     }
 
     private List<VideoData> queryFromTeacher(int teacherID) {

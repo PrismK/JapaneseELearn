@@ -62,7 +62,7 @@ public class VideoPlayerActivity extends BaseActivity {
     private TextView videoTitle;
     private ImageView isVip;
     private TextView videoDescription;
-    private NoScrollListView videoRecommend;
+    //private NoScrollListView videoRecommend;
     private VideoAdapter videoAdapter;
     private int position;
     private int teacherId;
@@ -133,8 +133,8 @@ public class VideoPlayerActivity extends BaseActivity {
         isVip = findViewById(R.id.imv_vip);
         //视频描述
         videoDescription = findViewById(R.id.tv_classes_description);
-        videoRecommend = findViewById(R.id.lv_classes);
-        videoRecommend.setOnItemClickListener(new onNoScrollListViewItemClickListener());
+        //videoRecommend = findViewById(R.id.lv_classes);
+        //videoRecommend.setOnItemClickListener(new onNoScrollListViewItemClickListener());
         checkUserIsVip = findViewById(R.id.ll_buy_vip);
         buyVip = findViewById(R.id.tv_buy_vipclass);
 
@@ -150,16 +150,20 @@ public class VideoPlayerActivity extends BaseActivity {
         userDataList = userDBManager.getUserDataListFromUserDB();
         videoDataList = videoDBManager.getVideoDataListFromVideoDB();
         position = getIntent().getIntExtra(ELearnAppProperties.INTENT_VIDEO_POSITION, -1);
-        teacherId = videoDataList.get(position).getUploadTeacherId();
+
         videoId = videoDataList.get(position).getVideoId();
+        videoTitle.setText(videoDataList.get(videoId - 1).getVideoTitle());
+        videoDescription.setText(videoDataList.get(videoId - 1).getVideoContext());
+        //videoRecommend.setItemCount(7);
+        isClassVip = videoDataList.get(videoId - 1).isVipVideo();
+        isUserVip = userDataList.get(loginUesrID - 1).isVIP();
+
+        //teacherId = videoDataList.get(position).getUploadTeacherId();
+        teacherId = videoDBManager.getTeacherIdFromVideoId(videoDataList.get(videoId - 1).getVideoId());
         Glide.with(VideoPlayerActivity.this).load(userDataList.get(teacherId - 1).getHeadImgUrlString()).into(teacherAvatar);
         teacherName.setText(userDataList.get(teacherId - 1).getNickName());
         teacherSign.setText(userDataList.get(teacherId - 1).getSign());
-        videoTitle.setText(videoDataList.get(videoId - 1).getVideoTitle());
-        videoDescription.setText(videoDataList.get(videoId - 1).getVideoContext());
-        videoRecommend.setItemCount(7);
-        isClassVip = videoDataList.get(videoId - 1).isVipVideo();
-        isUserVip = userDataList.get(loginUesrID - 1).isVIP();
+
         checkUserAndClassVipState();
         if (checkTeacherFavorite()) {
             teacherFavorite.setBackgroundColor(getResources().getColor(R.color.gray1));
@@ -224,7 +228,7 @@ public class VideoPlayerActivity extends BaseActivity {
     private void initAdapter() {
         videoAdapter = null;
         videoAdapter = new VideoAdapter(VideoPlayerActivity.this, videoDataList, 7);
-        videoRecommend.setAdapter(videoAdapter);
+        //videoRecommend.setAdapter(videoAdapter);
     }
 
     private void initTitle() {
